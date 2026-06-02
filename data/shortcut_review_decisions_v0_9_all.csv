@@ -1,0 +1,13 @@
+video_id,answer_only_leakage,visible_text_or_overlay,ocr_leakage_status,single_frame_sufficient,sparse_frames_sufficient,dynamic_knowledge_supported,decision,review_notes
+dynaknow_000001,low,room wall decor only,pass,no,yes,yes,accept_dynamic_seed,Pool-break frames contain no explanatory text naming collision or momentum.
+dynaknow_000002,low,none,pass,no,yes,yes,accept_dynamic_seed,Bimetal heating frames contain no visible explanatory text.
+dynaknow_000003,low,beaker graduations only,pass,no,yes,yes,accept_dynamic_seed,Beaker markings do not name the color-change reaction or target knowledge point.
+dynaknow_000007,low,none,pass,no,yes,yes,accept_dynamic_seed,Capillary breakup frames contain no visible explanatory text.
+dynaknow_000010,low,none,pass,no,yes,yes,accept_dynamic_seed,Pendulum frames contain no visible explanatory text.
+dynaknow_000047,low,table number only,pass,no,yes,yes,accept_dynamic_seed,Billiards frames contain only table numbering and no collision or momentum text.
+dynaknow_000081,low,none,pass,no,yes,yes,accept_dynamic_seed,Granular segregation frames contain no visible explanatory text.
+dynaknow_000083,low,lab labels and no-smoking icon only,pass,no,yes,yes,accept_dynamic_seed,Lab signage does not name color change or the target chemical knowledge point.
+dynaknow_000084,low,none,pass,no,yes,yes,accept_dynamic_seed,Plant growth frames contain no visible explanatory text.
+dynaknow_000088,low,none,pass,no,yes,yes,accept_dynamic_seed,Trimmed siphon segment removes opening title frames and keeps visible liquid movement through the tube.
+dynaknow_000089,low,none,pass,no,yes,yes,accept_dynamic_seed,Siphon source title is kept only in provenance and hidden from evaluation JSONL; frames show no visible explanatory text.
+dynaknow_000091,low,none,pass,no,yes,yes,accept_dynamic_seed,Trimmed slow-motion drop segment removes end-card text while keeping visible falling-drop evidence.

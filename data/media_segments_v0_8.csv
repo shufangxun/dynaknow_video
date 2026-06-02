@@ -1,0 +1,2 @@
+id,source_id,input_path,output_path,start_sec,end_sec,notes
+dynaknow_000088,dynaknow_000086,media/raw/dynaknow_000086.webm,media/segments/dynaknow_000088.mp4,10.0,44.2,Trim away opening title frames from Meca siphon while preserving liquid-transfer process.

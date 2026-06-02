@@ -1,0 +1,15 @@
+search_term,initial_category,candidate_knowledge_point,default_start_sec,default_end_sec,why_dynamic,notes
+"pool break video",physics_mechanics,Collisions transfer momentum between objects.,0,20,Balls change velocity and direction after contact.,Prefer clean collision sequence; reject if title or overlay explains answer.
+"billiards collision video",physics_mechanics,Collisions transfer momentum between objects.,0,20,Balls change velocity and direction after contact.,Prefer short clips with visible before/after contact.
+"carom billiards video",physics_mechanics,Collisions transfer momentum between objects.,0,20,Balls change velocity and direction after contact.,Useful if multiple contacts visible.
+"slow motion drop video",physics_mechanics,Unsupported objects accelerate downward under gravity.,0,20,A drop moves downward and impacts a surface or liquid over time.,Reject if only splash/result is visible.
+"water drop slow motion",physics_mechanics,Unsupported objects accelerate downward under gravity.,0,20,A drop moves downward and impacts a surface or liquid over time.,Prefer falling segment before impact.
+"falling object video",physics_mechanics,Unsupported objects accelerate downward under gravity.,0,20,An unsupported object changes vertical position over time.,Avoid animations and remote-sensing videos.
+"bimetal coil video",chemistry_material_change,Materials can expand unevenly when heated.,0,45,A strip or coil changes shape after heating.,Title may name bimetal but not necessarily the generic mechanism.
+"bimetal strip heating video",chemistry_material_change,Materials can expand unevenly when heated.,0,45,A strip or coil changes shape after heating.,Prefer visible heat application and deformation.
+"color change reaction video",chemistry_material_change,Some chemical reactions produce color change.,0,30,A liquid or mixture visibly changes color over time.,Reject structure animations.
+"iodine clock video",chemistry_material_change,Some chemical reactions produce color change.,0,30,A liquid changes color after a delay.,Title names reaction but generic knowledge may still be viable.
+"floating sinking video",physics_mechanics,Buoyancy depends on displaced fluid and object density.,0,30,An object transitions between floating/sinking or changes orientation in fluid.,Reject static boats unless transition is visible.
+"buoyancy experiment video",physics_mechanics,Buoyancy depends on displaced fluid and object density.,0,30,An object transitions between floating/sinking or changes orientation in fluid.,Prefer no narration/diagram.
+"convection smoke video",everyday_causal_mechanisms,Warm air rises and can drive convection.,0,30,Smoke or fluid motion reveals upward flow over time.,Reject ordinary flame-only clips.
+"sound vibration demonstration video",everyday_causal_mechanisms,Vibration can transfer energy through a medium.,0,30,A visible object or medium moves in response to sound/vibration.,Reject audio-only or performance videos.

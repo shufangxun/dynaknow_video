@@ -1,0 +1,3 @@
+video_id,answer_only_leakage,visible_text_or_overlay,ocr_leakage_status,single_frame_sufficient,sparse_frames_sufficient,dynamic_knowledge_supported,decision,review_notes
+dynaknow_000089,low,none,pass,no,yes,yes,accept_dynamic_seed,Siphon source title is kept only in provenance and should be hidden from evaluation JSONL. Frames show no visible explanatory text and liquid level changes through the tube over time.
+dynaknow_000090,low,red and green object markers only,pass,yes,yes,yes,reject_single_frame_shortcut,The time lapse has little text leakage but final and sparse frames make germination/root-shoot emergence easy from still images.

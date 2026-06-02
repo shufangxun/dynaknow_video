@@ -1,0 +1,4 @@
+id,video_path,frame_count,fps,first,middle,last,sparse,error
+dynaknow_000082,media/raw_transcoded/dynaknow_000082.webm,1521,25.000,ok,ok,ok,8,
+dynaknow_000083,media/raw_transcoded/dynaknow_000083.webm,1439,25.000,ok,ok,ok,8,
+dynaknow_000084,media/raw/dynaknow_000084.webm,772,24.000,ok,ok,ok,8,

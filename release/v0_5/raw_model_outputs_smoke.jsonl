@@ -1,0 +1,48 @@
+{"video_id": "dynaknow_000001", "mode": "full_video", "response": "A"}
+{"video_id": "dynaknow_000002", "mode": "full_video", "response": "Answer: B"}
+{"video_id": "dynaknow_000003", "mode": "full_video", "response": "option C"}
+{"video_id": "dynaknow_000007", "mode": "full_video", "response": "D. because the process changes over time"}
+{"video_id": "dynaknow_000010", "mode": "full_video", "response": "A"}
+{"video_id": "dynaknow_000016", "mode": "full_video", "response": "Answer: B"}
+{"video_id": "dynaknow_000047", "mode": "full_video", "response": "option C"}
+{"video_id": "dynaknow_000081", "mode": "full_video", "response": "D. because the process changes over time"}
+{"video_id": "dynaknow_000001", "mode": "answer_only", "response": "A"}
+{"video_id": "dynaknow_000002", "mode": "answer_only", "response": "Answer: B"}
+{"video_id": "dynaknow_000003", "mode": "answer_only", "response": "option C"}
+{"video_id": "dynaknow_000007", "mode": "answer_only", "response": "D. because the process changes over time"}
+{"video_id": "dynaknow_000010", "mode": "answer_only", "response": "A"}
+{"video_id": "dynaknow_000016", "mode": "answer_only", "response": "Answer: B"}
+{"video_id": "dynaknow_000047", "mode": "answer_only", "response": "option C"}
+{"video_id": "dynaknow_000081", "mode": "answer_only", "response": "D. because the process changes over time"}
+{"video_id": "dynaknow_000001", "mode": "single_frame_first", "response": "A"}
+{"video_id": "dynaknow_000001", "mode": "single_frame_middle", "response": "Answer: A"}
+{"video_id": "dynaknow_000001", "mode": "single_frame_last", "response": "option A"}
+{"video_id": "dynaknow_000001", "mode": "sparse_frames_ordered", "response": "A. because the process changes over time"}
+{"video_id": "dynaknow_000002", "mode": "single_frame_first", "response": "B"}
+{"video_id": "dynaknow_000002", "mode": "single_frame_middle", "response": "Answer: B"}
+{"video_id": "dynaknow_000002", "mode": "single_frame_last", "response": "option B"}
+{"video_id": "dynaknow_000002", "mode": "sparse_frames_ordered", "response": "B. because the process changes over time"}
+{"video_id": "dynaknow_000003", "mode": "single_frame_first", "response": "C"}
+{"video_id": "dynaknow_000003", "mode": "single_frame_middle", "response": "Answer: C"}
+{"video_id": "dynaknow_000003", "mode": "single_frame_last", "response": "option C"}
+{"video_id": "dynaknow_000003", "mode": "sparse_frames_ordered", "response": "C. because the process changes over time"}
+{"video_id": "dynaknow_000007", "mode": "single_frame_first", "response": "D"}
+{"video_id": "dynaknow_000007", "mode": "single_frame_middle", "response": "Answer: D"}
+{"video_id": "dynaknow_000007", "mode": "single_frame_last", "response": "option D"}
+{"video_id": "dynaknow_000007", "mode": "sparse_frames_ordered", "response": "D. because the process changes over time"}
+{"video_id": "dynaknow_000010", "mode": "single_frame_first", "response": "A"}
+{"video_id": "dynaknow_000010", "mode": "single_frame_middle", "response": "Answer: A"}
+{"video_id": "dynaknow_000010", "mode": "single_frame_last", "response": "option A"}
+{"video_id": "dynaknow_000010", "mode": "sparse_frames_ordered", "response": "A. because the process changes over time"}
+{"video_id": "dynaknow_000016", "mode": "single_frame_first", "response": "B"}
+{"video_id": "dynaknow_000016", "mode": "single_frame_middle", "response": "Answer: B"}
+{"video_id": "dynaknow_000016", "mode": "single_frame_last", "response": "option B"}
+{"video_id": "dynaknow_000016", "mode": "sparse_frames_ordered", "response": "B. because the process changes over time"}
+{"video_id": "dynaknow_000047", "mode": "single_frame_first", "response": "C"}
+{"video_id": "dynaknow_000047", "mode": "single_frame_middle", "response": "Answer: C"}
+{"video_id": "dynaknow_000047", "mode": "single_frame_last", "response": "option C"}
+{"video_id": "dynaknow_000047", "mode": "sparse_frames_ordered", "response": "C. because the process changes over time"}
+{"video_id": "dynaknow_000081", "mode": "single_frame_first", "response": "D"}
+{"video_id": "dynaknow_000081", "mode": "single_frame_middle", "response": "Answer: D"}
+{"video_id": "dynaknow_000081", "mode": "single_frame_last", "response": "option D"}
+{"video_id": "dynaknow_000081", "mode": "sparse_frames_ordered", "response": "D. because the process changes over time"}

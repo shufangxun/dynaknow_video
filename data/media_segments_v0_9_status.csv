@@ -1,0 +1,2 @@
+id,source_id,input_path,output_path,start_sec,end_sec,notes,status,fps,frames_written,duration_sec,error
+dynaknow_000091,dynaknow_000016,media/raw/dynaknow_000016.webm,media/segments/dynaknow_000091.mp4,0.0,12.0,Trim away end-card text from Slow motion drop while preserving the falling-drop dynamic evidence.,ok,24.000,288,12.000,

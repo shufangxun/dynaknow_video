@@ -1,0 +1,48 @@
+{"video_id":"dynaknow_000001","mode":"full_video","predicted_answer":"A","parse_status":"letter_pattern","raw_response":"A","source_line":1}
+{"video_id":"dynaknow_000002","mode":"full_video","predicted_answer":"B","parse_status":"letter_pattern","raw_response":"Answer: B","source_line":2}
+{"video_id":"dynaknow_000003","mode":"full_video","predicted_answer":"C","parse_status":"letter_pattern","raw_response":"option C","source_line":3}
+{"video_id":"dynaknow_000007","mode":"full_video","predicted_answer":"D","parse_status":"letter_pattern","raw_response":"D. because the process changes over time","source_line":4}
+{"video_id":"dynaknow_000010","mode":"full_video","predicted_answer":"A","parse_status":"letter_pattern","raw_response":"A","source_line":5}
+{"video_id":"dynaknow_000016","mode":"full_video","predicted_answer":"B","parse_status":"letter_pattern","raw_response":"Answer: B","source_line":6}
+{"video_id":"dynaknow_000047","mode":"full_video","predicted_answer":"C","parse_status":"letter_pattern","raw_response":"option C","source_line":7}
+{"video_id":"dynaknow_000081","mode":"full_video","predicted_answer":"D","parse_status":"letter_pattern","raw_response":"D. because the process changes over time","source_line":8}
+{"video_id":"dynaknow_000001","mode":"answer_only","predicted_answer":"A","parse_status":"letter_pattern","raw_response":"A","source_line":9}
+{"video_id":"dynaknow_000002","mode":"answer_only","predicted_answer":"B","parse_status":"letter_pattern","raw_response":"Answer: B","source_line":10}
+{"video_id":"dynaknow_000003","mode":"answer_only","predicted_answer":"C","parse_status":"letter_pattern","raw_response":"option C","source_line":11}
+{"video_id":"dynaknow_000007","mode":"answer_only","predicted_answer":"D","parse_status":"letter_pattern","raw_response":"D. because the process changes over time","source_line":12}
+{"video_id":"dynaknow_000010","mode":"answer_only","predicted_answer":"A","parse_status":"letter_pattern","raw_response":"A","source_line":13}
+{"video_id":"dynaknow_000016","mode":"answer_only","predicted_answer":"B","parse_status":"letter_pattern","raw_response":"Answer: B","source_line":14}
+{"video_id":"dynaknow_000047","mode":"answer_only","predicted_answer":"C","parse_status":"letter_pattern","raw_response":"option C","source_line":15}
+{"video_id":"dynaknow_000081","mode":"answer_only","predicted_answer":"D","parse_status":"letter_pattern","raw_response":"D. because the process changes over time","source_line":16}
+{"video_id":"dynaknow_000001","mode":"single_frame_first","predicted_answer":"A","parse_status":"letter_pattern","raw_response":"A","source_line":17}
+{"video_id":"dynaknow_000001","mode":"single_frame_middle","predicted_answer":"A","parse_status":"letter_pattern","raw_response":"Answer: A","source_line":18}
+{"video_id":"dynaknow_000001","mode":"single_frame_last","predicted_answer":"A","parse_status":"letter_pattern","raw_response":"option A","source_line":19}
+{"video_id":"dynaknow_000001","mode":"sparse_frames_ordered","predicted_answer":"A","parse_status":"letter_pattern","raw_response":"A. because the process changes over time","source_line":20}
+{"video_id":"dynaknow_000002","mode":"single_frame_first","predicted_answer":"B","parse_status":"letter_pattern","raw_response":"B","source_line":21}
+{"video_id":"dynaknow_000002","mode":"single_frame_middle","predicted_answer":"B","parse_status":"letter_pattern","raw_response":"Answer: B","source_line":22}
+{"video_id":"dynaknow_000002","mode":"single_frame_last","predicted_answer":"B","parse_status":"letter_pattern","raw_response":"option B","source_line":23}
+{"video_id":"dynaknow_000002","mode":"sparse_frames_ordered","predicted_answer":"B","parse_status":"letter_pattern","raw_response":"B. because the process changes over time","source_line":24}
+{"video_id":"dynaknow_000003","mode":"single_frame_first","predicted_answer":"C","parse_status":"letter_pattern","raw_response":"C","source_line":25}
+{"video_id":"dynaknow_000003","mode":"single_frame_middle","predicted_answer":"C","parse_status":"letter_pattern","raw_response":"Answer: C","source_line":26}
+{"video_id":"dynaknow_000003","mode":"single_frame_last","predicted_answer":"C","parse_status":"letter_pattern","raw_response":"option C","source_line":27}
+{"video_id":"dynaknow_000003","mode":"sparse_frames_ordered","predicted_answer":"C","parse_status":"letter_pattern","raw_response":"C. because the process changes over time","source_line":28}
+{"video_id":"dynaknow_000007","mode":"single_frame_first","predicted_answer":"D","parse_status":"letter_pattern","raw_response":"D","source_line":29}
+{"video_id":"dynaknow_000007","mode":"single_frame_middle","predicted_answer":"D","parse_status":"letter_pattern","raw_response":"Answer: D","source_line":30}
+{"video_id":"dynaknow_000007","mode":"single_frame_last","predicted_answer":"D","parse_status":"letter_pattern","raw_response":"option D","source_line":31}
+{"video_id":"dynaknow_000007","mode":"sparse_frames_ordered","predicted_answer":"D","parse_status":"letter_pattern","raw_response":"D. because the process changes over time","source_line":32}
+{"video_id":"dynaknow_000010","mode":"single_frame_first","predicted_answer":"A","parse_status":"letter_pattern","raw_response":"A","source_line":33}
+{"video_id":"dynaknow_000010","mode":"single_frame_middle","predicted_answer":"A","parse_status":"letter_pattern","raw_response":"Answer: A","source_line":34}
+{"video_id":"dynaknow_000010","mode":"single_frame_last","predicted_answer":"A","parse_status":"letter_pattern","raw_response":"option A","source_line":35}
+{"video_id":"dynaknow_000010","mode":"sparse_frames_ordered","predicted_answer":"A","parse_status":"letter_pattern","raw_response":"A. because the process changes over time","source_line":36}
+{"video_id":"dynaknow_000016","mode":"single_frame_first","predicted_answer":"B","parse_status":"letter_pattern","raw_response":"B","source_line":37}
+{"video_id":"dynaknow_000016","mode":"single_frame_middle","predicted_answer":"B","parse_status":"letter_pattern","raw_response":"Answer: B","source_line":38}
+{"video_id":"dynaknow_000016","mode":"single_frame_last","predicted_answer":"B","parse_status":"letter_pattern","raw_response":"option B","source_line":39}
+{"video_id":"dynaknow_000016","mode":"sparse_frames_ordered","predicted_answer":"B","parse_status":"letter_pattern","raw_response":"B. because the process changes over time","source_line":40}
+{"video_id":"dynaknow_000047","mode":"single_frame_first","predicted_answer":"C","parse_status":"letter_pattern","raw_response":"C","source_line":41}
+{"video_id":"dynaknow_000047","mode":"single_frame_middle","predicted_answer":"C","parse_status":"letter_pattern","raw_response":"Answer: C","source_line":42}
+{"video_id":"dynaknow_000047","mode":"single_frame_last","predicted_answer":"C","parse_status":"letter_pattern","raw_response":"option C","source_line":43}
+{"video_id":"dynaknow_000047","mode":"sparse_frames_ordered","predicted_answer":"C","parse_status":"letter_pattern","raw_response":"C. because the process changes over time","source_line":44}
+{"video_id":"dynaknow_000081","mode":"single_frame_first","predicted_answer":"D","parse_status":"letter_pattern","raw_response":"D","source_line":45}
+{"video_id":"dynaknow_000081","mode":"single_frame_middle","predicted_answer":"D","parse_status":"letter_pattern","raw_response":"Answer: D","source_line":46}
+{"video_id":"dynaknow_000081","mode":"single_frame_last","predicted_answer":"D","parse_status":"letter_pattern","raw_response":"option D","source_line":47}
+{"video_id":"dynaknow_000081","mode":"sparse_frames_ordered","predicted_answer":"D","parse_status":"letter_pattern","raw_response":"D. because the process changes over time","source_line":48}

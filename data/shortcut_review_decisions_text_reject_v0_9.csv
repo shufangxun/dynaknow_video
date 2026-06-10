@@ -1,2 +1,0 @@
-video_id,answer_only_leakage,visible_text_or_overlay,ocr_leakage_status,single_frame_sufficient,sparse_frames_sufficient,dynamic_knowledge_supported,decision,review_notes
-dynaknow_000016,low,end-card text says drop and credits,fail,no,yes,yes,reject_text_leakage,Original full clip includes end-card OCR in sparse frames. Replaced by trimmed no-audio segment dynaknow_000091.

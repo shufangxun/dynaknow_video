@@ -34,7 +34,11 @@ def head(url: str, timeout_sec: float, attempts: int) -> dict[str, str]:
                 status = str(response.status)
                 content_type = response.headers.get("Content-Type", "")
                 content_length = response.headers.get("Content-Length", "")
-                ok_content_type = content_type.startswith("video/") or content_type in {"application/ogg", "application/octet-stream"}
+                ok_content_type = (
+                    content_type.startswith("video/")
+                    or content_type.startswith("image/gif")
+                    or content_type in {"application/ogg", "application/octet-stream"}
+                )
                 ok = str(response.status == 200 and ok_content_type).lower()
                 return {
                     "http_status": status,

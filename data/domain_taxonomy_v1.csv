@@ -1,0 +1,123 @@
+domain,subdomain,knowledge_point
+physics_physical_systems,motion_forces_and_energy,Gravity produces downward acceleration when other forces are small.
+physics_physical_systems,motion_forces_and_energy,Projectile motion combines nearly constant horizontal velocity with vertical gravitational acceleration.
+physics_physical_systems,motion_forces_and_energy,Friction dissipates mechanical energy and reduces sliding speed.
+physics_physical_systems,collisions_and_momentum,Momentum transfer in contact collisions redistributes velocity and direction.
+physics_physical_systems,collisions_and_momentum,"Inelastic collisions dissipate kinetic energy through deformation, heat, sound, or sticking."
+physics_physical_systems,oscillation_rotation_and_vibration,A pendulum exchanges gravitational potential energy and kinetic energy over each swing.
+physics_physical_systems,oscillation_rotation_and_vibration,"Damping dissipates oscillator energy, causing amplitude decay over time."
+physics_physical_systems,oscillation_rotation_and_vibration,Resonance amplifies motion when periodic forcing matches a natural frequency.
+physics_physical_systems,fluids_pressure_and_buoyancy,Bernoulli/Venturi flow couples higher speed through a constriction with lower static pressure.
+physics_physical_systems,fluids_pressure_and_buoyancy,Buoyancy depends on displaced fluid weight relative to object weight.
+physics_physical_systems,fluids_pressure_and_buoyancy,Pressure gradients drive siphon or liquid-column flow after priming.
+physics_physical_systems,surface_and_capillary_processes,"Surface tension minimizes liquid surface area, driving droplets to retract and round."
+physics_physical_systems,surface_and_capillary_processes,Capillary action draws wetting liquids through narrow pores or tubes.
+physics_physical_systems,surface_and_capillary_processes,Wetting transitions occur when adhesion overcomes nonwetting surface forces.
+physics_physical_systems,thermal_physical_response,Differential thermal expansion bends bonded materials when heated.
+physics_physical_systems,thermal_physical_response,The Leidenfrost effect forms a vapor layer that delays contact boiling and lets droplets glide.
+physics_physical_systems,electromagnetism_and_fields,Magnetic dipoles experience torque that aligns them with an external magnetic field.
+physics_physical_systems,electromagnetism_and_fields,"Electric fields exert forces on charged droplets or particles, driving migration or deformation."
+chemistry_materials_change,phase_change_and_crystallization,Supersaturation enables nucleation followed by crystal growth.
+chemistry_materials_change,phase_change_and_crystallization,Solidification fronts propagate as liquid changes phase into ordered solid.
+chemistry_materials_change,redox_and_endpoint_reactions,Iodine-clock kinetics delay starch-iodine color until reductant is depleted.
+chemistry_materials_change,redox_and_endpoint_reactions,Reducing sugars reduce copper(II) to copper(I) oxide during Benedict heating.
+chemistry_materials_change,redox_and_endpoint_reactions,Redox indicator systems can cycle between colored oxidation states.
+chemistry_materials_change,precipitation_and_solubility,Ion mixing can exceed solubility product and produce an insoluble solid.
+chemistry_materials_change,precipitation_and_solubility,Local supersaturation at a reaction interface creates precipitate bands or membranes.
+chemistry_materials_change,gas_evolution_and_combustion,Gas-evolution reactions generate bubbles as products leave solution.
+chemistry_materials_change,gas_evolution_and_combustion,"Combustion requires fuel, oxidizer, and heat; removing one extinguishes flame."
+chemistry_materials_change,diffusion_mixing_and_transport,Concentration gradients drive molecular diffusion and spreading.
+chemistry_materials_change,diffusion_mixing_and_transport,"Laminar shear stretches and folds fluids, increasing interface without turbulence."
+chemistry_materials_change,material_deformation_and_response,Shear-thickening suspensions resist rapid stress while flowing under slow stress.
+chemistry_materials_change,material_deformation_and_response,"Heating can soften or melt material, reducing strength and enabling deformation."
+biology_living_systems,germination_and_development,Mitotic spindle dynamics separate chromosomes into daughter cells.
+biology_living_systems,germination_and_development,Cytokinesis completes division through progressive contractile-ring constriction.
+biology_living_systems,organism_behavior_and_taxis,Actin polymerization and adhesion cycles drive crawling cell migration.
+biology_living_systems,plant_water_relations_and_turgor,"Osmosis changes plant-cell volume, causing plasmolysis and deplasmolysis."
+biology_living_systems,plant_water_relations_and_turgor,Guard-cell turgor changes open and close stomatal pores.
+biology_living_systems,plant_water_relations_and_turgor,Cytoplasmic streaming moves organelles along cytoskeletal tracks inside plant cells.
+biology_living_systems,plant_growth_and_tropisms,Photosynthetic light reactions release oxygen when illuminated.
+biology_living_systems,germination_and_development,Cellular respiration consumes oxygen and releases carbon dioxide during metabolism.
+biology_living_systems,germination_and_development,Embryogenesis proceeds through repeated cell divisions and coordinated cell migration.
+biology_living_systems,germination_and_development,Seed germination starts with water uptake and radicle emergence before shoot development.
+biology_living_systems,plant_growth_and_tropisms,Phototropism bends shoots through differential growth toward directional light.
+biology_living_systems,plant_growth_and_tropisms,Gravitropism redirects root or shoot growth relative to gravity after reorientation.
+biology_living_systems,plant_growth_and_tropisms,Hydrotropism biases root growth toward water gradients.
+biology_living_systems,plant_nastic_movements,Thigmonasty converts touch stimulation into rapid leaf or trap movement.
+biology_living_systems,plant_nastic_movements,Nyctinasty changes leaf posture across light-dark cycles via turgor or growth rhythms.
+biology_living_systems,animal_locomotion_and_biomechanics,Jet propulsion follows momentum conservation: expelled fluid creates opposite reaction thrust.
+biology_living_systems,animal_locomotion_and_biomechanics,Peristaltic locomotion uses contraction waves plus alternating anchors to move soft bodies.
+biology_living_systems,animal_locomotion_and_biomechanics,Flapping wings generate lift and thrust by accelerating air downward/backward.
+biology_living_systems,animal_locomotion_and_biomechanics,Fast-start swimming converts body curvature into hydrodynamic reaction forces and acceleration.
+biology_living_systems,organism_behavior_and_taxis,Chemotaxis biases movement direction along chemical concentration gradients.
+biology_living_systems,organism_behavior_and_taxis,Phototaxis biases movement relative to light direction or intensity.
+biology_living_systems,organism_behavior_and_taxis,Magnetotaxis aligns motile cells with a magnetic field through magnetic torque.
+biology_living_systems,organism_behavior_and_taxis,Run-and-tumble or Levy-like search alternates runs and turns to explore space.
+earth_environmental_systems,weather_and_atmospheric_dynamics,"Moist convection lifts air, cools it, and forms growing cloud towers."
+earth_environmental_systems,weather_and_atmospheric_dynamics,Rotating atmospheric flow organizes clouds and precipitation into vortices.
+earth_environmental_systems,hydrology_and_flow_processes,Gravity and hydraulic slope drive surface runoff and channelized flow.
+earth_environmental_systems,hydrology_and_flow_processes,Infiltration advances a wetting front through porous soil.
+earth_environmental_systems,erosion_transport_and_deposition,Sediment motion begins when fluid shear stress exceeds a transport threshold.
+earth_environmental_systems,erosion_transport_and_deposition,Deposition and sorting occur because particle settling speed depends on size and density.
+earth_environmental_systems,geology_and_geophysical_change,Slope failure occurs when driving stress exceeds material shear strength.
+earth_environmental_systems,geology_and_geophysical_change,Pyroclastic density currents move as ground-hugging particle-laden gravity currents.
+earth_environmental_systems,geology_and_geophysical_change,Lava flow forms a cooling crust while molten interior continues advancing.
+earth_environmental_systems,cryosphere_and_seasonal_change,Glacier flow results from ice deformation and basal sliding.
+earth_environmental_systems,cryosphere_and_seasonal_change,Glacier calving occurs when fractures propagate and unsupported ice detaches.
+earth_environmental_systems,ecosystem_interactions,"Predation is a dynamic interaction of pursuit, attack, and prey response."
+earth_environmental_systems,ecosystem_interactions,Animal-mediated pollination transfers pollen through contact with reproductive structures.
+engineered_systems_and_operations,machines_control_and_failure_modes,Linkage constraints convert input rotation into a designed output path.
+engineered_systems_and_operations,machines_control_and_failure_modes,Cam profiles convert continuous rotation into programmed follower displacement.
+engineered_systems_and_operations,machines_control_and_failure_modes,Escapements discretize energy release into stepwise gear advance.
+engineered_systems_and_operations,machines_control_and_failure_modes,Ratchets allow intermittent one-way motion while blocking reverse motion.
+engineered_systems_and_operations,pressure_flow_and_process_control,Valves regulate flow by changing flow area and pressure drop.
+engineered_systems_and_operations,pressure_flow_and_process_control,Pumps use cyclic volume or pressure changes to impose one-way fluid transport.
+engineered_systems_and_operations,pressure_flow_and_process_control,Feedback control reduces deviation by sensing a variable and actuating a correction.
+engineered_systems_and_operations,filtration_and_separation,Pressure-driven filtration separates solids by forcing fluid through porous media.
+engineered_systems_and_operations,filtration_and_separation,Density-driven settling separates particles by gravitational settling velocity.
+engineered_systems_and_operations,filtration_and_separation,Vibration can segregate granular mixtures when smaller grains percolate downward.
+engineered_systems_and_operations,mixing_dispersion_and_wetting,"Mechanical mixing disperses components by stretching, folding, and advecting interfaces."
+engineered_systems_and_operations,mixing_dispersion_and_wetting,Coating/wetting processes rely on contact-angle reduction and droplet coalescence into a film.
+engineered_systems_and_operations,thermal_process_control,Hot forging uses elevated temperature to lower flow stress for controlled plastic deformation.
+engineered_systems_and_operations,thermal_process_control,Quenching rapidly extracts heat to change material state and properties.
+engineered_systems_and_operations,tooling_force_and_precision,Cutting forms chips when tool shear stress exceeds material strength along a shear plane.
+engineered_systems_and_operations,tooling_force_and_precision,Drilling combines rotary cutting and axial feed to remove material as chips.
+engineered_systems_and_operations,machines_control_and_failure_modes,Mechanical resonance can amplify vibration until structural instability or failure occurs.
+engineered_systems_and_operations,pressure_flow_and_process_control,Clogging creates positive feedback by reducing flow area and increasing upstream accumulation.
+biology_living_systems,animal_locomotion_and_biomechanics,jet propulsion swimming
+biology_living_systems,germination_and_development,mitosis
+biology_living_systems,organism_behavior_and_taxis,courtship display
+biology_living_systems,organism_behavior_and_taxis,dynamic mimicry
+biology_living_systems,plant_growth_and_tropisms,gravitropism
+biology_living_systems,plant_growth_and_tropisms,phototropism
+biology_living_systems,plant_water_relations_and_turgor,plasmolysis and deplasmolysis
+biology_living_systems,plant_water_relations_and_turgor,cytoplasmic streaming
+chemistry_materials_change,diffusion_mixing_and_transport,Taylor-Couette laminar mixing
+chemistry_materials_change,material_deformation_and_response,shear thickening
+chemistry_materials_change,phase_change_and_crystallization,dendritic crystal growth
+chemistry_materials_change,precipitation_and_solubility,chemical garden
+chemistry_materials_change,redox_and_endpoint_reactions,Benedict test positive reaction
+chemistry_materials_change,redox_and_endpoint_reactions,blue bottle reaction
+chemistry_materials_change,redox_and_endpoint_reactions,iodine clock reaction
+earth_environmental_systems,cryosphere_and_seasonal_change,glacier calving
+earth_environmental_systems,erosion_transport_and_deposition,sediment saltation
+earth_environmental_systems,geology_and_geophysical_change,pyroclastic density current
+earth_environmental_systems,hydrology_and_flow_processes,meander migration
+earth_environmental_systems,weather_and_atmospheric_dynamics,downburst
+earth_environmental_systems,weather_and_atmospheric_dynamics,supercell thunderstorm
+earth_environmental_systems,weather_and_atmospheric_dynamics,tornado genesis
+engineered_systems_and_operations,filtration_and_separation,filter cake formation
+engineered_systems_and_operations,filtration_and_separation,Brazil nut effect
+engineered_systems_and_operations,machines_control_and_failure_modes,machining chatter
+engineered_systems_and_operations,machines_control_and_failure_modes,PID overshoot
+engineered_systems_and_operations,pressure_flow_and_process_control,cavitation
+engineered_systems_and_operations,pressure_flow_and_process_control,water hammer
+engineered_systems_and_operations,tooling_force_and_precision,built-up edge
+physics_physical_systems,fluids_pressure_and_buoyancy,Rayleigh-Taylor instability
+physics_physical_systems,fluids_pressure_and_buoyancy,siphon
+physics_physical_systems,fluids_pressure_and_buoyancy,Kelvin-Helmholtz instability
+physics_physical_systems,motion_forces_and_energy,banana kick / curveball
+physics_physical_systems,oscillation_rotation_and_vibration,somersault twist dive
+physics_physical_systems,oscillation_rotation_and_vibration,triple Axel
+physics_physical_systems,surface_and_capillary_processes,capillary rise
+physics_physical_systems,thermal_physical_response,Leidenfrost effect

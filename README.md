@@ -11,9 +11,64 @@ Given a video, identify the knowledge point best demonstrated by its dynamic pro
 v1 choices:
 
 - Source: public videos only.
-- Scale: 200-300 final samples, collected from an initial 800-1000 candidate pool.
+- Scale: 250-310 clean samples, collected from an initial 800-1200 candidate/review pool.
 - Format: 4-choice MCQ.
 - Primary quality bar: full video should beat answer-only, subtitle-only, single-frame, and sparse-frame shortcuts.
+- Taxonomy: 5 primary domains and 31 mechanism-family subdomains in `docs/taxonomy_v1.md`.
+
+## Current v1 Workflow Entrypoints
+
+The current workflow is driven by three contracts:
+
+- Retrieval candidates: `schemas/candidate_manifest.schema.json`
+- Dynamic knowledge cards: `schemas/dynamic_knowledge_card.schema.json`
+- Knowledge annotations: `schemas/annotation_manifest.schema.json`
+- Audit/review decisions: `schemas/audit_manifest.schema.json`
+
+Run these commands from the repository root:
+
+```bash
+python3 scripts/make_commons_search_queries_from_taxonomy.py \
+  --knowledge-points data/domain_sampling_targets_v1.csv \
+  --output data/commons_file_search_queries_v1.csv \
+  --max-per-point 4
+
+python3 scripts/validate_samples.py \
+  data/pilot_samples_source_grounded_v0_15_hardneg_40_review.unbalanced.jsonl \
+  --taxonomy data/domain_taxonomy_v1.csv \
+  --audit data/mechanism_filter_audit_v0_14.csv \
+  --targets data/domain_sampling_targets_v1.csv \
+  --require-hard-distractors \
+  --check-media
+
+python3 scripts/build_dynamic_knowledge_cards.py \
+  --samples data/pilot_samples_source_grounded_v0_15_hardneg_40_review.unbalanced.jsonl \
+  --audit data/mechanism_filter_audit_v0_14.csv \
+  --taxonomy data/domain_taxonomy_v1.csv \
+  --source-audit data/source_grounded_qa_audit_v0_14_40_review.csv \
+  --output-jsonl data/dynamic_knowledge_cards_v0_15.jsonl \
+  --output-html reports/dynamic_knowledge_cards_v0_15.html
+
+python3 scripts/build_v1_workflow_dashboard.py \
+  --samples data/pilot_samples_source_grounded_v0_14_40_review.unbalanced.jsonl \
+  --audit data/mechanism_filter_audit_v0_14.csv \
+  --taxonomy data/domain_taxonomy_v1.csv \
+  --targets data/domain_sampling_targets_v1.csv \
+  --output reports/v1_workflow_dashboard_v0_14.html
+```
+
+Final release JSONL must be source-hidden. Validate it with:
+
+```bash
+python3 scripts/validate_samples.py release/v1/dataset_v1.jsonl \
+  --taxonomy data/domain_taxonomy_v1.csv \
+  --targets data/domain_sampling_targets_v1.csv \
+  --cards data/dynamic_knowledge_cards_v1.jsonl \
+  --require-card-pass \
+  --require-hard-distractors \
+  --release-mode \
+  --check-media
+```
 
 Media/storage contract:
 
@@ -29,7 +84,15 @@ Media/storage contract:
 - `docs/annotation_guidelines.md`: annotator rules and rejection criteria.
 - `docs/curated_sourcing_playbook.md`: sourcing rules for manually curated public video candidates.
 - `docs/source_and_leakage_policy.md`: local media storage, source provenance, and subtitle/OCR leakage policy.
-- `schemas/dynaknow_sample.schema.json`: JSON schema for final JSONL samples.
+- `schemas/dynaknow_sample.schema.json`: source-hidden v1 evaluation JSONL schema.
+- `schemas/candidate_manifest.schema.json`: retrieval-agent candidate manifest schema.
+- `schemas/dynamic_knowledge_card.schema.json`: card-first dynamic process to knowledge-point schema.
+- `schemas/annotation_manifest.schema.json`: knowledge-agent annotation manifest schema.
+- `schemas/audit_manifest.schema.json`: deterministic audit manifest schema.
+- `templates/candidate_manifest_v1.csv`: retrieval-agent candidate template.
+- `templates/dynamic_knowledge_card_v1.jsonl`: card-first dynamic knowledge template.
+- `templates/annotation_manifest_v1.jsonl`: knowledge-agent annotation template.
+- `templates/audit_manifest_v1.jsonl`: audit manifest template.
 - `templates/candidate_videos.csv`: candidate video collection sheet.
 - `templates/curated_source_intake.csv`: manual/curated source intake template.
 - `data/knowledge_points_v1.csv`: structured seed ontology with search queries and hard-negative pools.

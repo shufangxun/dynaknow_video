@@ -1,0 +1,6 @@
+id,ok,status,error,direct_url,local_media
+vdcr_archive_only_000004,true,download_ok,,https://archive.org/download/SVS-40/a000040.ogv,media/vdcr_raw_pilot_v1/vdcr_archive_only_000004.ogv
+vdcr_archive_b08_000009,true,download_ok,,https://archive.org/download/VE-VID-16618/flare_soh_2003301_512kb.mp4,media/vdcr_raw_pilot_v1/vdcr_archive_b08_000009.mp4
+vdcr_archive_b08_000002,true,download_ok,,https://archive.org/download/CIL-10072/reconnection.ogv,media/vdcr_raw_pilot_v1/vdcr_archive_b08_000002.ogv
+vdcr_archive_b08_000003,true,download_ok,,https://archive.org/download/CIL-10059/what_is_a_cme1.ogv,media/vdcr_raw_pilot_v1/vdcr_archive_b08_000003.ogv
+vdcr_archive_b08_000006,true,download_ok,,https://archive.org/download/youtube-L1X8oEbuCUA/L1X8oEbuCUA.mp4,media/vdcr_raw_pilot_v1/vdcr_archive_b08_000006.mp4

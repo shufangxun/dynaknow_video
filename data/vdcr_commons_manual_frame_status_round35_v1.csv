@@ -1,0 +1,4 @@
+id,video_path,duration_sec,first,middle,last,sparse,contact_sheet,error
+vdcr_commons_mr35_000001,media/vdcr_commons_manual_round35_v1/vdcr_commons_mr35_000001.webm,19.520,ok,ok,ok,12,ok,
+vdcr_commons_mr35_000002,media/vdcr_commons_manual_round35_v1/vdcr_commons_mr35_000002.webm,3.003,ok,ok,ok,12,ok,
+vdcr_commons_mr35_000003,media/vdcr_commons_manual_round35_v1/vdcr_commons_mr35_000003.gif,4.000,ok,ok,missing,6,ok,partial_frame_extraction

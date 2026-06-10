@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DynaKnow-Video v1 Audit Manifest Row",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "video_id",
+    "filter_decision",
+    "reason",
+    "domain",
+    "subdomain",
+    "canonical_knowledge_point",
+    "review_status"
+  ],
+  "properties": {
+    "video_id": {"type": "string", "pattern": "^dynaknow_[0-9]{6}$"},
+    "filter_decision": {"type": "string", "enum": ["pass", "review", "fail"]},
+    "reason": {"type": "string", "minLength": 1},
+    "domain": {"type": "string", "minLength": 1},
+    "subdomain": {"type": "string", "minLength": 1},
+    "canonical_knowledge_point": {"type": "string", "minLength": 10},
+    "duplicate_group_id": {"type": "string"},
+    "shortcut_risk_tags": {"type": "array", "items": {"type": "string"}},
+    "leakage_risk_tags": {"type": "array", "items": {"type": "string"}},
+    "review_status": {"type": "string", "minLength": 1}
+  }
+}

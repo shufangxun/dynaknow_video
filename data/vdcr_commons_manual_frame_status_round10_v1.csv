@@ -1,0 +1,6 @@
+id,video_path,duration_sec,first,middle,last,sparse,contact_sheet,error
+vdcr_commons_mr10_000001,media/vdcr_commons_manual_round10_v1/vdcr_commons_mr10_000001.webm,24.472,ok,ok,ok,8,ok,
+vdcr_commons_mr10_000002,media/vdcr_commons_manual_round10_v1/vdcr_commons_mr10_000002.gif,2.500,ok,ok,missing,6,ok,partial_frame_extraction
+vdcr_commons_mr10_000003,media/vdcr_commons_manual_round10_v1/vdcr_commons_mr10_000003.ogv,29.095,ok,ok,ok,8,ok,
+vdcr_commons_mr10_000004,media/vdcr_commons_manual_round10_v1/vdcr_commons_mr10_000004.ogv,46.360,ok,ok,ok,8,ok,
+vdcr_commons_mr10_000005,media/vdcr_commons_manual_round10_v1/vdcr_commons_mr10_000005.ogv,15.067,ok,ok,ok,8,ok,

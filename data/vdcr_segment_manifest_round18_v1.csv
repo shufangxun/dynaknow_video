@@ -1,0 +1,2 @@
+id,source_id,candidate_knowledge_point,direct_url,page_url,title,mime,duration_sec,local_media,segment_start_sec,segment_end_sec
+vdcr_commons_mr18_000003_seg_000000_024000_crop_clean,vdcr_commons_mr18_000003,Weissenberg Rod-Climbing Effect,https://web.mit.edu/nnf/research/phenomena/rod_climbing.avi,https://web.mit.edu/nnf/research/phenomena/rodclimbing.html,Weissenberg Rod-Climbing Effect cropped clean segment,video/webm,24.000,media/vdcr_segments_pilot_v1/vdcr_commons_mr18_000003_seg_000000_024000_crop_clean.webm,0.000,24.000

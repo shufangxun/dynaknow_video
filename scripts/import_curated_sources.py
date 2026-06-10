@@ -17,6 +17,8 @@ INPUT_FIELDS = [
     "suggested_end_sec",
     "initial_category",
     "candidate_knowledge_point",
+    "domain_seed",
+    "subdomain_seed",
     "why_dynamic",
     "collector_notes",
 ]

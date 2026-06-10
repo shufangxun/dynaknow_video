@@ -1,0 +1,2 @@
+id,video_path,duration_sec,first,middle,last,sparse,contact_sheet,error
+vdcr_public_mr48_000001,media/vdcr_public_manual_round48_v1/vdcr_public_mr48_commons_droplet_impact_s6.ogv,4.420,ok,ok,ok,18,ok_but_raw_metadata_contains_article_title_author_license,

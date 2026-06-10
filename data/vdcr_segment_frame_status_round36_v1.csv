@@ -1,0 +1,4 @@
+id,video_path,duration_sec,first,middle,last,sparse,contact_sheet,error
+vdcr_commons_mr36_000001_crop_metadata_clean,media/vdcr_segments_pilot_v1/vdcr_commons_mr36_000001_crop_metadata_clean.mp4,10.000,ok,ok,ok,8,ok,
+vdcr_commons_mr36_000002_crop_metadata_clean,media/vdcr_segments_pilot_v1/vdcr_commons_mr36_000002_crop_metadata_clean.mp4,6.750,ok,ok,ok,8,ok,
+vdcr_commons_mr36_000003_crop_metadata_clean,media/vdcr_segments_pilot_v1/vdcr_commons_mr36_000003_crop_metadata_clean.mp4,15.250,ok,ok,ok,8,ok,

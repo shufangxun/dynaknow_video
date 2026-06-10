@@ -1,0 +1,8 @@
+id,video_path,duration_sec,first,middle,last,sparse,contact_sheet,error
+vdcr_archive_earth_000008,media/vdcr_raw_pilot_v1/vdcr_archive_earth_000008.mp4,2596.096,ok,ok,ok,8,ok,
+vdcr_archive_earth_000010,media/vdcr_raw_pilot_v1/vdcr_archive_earth_000010.ogv,1007.398,ok,ok,ok,8,ok,
+vdcr_archive_earth_000013,media/vdcr_raw_pilot_v1/vdcr_archive_earth_000013.mp4,312.000,ok,ok,ok,8,ok,
+vdcr_archive_earth_000014,media/vdcr_raw_pilot_v1/vdcr_archive_earth_000014.mp4,731.968,ok,ok,ok,8,ok,
+vdcr_archive_earth_000020,,,missing,missing,missing,0,missing,missing_video
+vdcr_archive_earth_000029,media/vdcr_raw_pilot_v1/vdcr_archive_earth_000029.ogv,65.062,ok,ok,ok,8,ok,
+vdcr_archive_earth_000034,media/vdcr_raw_pilot_v1/vdcr_archive_earth_000034.ogv,278.879,ok,ok,ok,8,ok,

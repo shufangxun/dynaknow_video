@@ -1,0 +1,11 @@
+id,video_path,duration_sec,first,middle,last,sparse,contact_sheet,error
+vdcr_archive_b07_000003,media/vdcr_raw_pilot_v1/vdcr_archive_b07_000003.ogv,30.000,ok,ok,ok,8,ok,
+vdcr_archive_b03_000050,media/vdcr_raw_pilot_v1/vdcr_archive_b03_000050.mp4,220.063,ok,ok,ok,8,ok,
+vdcr_archive_b03_000051,media/vdcr_raw_pilot_v1/vdcr_archive_b03_000051.mp4,326.898,ok,ok,ok,8,ok,
+vdcr_archive_b03_000052,media/vdcr_raw_pilot_v1/vdcr_archive_b03_000052.mp4,229.095,ok,ok,ok,8,ok,
+vdcr_archive_b03_000053,media/vdcr_raw_pilot_v1/vdcr_archive_b03_000053.mp4,262.091,ok,ok,ok,8,ok,
+vdcr_archive_b03_000054,media/vdcr_raw_pilot_v1/vdcr_archive_b03_000054.ogv,503.382,ok,ok,ok,8,ok,
+vdcr_archive_b07_000006,media/vdcr_raw_pilot_v1/vdcr_archive_b07_000006.mp4,258.090,ok,ok,ok,8,ok,
+vdcr_archive_b08_000018,media/vdcr_raw_pilot_v1/vdcr_archive_b08_000018.mp4,192.238,ok,ok,ok,8,ok,
+vdcr_archive_b07_000014,media/vdcr_raw_pilot_v1/vdcr_archive_b07_000014.mp4,60.047,ok,ok,ok,8,ok,
+vdcr_archive_b07_000022,media/vdcr_raw_pilot_v1/vdcr_archive_b07_000022.mp4,12.239,ok,ok,ok,8,ok,

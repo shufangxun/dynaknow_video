@@ -18,6 +18,8 @@ FIELDNAMES = [
     "suggested_end_sec",
     "initial_category",
     "candidate_knowledge_point",
+    "domain_seed",
+    "subdomain_seed",
     "why_dynamic",
     "collector_notes",
 ]
@@ -57,4 +59,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

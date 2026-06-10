@@ -1,2 +1,0 @@
-candidate_id,source_url,source_platform,license_or_usage_note,raw_duration_sec,suggested_start_sec,suggested_end_sec,initial_category,candidate_knowledge_point,why_dynamic,collector_notes,quality_score,quality_flags,quality_decision
-curated_000001,https://example.org/demo-video,public_web,verify_license_before_use,10.0,0.0,10.0,physics_mechanics,Unsupported objects accelerate downward under gravity.,The object moves downward over time without visible support.,Replace this row with a real public/CC video candidate.,20,,priority

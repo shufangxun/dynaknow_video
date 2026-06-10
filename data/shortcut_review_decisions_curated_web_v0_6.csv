@@ -1,4 +1,0 @@
-video_id,answer_only_leakage,single_frame_sufficient,sparse_frames_sufficient,dynamic_knowledge_supported,decision,review_notes
-dynaknow_000082,low,yes,yes,yes,reject_static_shortcut,Final still frames show cloudy products in test tubes; precipitate can likely be inferred from a single late frame.
-dynaknow_000083,low,no,yes,yes,accept_dynamic_seed,Color transition is visible over ordered frames; single first middle or last frame does not establish the reaction-driven change.
-dynaknow_000084,low,no,yes,yes,accept_dynamic_seed,Seedlings change orientation across time; a single frame shows plant pose but not directional growth toward light.

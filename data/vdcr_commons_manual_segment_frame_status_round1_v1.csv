@@ -1,0 +1,5 @@
+id,video_path,duration_sec,first,middle,last,sparse,contact_sheet,error
+vdcr_commons_mr1_000001_seg_005000_024000,media/vdcr_commons_manual_segments_round1_v1/vdcr_commons_mr1_000001_seg_005000_024000.mp4,19.000,ok,ok,ok,8,ok,
+vdcr_commons_mr1_000002_seg_020000_150000,media/vdcr_commons_manual_segments_round1_v1/vdcr_commons_mr1_000002_seg_020000_150000.mp4,130.000,ok,ok,ok,8,ok,
+vdcr_commons_mr1_000004_seg_020000_100000,media/vdcr_commons_manual_segments_round1_v1/vdcr_commons_mr1_000004_seg_020000_100000.mp4,80.000,ok,ok,ok,8,ok,
+vdcr_commons_mr1_000006_seg_010000_055000,media/vdcr_commons_manual_segments_round1_v1/vdcr_commons_mr1_000006_seg_010000_055000.mp4,45.000,ok,ok,ok,8,ok,

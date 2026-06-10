@@ -1,9 +1,0 @@
-video_id,answer_only_leakage,visible_text_or_overlay,ocr_leakage_status,single_frame_sufficient,sparse_frames_sufficient,dynamic_knowledge_supported,decision,review_notes
-dynaknow_000015,low,equipment labels and static filter-bank structure,fail,yes,yes,partial,reject_static_equipment_or_ocr,Frames mostly show a labeled filtration installation and do not isolate particle-size separation as a dynamic visual process.
-dynaknow_000018,low,none,pass,yes,yes,partial,reject_weak_dynamic_support,Candle flame remains nearly static in sparse frames and the oxygen requirement is not visually isolated.
-dynaknow_000023,medium,newspaper or printed page visible behind plants,fail,yes,yes,yes,reject_ocr_and_single_frame,Plant leaning is visible in individual frames and background printed text violates low-OCR preference.
-dynaknow_000039,low,none,pass,uncertain,yes,partial,reject_weak_mapping,Dark candle frames show flame movement but vibration transfer through a medium is not clearly isolated.
-dynaknow_000068,medium,opening title card and poster text,fail,yes,yes,partial,reject_ocr_and_weak_dynamic,Snooker motion is only a small part of a broader edited clip and visible title/poster text violates low-OCR preference.
-dynaknow_000085,medium,burned-in CO2 and formula captions,fail,no,yes,yes,reject_text_leakage,Dynamic gas-production evidence is strong but captions directly expose the mechanism.
-dynaknow_000086,medium,opening title says Le siphon,fail,no,yes,yes,reject_text_leakage,Original source includes title-card leakage and has been replaced by trimmed no-audio segment dynaknow_000088.
-dynaknow_000087,low,none,pass,uncertain,yes,partial,reject_weak_visual_change,Sparse frames show too little visible change to support porous absorption robustly.

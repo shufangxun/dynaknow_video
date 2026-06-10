@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "VDCR v1 Direct-Answer Evaluation Sample",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "video_id",
+    "split",
+    "domain",
+    "subdomain",
+    "concept_id",
+    "concept",
+    "answer",
+    "accepted_answers",
+    "local_media",
+    "duration_sec",
+    "question",
+    "dynamic_evidence",
+    "static_insufficient_reason",
+    "source_url",
+    "license_or_usage_note",
+    "quality_gates"
+  ],
+  "properties": {
+    "video_id": {"type": "string", "pattern": "^vdcr_[0-9]{6}$"},
+    "split": {"type": "string", "enum": ["train", "dev", "test", "pilot"]},
+    "domain": {"type": "string", "minLength": 1},
+    "subdomain": {"type": "string", "minLength": 1},
+    "concept_id": {"type": "string", "pattern": "^vdcr_concept_[0-9]{4}$"},
+    "concept": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["zh", "en", "type"],
+      "properties": {
+        "zh": {"type": "string", "minLength": 1},
+        "en": {"type": "string", "minLength": 1},
+        "type": {"type": "string", "minLength": 1}
+      }
+    },
+    "answer": {"type": "string", "minLength": 1},
+    "accepted_answers": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "local_media": {"type": "string", "minLength": 1},
+    "duration_sec": {"type": "number", "exclusiveMinimum": 0},
+    "question": {
+      "type": "string",
+      "const": "Which named dynamic concept is instantiated by the temporally evolving process in this video?"
+    },
+    "dynamic_evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["start_sec", "end_sec", "description"],
+        "properties": {
+          "start_sec": {"type": "number", "minimum": 0},
+          "end_sec": {"type": "number", "exclusiveMinimum": 0},
+          "description": {"type": "string", "minLength": 10}
+        }
+      }
+    },
+    "static_insufficient_reason": {"type": "string", "minLength": 10},
+    "source_url": {"type": "string", "minLength": 1},
+    "license_or_usage_note": {"type": "string", "minLength": 1},
+    "quality_gates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "temporal_necessity",
+        "domain_specificity",
+        "mechanism_bearing_label",
+        "expert_naming_gap",
+        "text_or_audio_leakage",
+        "single_frame_shortcut"
+      ],
+      "properties": {
+        "temporal_necessity": {"type": "string", "enum": ["pass", "fail", "uncertain"]},
+        "domain_specificity": {"type": "string", "enum": ["pass", "fail", "uncertain"]},
+        "mechanism_bearing_label": {"type": "string", "enum": ["pass", "fail", "uncertain"]},
+        "expert_naming_gap": {"type": "string", "enum": ["pass", "fail", "uncertain"]},
+        "text_or_audio_leakage": {"type": "string", "enum": ["pass", "fail", "not_checked"]},
+        "single_frame_shortcut": {"type": "string", "enum": ["pass", "fail", "uncertain", "not_checked"]}
+      }
+    }
+  }
+}

@@ -1,0 +1,319 @@
+#!/usr/bin/env python3
+"""Build capability-label assets for DynaKnow dynamic video knowledge."""
+
+from __future__ import annotations
+
+import csv
+import html
+import json
+from collections import Counter, defaultdict
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parents[1]
+DATA = ROOT / "data"
+REPORT = ROOT / "reports" / "principle_first_v1"
+
+CAPABILITY_SCHEMA_OUT = DATA / "capability_label_schema_v1.json"
+DCR_INVENTORY_OUT = DATA / "dynamic_concept_inventory_v1.csv"
+DCR_QUERY_OUT = DATA / "dynamic_concept_search_queries_v1.csv"
+REPORT_OUT = REPORT / "capability_labels_dcr_inventory_v1.html"
+
+
+CAPABILITY_SCHEMA = {
+    "capability_labels": [
+        {
+            "label": "DMR",
+            "name": "Dynamic Mechanism Reasoning",
+            "tests": "Why/How reasoning over mechanisms, causal chains, prediction, counterfactual changes, and variable effects.",
+            "required": "The answer depends on temporal evidence plus a transferable physical, chemical, biological, environmental, or engineered mechanism.",
+        },
+        {
+            "label": "DCR",
+            "name": "Dynamic Concept Recognition",
+            "tests": "What recognition of named dynamic concepts, processes, maneuvers, behaviors, failure modes, or operational phenomena.",
+            "required": "The named concept is defined by motion, sequence, trajectory, rhythm, state transition, interaction, or process morphology; a static frame is insufficient.",
+        },
+    ],
+    "domain_contract": "The five first-level domains stay fixed. Capability labels are orthogonal sample/question tags, not new domains.",
+    "dcr_exclusions": [
+        "Static object, species, brand, instrument, or scene identification.",
+        "A label visible in source text or overlay without dynamic visual evidence.",
+        "Generic action names that do not require expert dynamic concept recognition.",
+        "Concepts whose distinguishing evidence is not visible in the video.",
+    ],
+}
+
+
+FIELDS = [
+    "concept_id",
+    "domain",
+    "subdomain",
+    "capability_label",
+    "dynamic_concept",
+    "aliases",
+    "linked_principle_id",
+    "linked_principle",
+    "required_dynamic_signature",
+    "why_static_insufficient",
+    "search_queries",
+    "hard_negative_concepts",
+    "reject_conditions",
+    "priority",
+]
+
+QUERY_FIELDS = [
+    "search_term",
+    "initial_category",
+    "candidate_knowledge_point",
+    "domain_seed",
+    "subdomain_seed",
+    "default_start_sec",
+    "default_end_sec",
+    "why_dynamic",
+    "notes",
+    "collector_notes",
+    "capability_label",
+    "dynamic_concept_id",
+    "dynamic_concept",
+]
+
+
+def c(
+    concept_id: str,
+    domain: str,
+    subdomain: str,
+    concept: str,
+    aliases: str,
+    principle_id: str,
+    principle: str,
+    signature: str,
+    static_reason: str,
+    queries: str,
+    negatives: str,
+    reject: str,
+    priority: str = "core",
+) -> dict[str, str]:
+    return {
+        "concept_id": concept_id,
+        "domain": domain,
+        "subdomain": subdomain,
+        "capability_label": "DCR",
+        "dynamic_concept": concept,
+        "aliases": aliases,
+        "linked_principle_id": principle_id,
+        "linked_principle": principle,
+        "required_dynamic_signature": signature,
+        "why_static_insufficient": static_reason,
+        "search_queries": queries,
+        "hard_negative_concepts": negatives,
+        "reject_conditions": reject,
+        "priority": priority,
+    }
+
+
+DCR_CONCEPTS: list[dict[str, str]] = [
+    c("DCR_PHY_MAGNUS_001", "physics_physical_systems", "motion_forces_and_energy", "banana kick / curveball", "banana shot; curveball; bending free kick; Magnus kick", "PHY_FOR_002", "Spin-dependent aerodynamic lift bends a projectile trajectory.", "A spinning ball follows a visibly curved path after launch.", "A still frame can show a ball but not spin-coupled trajectory curvature.", "banana kick slow motion|curveball slow motion baseball|Magnus effect soccer free kick video", "ordinary projectile arc; knuckleball; straight kick", "Reject clips without visible curved trajectory or without evidence of spin."),
+    c("DCR_PHY_SKATE_001", "physics_physical_systems", "oscillation_rotation_and_vibration", "triple Axel", "Axel jump; figure skating Axel; 3A", "PHY_OSC_003", "Angular momentum and takeoff geometry determine airborne rotation.", "Forward outside-edge takeoff, multiple airborne rotations, and backward landing are visible.", "A still frame cannot establish takeoff edge, direction, rotation count, or landing sequence.", "triple Axel slow motion|figure skating triple Axel takeoff landing|Axel jump slow motion", "toe loop; Salchow; double Axel", "Reject clips where the full takeoff-to-landing sequence is not visible."),
+    c("DCR_PHY_DIVE_001", "physics_physical_systems", "oscillation_rotation_and_vibration", "somersault twist dive", "twisting dive; platform dive twist; springboard twist", "PHY_OSC_003", "Body configuration changes angular velocity and rotation axes.", "The diver transitions through takeoff, somersault, twist, and entry.", "A still frame cannot reveal rotation axis changes or twist count.", "twisting dive slow motion|platform diving twist slow motion|springboard somersault twist video", "plain somersault; cartwheel dive; static pose", "Reject clips missing takeoff or entry, or where twist count is not visible."),
+    c("DCR_PHY_LEIDEN_001", "physics_physical_systems", "thermal_physical_response", "Leidenfrost effect", "Leidenfrost droplet; vapor cushion droplet", "PHY_THR_002", "A vapor layer supports droplets on a very hot surface.", "Droplets skitter, glide, or persist on a hot surface instead of immediately boiling away.", "A still frame cannot distinguish vapor-supported motion from ordinary droplet placement.", "Leidenfrost effect droplet slow motion|Leidenfrost droplet hot plate video|water droplet skittering hot pan", "ordinary boiling; wetting spread; evaporation", "Reject ordinary boiling without gliding or vapor-layer behavior."),
+    c("DCR_PHY_CAP_001", "physics_physical_systems", "surface_and_capillary_processes", "capillary rise", "capillary action; wicking front; paper chromatography rise", "PHY_SUR_002", "Adhesion and surface tension pull liquid through narrow pores or tubes.", "A liquid front rises or advances through a narrow tube, paper, or porous structure.", "A still frame cannot establish the direction and progression of the wetting front.", "capillary rise time lapse|paper wicking capillary action video|capillary action tube video", "bulk pouring; diffusion cloud; surface beading", "Reject clips where liquid is simply poured or already at final height."),
+    c("DCR_PHY_SIPHON_001", "physics_physical_systems", "fluids_pressure_and_buoyancy", "siphon", "siphon flow; self-sustaining siphon", "PHY_FLU_003", "Pressure gradients and gravity maintain liquid flow after priming.", "Liquid continues through an inverted tube with visible source/drain level changes.", "A still frame can show a tube but not primed continuous flow.", "transparent siphon demonstration video|siphon flow liquid level video|siphon experiment video", "pump flow; capillary rise; simple pouring", "Reject clips where flow is pump-driven or not visibly continuous after priming."),
+    c("DCR_PHY_WAVE_001", "physics_physical_systems", "fluids_pressure_and_buoyancy", "Kelvin-Helmholtz instability", "shear wave billows; Kelvin Helmholtz clouds", "PHY_FLU_001", "Velocity shear produces rolling wave-like billows at an interface.", "Billows roll up along a fluid, cloud, or density interface.", "A still frame may resemble waves but cannot show shear-driven roll-up.", "Kelvin Helmholtz instability time lapse|Kelvin Helmholtz clouds video|shear billows fluid video", "surface gravity waves; smoke plume; static cloud bands", "Reject clips without interface roll-up or with only static cloud shapes."),
+    c("DCR_PHY_RT_001", "physics_physical_systems", "fluids_pressure_and_buoyancy", "Rayleigh-Taylor instability", "Rayleigh Taylor fingers; density inversion plumes", "PHY_FLU_002", "A denser fluid penetrates a lighter fluid under acceleration or gravity.", "Finger-like plumes grow downward/upward from an unstable density interface.", "A still frame cannot show growth direction or instability development.", "Rayleigh Taylor instability video|density inversion plume video|Rayleigh Taylor fingers experiment", "diffusion; convection cell; simple pouring", "Reject clips with no visible interface evolution."),
+    c("DCR_CHEM_THICK_001", "chemistry_materials_change", "material_deformation_and_response", "shear thickening", "non-Newtonian fluid impact; oobleck solid-like impact", "CHM_MAT_001", "A suspension resists rapid stress while flowing under slow stress.", "The same material flows slowly but resists or fractures under rapid impact.", "A still frame cannot distinguish rate-dependent response from high viscosity.", "shear thickening oobleck slow motion|non Newtonian fluid impact video|cornstarch water impact slow motion", "high viscosity liquid; gel; plastic clay", "Reject clips showing only slow pouring or only a static impact aftermath."),
+    c("DCR_CHEM_DEND_001", "chemistry_materials_change", "phase_change_and_crystallization", "dendritic crystal growth", "dendrite growth; branching crystal growth; metal dendrites", "CHM_PHA_002", "Anisotropic solidification or deposition creates branching growth fronts.", "Branching crystals extend from nucleation sites over time.", "A still frame cannot establish branching growth direction or active growth.", "dendritic crystal growth time lapse|metal dendrite growth video|ice dendrite growth microscopy", "precipitate cloud; final crystal; random sediment", "Reject final crystals without visible growth sequence."),
+    c("DCR_CHEM_CLOCK_001", "chemistry_materials_change", "redox_and_endpoint_reactions", "iodine clock reaction", "clock reaction; starch iodine clock", "CHM_RED_001", "Delayed visible color appears after reductant depletion.", "A mixture remains light and then abruptly turns dark after a delay.", "A still frame cannot identify delayed endpoint kinetics.", "iodine clock reaction video|iodine clock delayed color change|starch iodine clock reaction", "pH indicator; simple dye mixing; precipitation", "Reject gradual color changes without a delayed abrupt endpoint."),
+    c("DCR_CHEM_BENEDICT_001", "chemistry_materials_change", "redox_and_endpoint_reactions", "Benedict test positive reaction", "Benedict reagent; reducing sugar test", "CHM_RED_002", "Reducing sugars convert copper(II) to copper(I) oxide during heating.", "Blue solution changes toward orange-red with precipitate formation while heated.", "A still frame cannot verify heating-linked reduction and precipitate formation.", "Benedict test reducing sugar color change video|Benedict reagent precipitate heating video|Benedict positive test video", "iodine test; pH indicator; simple boiling", "Reject final tube comparisons without the heating transition."),
+    c("DCR_CHEM_GARDEN_001", "chemistry_materials_change", "precipitation_and_solubility", "chemical garden", "silicate garden; precipitation tubes; crystal garden", "CHM_PRE_002", "Local precipitation and osmosis build tubular membranes at reaction interfaces.", "Colored tubular or branching structures grow upward/outward in solution.", "A still frame cannot reveal active tube growth or membrane-driven extension.", "chemical garden growth time lapse|silicate garden precipitation tubes video|crystal garden growth video", "ordinary crystallization; dye diffusion; bubbles", "Reject static finished gardens without growth sequence."),
+    c("DCR_CHEM_BLUE_001", "chemistry_materials_change", "redox_and_endpoint_reactions", "blue bottle reaction", "redox color cycle; blue bottle experiment", "CHM_RED_003", "Oxygenation and reduction cycle an indicator between color states.", "Shaking turns the solution blue and resting fades it repeatedly.", "A still frame cannot show the reversible cycle tied to agitation/rest.", "blue bottle reaction video|blue bottle redox color cycle|reversible color change shaking reaction", "one-way dye mixing; iodine clock; precipitation", "Reject non-cyclic one-way color changes."),
+    c("DCR_CHEM_DIFF_001", "chemistry_materials_change", "diffusion_mixing_and_transport", "Taylor-Couette laminar mixing", "reversible laminar mixing; viscous folding", "CHM_DIF_002", "Laminar shear stretches and folds interfaces without turbulence.", "Colored bands elongate into layers and may reverse when shear is reversed.", "A still frame cannot distinguish reversible laminar deformation from arbitrary color bands.", "Taylor Couette mixing dye video|reversible laminar mixing video|viscous laminar mixing folding video", "turbulent mixing; diffusion only; precipitation", "Reject simple shaking or turbulent mixing clips."),
+    c("DCR_BIO_PHOTO_001", "biology_living_systems", "plant_growth_and_tropisms", "phototropism", "shoot phototropism; plant bends toward light", "BIO_TRO_001", "Directional light drives differential growth and shoot bending.", "A shoot bends progressively toward a light source over time.", "A still frame cannot establish the direction and temporal bending response.", "phototropism time lapse plant bending light|seedling phototropism video|plant grows toward light time lapse", "gravitropism; nastic folding; ordinary growth", "Reject clips without visible directional light or bending progression."),
+    c("DCR_BIO_GRAVI_001", "biology_living_systems", "plant_growth_and_tropisms", "gravitropism", "geotropism; root gravitropism; shoot gravitropism", "BIO_TRO_002", "Growth direction changes relative to gravity after reorientation.", "Roots or shoots curve after the plant is rotated.", "A still frame cannot prove reorientation-triggered growth curvature.", "root gravitropism time lapse|plant gravitropism reorientation video|geotropism time lapse", "phototropism; hydrotropism; simple elongation", "Reject clips without a rotation/reorientation event."),
+    c("DCR_BIO_PLASM_001", "biology_living_systems", "plant_water_relations_and_turgor", "plasmolysis and deplasmolysis", "plasmolysis; deplasmolysis; plant cell osmotic shrinkage", "BIO_TRA_001", "Osmosis changes plant-cell volume under changing external concentration.", "The protoplast shrinks away from the cell wall and may recover in water.", "A still frame cannot distinguish shrinkage sequence or recovery.", "plasmolysis deplasmolysis time lapse microscopy|plant cell plasmolysis video|onion cell plasmolysis time lapse", "cytoplasmic streaming; cell division; diffusion dye", "Reject single final plasmolyzed images or label-only clips."),
+    c("DCR_BIO_STREAM_001", "biology_living_systems", "plant_water_relations_and_turgor", "cytoplasmic streaming", "cyclosis; chloroplast streaming", "BIO_TRA_003", "Cytoskeletal transport moves organelles through cytoplasm.", "Chloroplasts or organelles circulate along cell edges or tracks.", "A still frame cannot reveal intracellular circulation.", "cytoplasmic streaming chloroplast video|cyclosis elodea microscopy video|chloroplast streaming time lapse", "Brownian motion; cell division; camera drift", "Reject clips where organelle motion is not visible."),
+    c("DCR_BIO_MITOSIS_001", "biology_living_systems", "germination_and_development", "mitosis", "cell division mitosis; chromosome segregation", "BIO_CELL_001", "Spindle dynamics align and separate chromosomes.", "Chromosomes align, separate, and move to opposite poles.", "A still frame may show a phase but not the ordered sequence.", "mitosis chromosome segregation time lapse|cell division mitosis microscopy video|mitosis time lapse chromosomes", "cytokinesis only; cell migration; apoptosis", "Reject static diagrams or clips without chromosome movement."),
+    c("DCR_BIO_DISPLAY_001", "biology_living_systems", "organism_behavior_and_taxis", "courtship display", "mating display; courtship dance; lek display", "BIO_TAX_004", "Behavioral displays use repeated movement patterns to signal mate choice.", "The animal performs a repeated display sequence toward a potential mate or rival.", "A still frame cannot capture the diagnostic sequence, rhythm, or interaction target.", "bird courtship display dance video|courtship display animal behavior video|mating dance display video", "foraging; locomotion; aggression display", "Reject generic walking or flight without display context and sequence."),
+    c("DCR_BIO_MIMIC_001", "biology_living_systems", "organism_behavior_and_taxis", "dynamic mimicry", "motion mimicry; behavioral mimicry", "BIO_TAX_004", "Motion pattern imitates another organism or environmental cue.", "The organism changes motion or posture to resemble another dynamic target.", "A still frame cannot establish imitation through motion pattern.", "dynamic mimicry animal video|motion mimicry behavior video|mimic octopus dynamic mimicry video", "camouflage stillness; courtship display; simple escape", "Reject purely static camouflage."),
+    c("DCR_BIO_JET_001", "biology_living_systems", "animal_locomotion_and_biomechanics", "jet propulsion swimming", "jellyfish propulsion; squid jetting", "BIO_LOC_001", "Expelled fluid creates reaction thrust.", "A bell or mantle contracts and the body moves opposite the expelled fluid.", "A still frame cannot connect contraction pulses with displacement.", "jellyfish jet propulsion video|squid jet propulsion slow motion|bell contraction swimming video", "flapping lift; undulation; crawling", "Reject swimming clips without visible contraction-pulse displacement."),
+    c("DCR_EAR_DOWN_001", "earth_environmental_systems", "weather_and_atmospheric_dynamics", "downburst", "microburst; descending storm outflow", "EAR_WEA_001", "Descending air spreads outward as damaging outflow near the ground.", "Cloud or precipitation core descends and surface outflow spreads radially.", "A still frame cannot reveal downward motion and outflow spread.", "downburst time lapse storm video|microburst video rain shaft outflow|downburst cloud motion video", "tornado; supercell rotation; ordinary rain shaft", "Reject clips without descending/outward flow evidence."),
+    c("DCR_EAR_SUPER_001", "earth_environmental_systems", "weather_and_atmospheric_dynamics", "supercell thunderstorm", "rotating supercell; mesocyclone", "EAR_WEA_002", "Rotating updraft organizes a thunderstorm structure.", "Cloud base or storm structure rotates persistently with organized inflow/outflow.", "A still frame cannot establish persistent rotation.", "supercell thunderstorm time lapse rotation|rotating supercell cloud video|mesocyclone time lapse", "downburst; ordinary cumulus; dust devil", "Reject clips with dramatic clouds but no rotation sequence."),
+    c("DCR_EAR_TORN_001", "earth_environmental_systems", "weather_and_atmospheric_dynamics", "tornado genesis", "funnel cloud formation; tornadogenesis", "EAR_WEA_002", "A rotating column condenses and connects cloud base to ground circulation.", "A funnel lowers or tightens while surface debris/rotation develops.", "A still frame cannot show genesis sequence or ground connection.", "tornado formation time lapse|funnel cloud genesis video|tornadogenesis video", "downburst; dust devil; supercell without funnel", "Reject clips that only show a mature distant tornado without formation evidence."),
+    c("DCR_EAR_SALT_001", "earth_environmental_systems", "erosion_transport_and_deposition", "sediment saltation", "grain saltation; sand hopping; bedload saltation", "EAR_ERO_001", "Fluid shear lifts grains into short hopping trajectories.", "Particles transition from rest to bouncing/hopping transport above a bed.", "A still frame cannot show threshold and hopping trajectories.", "sediment saltation flume video|sand grain saltation slow motion|bedload saltation video", "suspension cloud; landslide; simple settling", "Reject videos where grains are already moving without visible saltation."),
+    c("DCR_EAR_MEANDER_001", "earth_environmental_systems", "hydrology_and_flow_processes", "meander migration", "river meander migration; cutbank erosion point bar deposition", "EAR_HYD_001", "Flow erodes the outer bank and deposits sediment on the inner bank.", "A channel bend shifts laterally or cutbank/point-bar changes over time.", "A still frame cannot establish migration direction or erosion/deposition sequence.", "river meander migration time lapse|meander erosion deposition video|stream table meander migration", "straight runoff; delta growth; debris flow", "Reject static aerial images without change over time."),
+    c("DCR_EAR_GLCALV_001", "earth_environmental_systems", "cryosphere_and_seasonal_change", "glacier calving", "iceberg calving; ice cliff collapse", "EAR_CRY_002", "Fractures propagate and unsupported ice detaches into water.", "An ice front cracks, detaches, falls, and generates waves or roll-over.", "A still frame cannot reveal fracture propagation and detachment.", "glacier calving video|iceberg calving slow motion|glacier front collapse video", "avalanche; ordinary wave; glacier flow", "Reject clips showing only floating ice after detachment."),
+    c("DCR_EAR_PYRO_001", "earth_environmental_systems", "geology_and_geophysical_change", "pyroclastic density current", "pyroclastic flow; ash gravity current", "EAR_GEO_002", "Hot particle-laden gas moves downslope as a dense gravity current.", "A ground-hugging ash cloud accelerates downslope from a volcanic source.", "A still frame cannot distinguish flow direction and gravity-current behavior.", "pyroclastic flow video|pyroclastic density current footage|volcanic ash gravity current video", "ash plume rise; landslide dust; cloud shadow", "Reject vertical ash plumes without ground-hugging flow."),
+    c("DCR_ENG_WATER_001", "engineered_systems_and_operations", "pressure_flow_and_process_control", "water hammer", "hydraulic shock; pipe water hammer", "ENG_PRS_003", "Rapid flow stoppage creates a pressure transient and pipe vibration.", "Valve closure or flow interruption is followed by visible pipe vibration, pressure spike, or banging.", "A still frame cannot reveal transient timing or oscillation.", "water hammer pipe vibration video|hydraulic shock valve closure video|water hammer pressure transient demonstration", "steady pump flow; cavitation; ordinary vibration", "Reject clips without a flow-change trigger."),
+    c("DCR_ENG_CAV_001", "engineered_systems_and_operations", "pressure_flow_and_process_control", "cavitation", "pump cavitation; vapor bubble collapse; propeller cavitation", "ENG_PRS_001", "Low pressure forms vapor bubbles that collapse as pressure recovers.", "Bubbles appear near a propeller, valve, or pump and collapse or cloud dynamically.", "A still frame cannot distinguish cavitation from ordinary air bubbles.", "cavitation propeller slow motion|pump cavitation video|cavitation bubble collapse video", "gas evolution; boiling; aeration", "Reject clips with injected air bubbles but no pressure-driven collapse."),
+    c("DCR_ENG_BUE_001", "engineered_systems_and_operations", "tooling_force_and_precision", "built-up edge", "BUE; built up edge machining; chip adhesion", "ENG_TOOL_001", "Material adheres to a cutting tool edge and intermittently breaks away.", "Chip/tool contact shows adhesion growth and sudden detachment at the cutting edge.", "A still frame cannot show intermittent formation and shedding.", "built up edge machining video|BUE cutting tool slow motion|built-up edge chip formation video", "continuous chip; chatter; tool wear only", "Reject clips without visible tool-edge adhesion dynamics."),
+    c("DCR_ENG_CHATTER_001", "engineered_systems_and_operations", "machines_control_and_failure_modes", "machining chatter", "chatter vibration; regenerative chatter", "ENG_FAIL_001", "Self-excited vibration grows during cutting and leaves periodic surface marks.", "Tool or workpiece oscillates visibly with changing sound/surface pattern.", "A still frame cannot reveal vibration frequency or growth.", "machining chatter vibration video|lathe chatter slow motion|milling chatter vibration video", "steady cutting; built-up edge; resonance demo without cutting", "Reject clips with only final surface marks and no dynamic vibration."),
+    c("DCR_ENG_PID_001", "engineered_systems_and_operations", "machines_control_and_failure_modes", "PID overshoot", "control overshoot; feedback overshoot; setpoint overshoot", "ENG_PRS_003", "Feedback correction drives the output past the setpoint before settling.", "A controlled variable rises past target and oscillates or settles back.", "A still frame cannot show setpoint crossing and settling behavior.", "PID overshoot control system video|feedback control overshoot demonstration|control loop step response video", "steady tracking; random vibration; open-loop motion", "Reject clips without visible target/setpoint or response trace."),
+    c("DCR_ENG_FIL_001", "engineered_systems_and_operations", "filtration_and_separation", "filter cake formation", "cake filtration; filter clogging front", "ENG_SEP_001", "Particles accumulate on a porous medium and change flow resistance.", "A visible layer grows on the filter while filtrate flow changes.", "A still frame cannot establish accumulation rate or flow-response coupling.", "filter cake formation video|cake filtration time lapse|filter clogging particles video", "sedimentation; simple pouring; centrifugation", "Reject clips showing only clean or final dirty filters."),
+    c("DCR_ENG_GRAN_001", "engineered_systems_and_operations", "filtration_and_separation", "Brazil nut effect", "granular segregation; vibration size segregation", "ENG_SEP_003", "Vibration causes smaller grains to percolate downward and larger objects to rise.", "Large particles rise or size layers form under shaking.", "A still frame cannot reveal segregation direction or vibration-driven process.", "Brazil nut effect vibration video|granular segregation shaking video|vibration size segregation video", "sedimentation; mixing; static stratification", "Reject clips with pre-sorted layers only."),
+]
+
+
+def esc(value: object) -> str:
+    return html.escape("" if value is None else str(value), quote=True)
+
+
+def write_csv(path: Path, rows: list[dict[str, str]], fields: list[str]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fields, extrasaction="ignore")
+        writer.writeheader()
+        writer.writerows(rows)
+
+
+def build_queries(rows: list[dict[str, str]]) -> list[dict[str, str]]:
+    output: list[dict[str, str]] = []
+    for row in rows:
+        for search_term in row["search_queries"].split("|"):
+            notes = (
+                f"capability_label=DCR; dynamic_concept_id={row['concept_id']}; "
+                f"linked_principle_id={row['linked_principle_id']}; aliases={row['aliases']}; "
+                f"reject={row['reject_conditions']}; hard_negative_concepts={row['hard_negative_concepts']}"
+            )
+            output.append(
+                {
+                    "search_term": search_term.strip(),
+                    "initial_category": row["domain"],
+                    "candidate_knowledge_point": "__construct_after_dcr_video_gate__",
+                    "domain_seed": row["domain"],
+                    "subdomain_seed": row["subdomain"],
+                    "default_start_sec": "0",
+                    "default_end_sec": "60",
+                    "why_dynamic": row["required_dynamic_signature"],
+                    "notes": notes,
+                    "collector_notes": notes,
+                    "capability_label": "DCR",
+                    "dynamic_concept_id": row["concept_id"],
+                    "dynamic_concept": row["dynamic_concept"],
+                }
+            )
+    return output
+
+
+def write_schema(path: Path) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(CAPABILITY_SCHEMA, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+
+def write_html(path: Path, concepts: list[dict[str, str]], queries: list[dict[str, str]]) -> None:
+    by_domain = Counter(row["domain"] for row in concepts)
+    by_subdomain: dict[tuple[str, str], int] = Counter((row["domain"], row["subdomain"]) for row in concepts)
+    capability_rows = "".join(
+        "<tr>"
+        f"<td>{esc(item['label'])}</td>"
+        f"<td>{esc(item['name'])}</td>"
+        f"<td>{esc(item['tests'])}</td>"
+        f"<td>{esc(item['required'])}</td>"
+        "</tr>"
+        for item in CAPABILITY_SCHEMA["capability_labels"]
+    )
+    domain_rows = "".join(
+        "<tr>"
+        f"<td>{esc(domain.replace('_', ' '))}</td>"
+        f"<td class=\"num\">{count}</td>"
+        f"<td class=\"num\">{sum(1 for query in queries if query['domain_seed'] == domain)}</td>"
+        "</tr>"
+        for domain, count in sorted(by_domain.items())
+    )
+    subdomain_rows = "".join(
+        "<tr>"
+        f"<td>{esc(domain.replace('_', ' '))}</td>"
+        f"<td>{esc(subdomain.replace('_', ' '))}</td>"
+        f"<td class=\"num\">{count}</td>"
+        "</tr>"
+        for (domain, subdomain), count in sorted(by_subdomain.items())
+    )
+    concept_rows = "".join(
+        "<tr>"
+        f"<td>{esc(row['concept_id'])}</td>"
+        f"<td>{esc(row['domain'].replace('_', ' '))}</td>"
+        f"<td>{esc(row['subdomain'].replace('_', ' '))}</td>"
+        f"<td>{esc(row['dynamic_concept'])}</td>"
+        f"<td>{esc(row['aliases'])}</td>"
+        f"<td>{esc(row['linked_principle_id'])}</td>"
+        f"<td>{esc(row['required_dynamic_signature'])}</td>"
+        f"<td>{esc(row['why_static_insufficient'])}</td>"
+        f"<td>{esc(row['hard_negative_concepts'])}</td>"
+        "</tr>"
+        for row in concepts
+    )
+    query_rows = "".join(
+        "<tr>"
+        f"<td>{esc(row['search_term'])}</td>"
+        f"<td>{esc(row['domain_seed'].replace('_', ' '))}</td>"
+        f"<td>{esc(row['subdomain_seed'].replace('_', ' '))}</td>"
+        f"<td>{esc(row['dynamic_concept'])}</td>"
+        f"<td>{esc(row['why_dynamic'])}</td>"
+        "</tr>"
+        for row in queries
+    )
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
+        f"""<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DynaKnow Capability Labels and DCR Inventory</title>
+<style>
+:root{{--bg:#f5f6f4;--panel:#fff;--ink:#202124;--muted:#5f675f;--line:#d9ddd7;--soft:#eef3f1}}
+*{{box-sizing:border-box}}
+body{{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif;line-height:1.42}}
+header{{background:white;border-bottom:1px solid var(--line)}}
+.wrap{{max-width:1480px;margin:0 auto;padding:18px 22px}}
+h1{{margin:0 0 6px;font-size:24px}} h2{{margin:0 0 12px;font-size:18px}} .note{{margin:0;color:var(--muted)}}
+.metrics{{display:grid;grid-template-columns:repeat(5,minmax(140px,1fr));gap:10px;margin-top:14px}}
+.metric{{background:var(--soft);border:1px solid var(--line);border-radius:8px;padding:12px;min-height:78px}}
+.metric strong{{display:block;font-size:24px;margin-bottom:4px}} .metric span{{color:var(--muted)}}
+.panel{{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:16px;margin:16px 0;overflow:auto}}
+table{{width:100%;border-collapse:collapse;font-size:13px}} th,td{{border-bottom:1px solid var(--line);padding:8px;text-align:left;vertical-align:top}}
+th{{color:var(--muted);white-space:nowrap}} .num{{text-align:right;white-space:nowrap}} code{{background:var(--soft);padding:1px 4px;border-radius:4px}}
+@media(max-width:1100px){{.metrics{{grid-template-columns:1fr}}}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<h1>DynaKnow Capability Labels and DCR Inventory</h1>
+<p class="note">Five domains stay fixed. <code>DMR</code> tests why/how mechanism reasoning; <code>DCR</code> tests named dynamic concept recognition that requires temporal evidence.</p>
+<div class="metrics">
+<div class="metric"><strong>2</strong><span>capability labels</span></div>
+<div class="metric"><strong>{len(concepts)}</strong><span>DCR concepts</span></div>
+<div class="metric"><strong>{len(queries)}</strong><span>DCR search queries</span></div>
+<div class="metric"><strong>{len(by_domain)}</strong><span>domains covered</span></div>
+<div class="metric"><strong>{len(by_subdomain)}</strong><span>subdomains covered</span></div>
+</div>
+</div></header>
+<main class="wrap">
+<section class="panel"><h2>Capability Contract</h2><table><thead><tr><th>Label</th><th>Name</th><th>Tests</th><th>Required Evidence</th></tr></thead><tbody>{capability_rows}</tbody></table></section>
+<section class="panel"><h2>Domain Counts</h2><table><thead><tr><th>Domain</th><th class="num">DCR Concepts</th><th class="num">Search Queries</th></tr></thead><tbody>{domain_rows}</tbody></table></section>
+<section class="panel"><h2>Subdomain Counts</h2><table><thead><tr><th>Domain</th><th>Subdomain</th><th class="num">DCR Concepts</th></tr></thead><tbody>{subdomain_rows}</tbody></table></section>
+<section class="panel"><h2>DCR Concept Inventory</h2><table><thead><tr><th>ID</th><th>Domain</th><th>Subdomain</th><th>Concept</th><th>Aliases</th><th>Linked Principle</th><th>Dynamic Signature</th><th>Why Static Is Insufficient</th><th>Hard Negatives</th></tr></thead><tbody>{concept_rows}</tbody></table></section>
+<section class="panel"><h2>DCR Query Pool</h2><table><thead><tr><th>Search Term</th><th>Domain</th><th>Subdomain</th><th>Concept</th><th>Dynamic Signature</th></tr></thead><tbody>{query_rows}</tbody></table></section>
+</main>
+</body></html>""",
+        encoding="utf-8",
+    )
+
+
+def main() -> int:
+    DATA.mkdir(parents=True, exist_ok=True)
+    REPORT.mkdir(parents=True, exist_ok=True)
+    concepts = sorted(DCR_CONCEPTS, key=lambda row: (row["domain"], row["subdomain"], row["concept_id"]))
+    queries = build_queries(concepts)
+    write_schema(CAPABILITY_SCHEMA_OUT)
+    write_csv(DCR_INVENTORY_OUT, concepts, FIELDS)
+    write_csv(DCR_QUERY_OUT, queries, QUERY_FIELDS)
+    write_html(REPORT_OUT, concepts, queries)
+    print(f"wrote capability schema -> {CAPABILITY_SCHEMA_OUT}")
+    print(f"wrote {len(concepts)} DCR concepts -> {DCR_INVENTORY_OUT}")
+    print(f"wrote {len(queries)} DCR search queries -> {DCR_QUERY_OUT}")
+    print(f"wrote DCR report -> {REPORT_OUT}")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

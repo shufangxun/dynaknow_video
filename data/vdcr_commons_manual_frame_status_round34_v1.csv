@@ -1,0 +1,8 @@
+id,video_path,duration_sec,first,middle,last,sparse,contact_sheet,error
+vdcr_commons_mr34_000001,media/vdcr_commons_manual_round34_v1/vdcr_commons_mr34_000001.webm,126.041,ok,ok,ok,12,ok,
+vdcr_commons_mr34_000002,media/vdcr_commons_manual_round34_v1/vdcr_commons_mr34_000002.ogv,66.700,ok,ok,ok,12,ok,
+vdcr_commons_mr34_000003,media/vdcr_commons_manual_round34_v1/vdcr_commons_mr34_000003.ogv,12.646,ok,ok,ok,12,ok,
+vdcr_commons_mr34_000004,media/vdcr_commons_manual_round34_v1/vdcr_commons_mr34_000004.ogv,30.000,ok,ok,ok,12,ok,
+vdcr_commons_mr34_000005,media/vdcr_commons_manual_round34_v1/vdcr_commons_mr34_000005.ogv,20.121,ok,ok,ok,12,ok,
+vdcr_commons_mr34_000006,media/vdcr_commons_manual_round34_v1/vdcr_commons_mr34_000006.gif,,missing,missing,missing,0,missing,ffprobe:could not convert string to float: 'N/A'
+vdcr_commons_mr34_000007,media/vdcr_commons_manual_round34_v1/vdcr_commons_mr34_000007.webm,28.562,ok,ok,ok,12,ok,

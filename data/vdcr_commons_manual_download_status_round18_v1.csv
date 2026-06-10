@@ -1,0 +1,6 @@
+id,ok,status,error,direct_url,local_media
+vdcr_commons_mr18_000001,true,already_present,,https://upload.wikimedia.org/wikipedia/commons/9/91/Marangoni-effect-visualized-in-two-dimensions-Optical-tweezers-for-gas-bubbles-srep34787-s6.ogv,media/vdcr_commons_manual_round18_v1/vdcr_commons_mr18_000001.ogv
+vdcr_commons_mr18_000002,true,download_ok,,https://upload.wikimedia.org/wikipedia/commons/8/88/A_freezing_soap_bubble_in_McGregor%2C_Minnesota.webm,media/vdcr_commons_manual_round18_v1/vdcr_commons_mr18_000002.webm
+vdcr_commons_mr18_000003,true,already_present,,https://web.mit.edu/nnf/research/phenomena/rod_climbing.avi,media/vdcr_commons_manual_round18_v1/vdcr_commons_mr18_000003.avi
+vdcr_commons_mr18_000004,true,already_present,,https://upload.wikimedia.org/wikipedia/commons/7/79/Plazmoliz_and_deplazmoliz.ogv,media/vdcr_commons_manual_round18_v1/vdcr_commons_mr18_000004.ogv
+vdcr_commons_mr18_000005,true,already_present,,https://storage.googleapis.com/earthengine-timelapse/2023/curated/mp4/src/kosi-river-bihar-india.mp4,media/vdcr_commons_manual_round18_v1/vdcr_commons_mr18_000005.mp4

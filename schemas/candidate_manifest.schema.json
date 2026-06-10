@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DynaKnow-Video v1 Retrieval Candidate Manifest Row",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "video_id",
+    "candidate_id",
+    "source_url",
+    "source_platform",
+    "license_or_usage_note",
+    "duration_sec",
+    "domain_seed",
+    "subdomain_seed",
+    "query",
+    "visible_dynamic_phenomenon",
+    "temporal_evidence",
+    "retrieval_status"
+  ],
+  "properties": {
+    "video_id": {"type": "string", "pattern": "^dynaknow_[0-9]{6}$"},
+    "candidate_id": {"type": "string", "minLength": 1},
+    "source_url": {"type": "string", "minLength": 1},
+    "source_platform": {"type": "string", "minLength": 1},
+    "license_or_usage_note": {"type": "string", "minLength": 1},
+    "local_media": {"type": "string"},
+    "duration_sec": {"type": "number", "minimum": 0},
+    "domain_seed": {"type": "string", "minLength": 1},
+    "subdomain_seed": {"type": "string", "minLength": 1},
+    "query": {"type": "string", "minLength": 1},
+    "visible_dynamic_phenomenon": {"type": "string", "minLength": 1},
+    "temporal_evidence": {"type": "string", "minLength": 1},
+    "source_summary": {"type": "string"},
+    "retrieval_status": {
+      "type": "string",
+      "enum": ["candidate", "downloaded", "framed", "needs_trim", "failed", "duplicate"]
+    },
+    "retrieval_notes": {"type": "string"}
+  }
+}

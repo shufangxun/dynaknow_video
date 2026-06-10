@@ -1,0 +1,3 @@
+id,video_path,duration_sec,first,middle,last,sparse,contact_sheet,error
+vdcr_commons_mr14_000001_seg_000000_031270_noaudio,media/vdcr_segments_pilot_v1/vdcr_commons_mr14_000001_seg_000000_031270_noaudio.webm,30.709,ok,ok,ok,8,ok,
+vdcr_commons_mr14_000004_seg_000000_016667_clean,media/vdcr_segments_pilot_v1/vdcr_commons_mr14_000004_seg_000000_016667_clean.webm,16.667,ok,ok,ok,8,ok,

@@ -1,0 +1,23 @@
+{
+  "capability_labels": [
+    {
+      "label": "DMR",
+      "name": "Dynamic Mechanism Reasoning",
+      "tests": "Why/How reasoning over mechanisms, causal chains, prediction, counterfactual changes, and variable effects.",
+      "required": "The answer depends on temporal evidence plus a transferable physical, chemical, biological, environmental, or engineered mechanism."
+    },
+    {
+      "label": "DCR",
+      "name": "Dynamic Concept Recognition",
+      "tests": "What recognition of named dynamic concepts, processes, maneuvers, behaviors, failure modes, or operational phenomena.",
+      "required": "The named concept is defined by motion, sequence, trajectory, rhythm, state transition, interaction, or process morphology; a static frame is insufficient."
+    }
+  ],
+  "domain_contract": "The five first-level domains stay fixed. Capability labels are orthogonal sample/question tags, not new domains.",
+  "dcr_exclusions": [
+    "Static object, species, brand, instrument, or scene identification.",
+    "A label visible in source text or overlay without dynamic visual evidence.",
+    "Generic action names that do not require expert dynamic concept recognition.",
+    "Concepts whose distinguishing evidence is not visible in the video."
+  ]
+}

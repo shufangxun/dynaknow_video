@@ -1,5 +1,0 @@
-video_id,answer_only_leakage,visible_text_or_overlay,ocr_leakage_status,single_frame_sufficient,sparse_frames_sufficient,dynamic_knowledge_supported,decision,review_notes
-dynaknow_000013,medium,dates and map scale labels,fail,yes,yes,partial,reject_text_and_static_shortcut,Satellite time-series frames contain date labels and the source title names melting; the visual process is also closer to map interpretation than direct video dynamics.
-dynaknow_000030,medium,specialist microscopy or paper context,fail,uncertain,no,partial,reject_specialist_context,Specialist molecular/magnetotactic source context leaks the magnetic mechanism and is unsuitable for broad dynamic knowledge evaluation.
-dynaknow_000048,low,none,pass,no,yes,yes,accept_dynamic_seed,Sequentially extracted frames show a floating platform transitioning from horizontal to vertical over time; single frames show only a state but not the buoyancy-driven transition.
-dynaknow_000067,medium,archival title or scene text and broad edited footage,fail,yes,no,partial,reject_ocr_and_weak_dynamic,Archival edited footage does not cleanly isolate a collision event and includes non-task visual text/context.

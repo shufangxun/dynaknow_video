@@ -1,0 +1,30 @@
+{
+  "fields": [
+    "principle_id",
+    "domain",
+    "subdomain",
+    "principle",
+    "required_dynamic_signature",
+    "acceptable_video_types",
+    "reject_conditions",
+    "query_seed",
+    "hard_negative_family",
+    "priority"
+  ],
+  "contract": {
+    "principle": "transferable mechanism, not a video caption",
+    "required_dynamic_signature": "observable temporal evidence needed before a video can pass",
+    "reject_conditions": "conditions that block source-only, static, OCR, or shallow visual matches",
+    "query_seed": "pipe-separated retrieval strings derived from the principle"
+  },
+  "domains": [
+    "biology_living_systems",
+    "chemistry_materials_change",
+    "earth_environmental_systems",
+    "engineered_systems_and_operations",
+    "physics_physical_systems"
+  ],
+  "domain_aliases": {
+    "engineering_operational_systems": "engineered_systems_and_operations"
+  }
+}

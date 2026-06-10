@@ -1,5 +1,0 @@
-id,page_url,direct_url,error,next_action
-dynaknow_000092,https://commons.wikimedia.org/wiki/File:Bouncy_ball_240fps.webm,https://upload.wikimedia.org/wikipedia/commons/1/1d/Bouncy_ball_240fps.webm,not_attempted_after_commons_429,Retry after Wikimedia rate limit clears or use transcode/proxy-free source.
-dynaknow_000093,https://commons.wikimedia.org/wiki/File:Bouncing_Ball.webm,https://upload.wikimedia.org/wikipedia/commons/3/32/Bouncing_Ball.webm,retry_after_too_long_600s,Retry after Wikimedia rate limit clears.
-dynaknow_000094,https://commons.wikimedia.org/wiki/File:Cartesian_diver.ogv,https://upload.wikimedia.org/wikipedia/commons/b/b0/Cartesian_diver.ogv,retry_after_too_long_600s,Retry after Wikimedia rate limit clears.
-dynaknow_000095,https://commons.wikimedia.org/wiki/File:Cartesian_Diver.ogv,https://upload.wikimedia.org/wikipedia/commons/9/92/Cartesian_Diver.ogv,retry_after_too_long_600s,Retry after Wikimedia rate limit clears.

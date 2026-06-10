@@ -27,25 +27,30 @@ FIELDNAMES = [
     "suggested_end_sec",
     "initial_category",
     "candidate_knowledge_point",
+    "domain_seed",
+    "subdomain_seed",
     "why_dynamic",
     "collector_notes",
 ]
 
 
-def api_get(params: dict[str, Any]) -> dict[str, Any]:
+def api_get(params: dict[str, Any], timeout_sec: float, max_attempts: int) -> dict[str, Any]:
     query = urllib.parse.urlencode(params)
     request = urllib.request.Request(
         f"{API_URL}?{query}",
         headers={"User-Agent": USER_AGENT, "Accept": "application/json"},
     )
     last_error: Exception | None = None
-    for attempt in range(5):
+    for attempt in range(max_attempts):
         try:
-            with urllib.request.urlopen(request, timeout=30) as response:
+            with urllib.request.urlopen(request, timeout=timeout_sec) as response:
                 return json.loads(response.read().decode("utf-8"))
         except urllib.error.HTTPError as exc:
             last_error = exc
-            if exc.code not in {403, 429, 500, 502, 503, 504}:
+            # Commons sometimes returns 403 "Too Many Reqs". Treat 403 as a
+            # per-query skip instead of spending minutes retrying a blocked
+            # request; 429/5xx remain retryable.
+            if exc.code == 403 or exc.code not in {429, 500, 502, 503, 504}:
                 raise
             retry_after = exc.headers.get("Retry-After")
             wait_s = float(retry_after) if retry_after and retry_after.isdigit() else 2.0 * (attempt + 1)
@@ -58,7 +63,7 @@ def api_get(params: dict[str, Any]) -> dict[str, Any]:
     raise RuntimeError("unreachable API retry failure")
 
 
-def search_files(search_term: str, limit: int) -> list[str]:
+def search_files(search_term: str, limit: int, timeout_sec: float, max_attempts: int) -> list[str]:
     payload = api_get(
         {
             "action": "query",
@@ -67,12 +72,14 @@ def search_files(search_term: str, limit: int) -> list[str]:
             "srsearch": search_term,
             "srnamespace": 6,
             "srlimit": limit,
-        }
+        },
+        timeout_sec,
+        max_attempts,
     )
     return [row.get("title", "") for row in payload.get("query", {}).get("search", []) if row.get("title", "")]
 
 
-def file_info(titles: list[str]) -> dict[str, dict[str, Any]]:
+def file_info(titles: list[str], timeout_sec: float, max_attempts: int) -> dict[str, dict[str, Any]]:
     output: dict[str, dict[str, Any]] = {}
     for start in range(0, len(titles), 50):
         chunk = titles[start : start + 50]
@@ -85,7 +92,9 @@ def file_info(titles: list[str]) -> dict[str, dict[str, Any]]:
                 "prop": "imageinfo",
                 "titles": "|".join(chunk),
                 "iiprop": "url|mime|metadata|extmetadata|size",
-            }
+            },
+            timeout_sec,
+            max_attempts,
         )
         for page in payload.get("query", {}).get("pages", {}).values():
             title = page.get("title", "")
@@ -140,6 +149,27 @@ def existing_urls(path: Path | None) -> set[str]:
         return {row.get("source_url", "") for row in csv.DictReader(handle)}
 
 
+def write_candidate_checkpoint(path: Path, rows: list[dict[str, str]]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=FIELDNAMES)
+        writer.writeheader()
+        writer.writerows(rows)
+
+
+def write_skipped_checkpoint(path: Path | None, rows: list[dict[str, str]]) -> None:
+    if not path:
+        return
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(
+            handle,
+            fieldnames=["search_term", "initial_category", "candidate_knowledge_point", "error"],
+        )
+        writer.writeheader()
+        writer.writerows(rows)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--queries", required=True, type=Path)
@@ -152,6 +182,8 @@ def main() -> int:
     parser.add_argument("--query-limit", type=int, default=0)
     parser.add_argument("--skipped-output", type=Path)
     parser.add_argument("--id-prefix", default="commons_search")
+    parser.add_argument("--timeout-sec", type=float, default=30.0)
+    parser.add_argument("--max-attempts", type=int, default=5)
     args = parser.parse_args()
 
     with args.queries.open("r", encoding="utf-8", newline="") as handle:
@@ -165,10 +197,13 @@ def main() -> int:
     skipped_rows = []
     seen_urls = existing_urls(args.skip_existing)
     next_id = args.start_index
-    for query in query_rows:
+    total_queries = len(query_rows)
+    for query_index, query in enumerate(query_rows, start=1):
+        before_count = len(rows)
+        print(f"commons_search {query_index}/{total_queries}: {query['search_term']}", flush=True)
         try:
-            titles = search_files(query["search_term"], args.per_query)
-            infos = file_info(titles)
+            titles = search_files(query["search_term"], args.per_query, args.timeout_sec, args.max_attempts)
+            infos = file_info(titles, args.timeout_sec, args.max_attempts)
         except Exception as exc:
             print(f"WARNING: skipping search_term={query['search_term']!r}: {exc}")
             skipped_rows.append(
@@ -179,6 +214,8 @@ def main() -> int:
                     "error": str(exc),
                 }
             )
+            write_candidate_checkpoint(args.output, rows)
+            write_skipped_checkpoint(args.skipped_output, skipped_rows)
             time.sleep(args.sleep_sec)
             continue
         for title in titles:
@@ -208,28 +245,24 @@ def main() -> int:
                     "suggested_end_sec": f"{suggested_end:.1f}",
                     "initial_category": query["initial_category"],
                     "candidate_knowledge_point": query["candidate_knowledge_point"],
+                    "domain_seed": query.get("domain_seed", query.get("initial_category", "")),
+                    "subdomain_seed": query.get("subdomain_seed", ""),
                     "why_dynamic": query.get("why_dynamic", "Search result requires review for visible temporal evidence."),
                     "collector_notes": f"search_collected; search_term={query['search_term']}; commons_title={title}; {query.get('notes', '')}",
                 }
             )
             seen_urls.add(url)
             next_id += 1
+        print(
+            f"commons_search_done {query_index}/{total_queries}: titles={len(titles)} added={len(rows) - before_count} total={len(rows)}",
+            flush=True,
+        )
+        write_candidate_checkpoint(args.output, rows)
+        write_skipped_checkpoint(args.skipped_output, skipped_rows)
         time.sleep(args.sleep_sec)
 
-    args.output.parent.mkdir(parents=True, exist_ok=True)
-    with args.output.open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=FIELDNAMES)
-        writer.writeheader()
-        writer.writerows(rows)
-    if args.skipped_output:
-        args.skipped_output.parent.mkdir(parents=True, exist_ok=True)
-        with args.skipped_output.open("w", encoding="utf-8", newline="") as handle:
-            writer = csv.DictWriter(
-                handle,
-                fieldnames=["search_term", "initial_category", "candidate_knowledge_point", "error"],
-            )
-            writer.writeheader()
-            writer.writerows(skipped_rows)
+    write_candidate_checkpoint(args.output, rows)
+    write_skipped_checkpoint(args.skipped_output, skipped_rows)
     print(f"wrote {len(rows)} rows to {args.output}")
     if skipped_rows:
         print(f"skipped_search_terms={len(skipped_rows)}")

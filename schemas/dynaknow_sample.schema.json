@@ -1,40 +1,44 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "DynaKnow-Video v1 Sample",
+  "title": "DynaKnow-Video v1 Source-Hidden Evaluation Sample",
   "type": "object",
   "additionalProperties": false,
   "required": [
     "video_id",
-    "source_url",
-    "license_or_usage_note",
-    "duration_sec",
-    "category",
+    "split",
+    "domain",
+    "subdomain",
     "knowledge_point",
+    "local_media",
+    "duration_sec",
     "question",
     "choices",
     "answer",
     "dynamic_evidence",
     "static_insufficient_reason",
-    "shortcut_results",
-    "review"
+    "shortcut_labels"
   ],
   "properties": {
     "video_id": {"type": "string", "pattern": "^dynaknow_[0-9]{6}$"},
-    "source_url": {"type": "string", "minLength": 1},
-    "license_or_usage_note": {"type": "string", "minLength": 1},
-    "duration_sec": {"type": "number", "exclusiveMinimum": 0},
-    "category": {
+    "split": {"type": "string", "minLength": 1},
+    "domain": {
       "type": "string",
       "enum": [
-        "physics_mechanics",
-        "chemistry_material_change",
-        "biology_life_processes",
-        "everyday_causal_mechanisms",
-        "procedural_operational_principles"
+        "physics_physical_systems",
+        "chemistry_materials_change",
+        "biology_living_systems",
+        "earth_environmental_systems",
+        "engineering_operational_systems"
       ]
     },
+    "subdomain": {"type": "string", "minLength": 1},
     "knowledge_point": {"type": "string", "minLength": 10},
-    "question": {"type": "string", "minLength": 10},
+    "local_media": {"type": "string", "minLength": 1},
+    "duration_sec": {"type": "number", "exclusiveMinimum": 0},
+    "question": {
+      "type": "string",
+      "const": "Which knowledge point is best demonstrated by the dynamic process in the video?"
+    },
     "choices": {
       "type": "object",
       "additionalProperties": false,
@@ -62,30 +66,23 @@
       }
     },
     "static_insufficient_reason": {"type": "string", "minLength": 10},
-    "shortcut_results": {
+    "shortcut_labels": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["answer_only", "single_frame", "sparse_frame", "subtitle_only", "static_caption_only"],
+      "required": [
+        "answer_only_leakage",
+        "single_frame_sufficient",
+        "sparse_frames_sufficient",
+        "dynamic_knowledge_supported",
+        "ocr_leakage_status"
+      ],
       "properties": {
-        "answer_only": {"type": "string", "enum": ["pass", "fail", "not_run"]},
-        "single_frame": {"type": "string", "enum": ["pass", "fail", "not_run"]},
-        "sparse_frame": {"type": "string", "enum": ["pass", "fail", "not_run"]},
-        "subtitle_only": {"type": "string", "enum": ["pass", "fail", "not_run"]},
-        "static_caption_only": {"type": "string", "enum": ["pass", "fail", "not_run"]}
-      }
-    },
-    "review": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["human_full_video_correct", "human_single_frame_status", "answer_leakage_status", "subtitle_leakage_status", "decision"],
-      "properties": {
-        "human_full_video_correct": {"type": "boolean"},
-        "human_single_frame_status": {"type": "string", "enum": ["wrong", "uncertain", "correct", "not_run"]},
-        "answer_leakage_status": {"type": "string", "enum": ["pass", "fail", "not_run"]},
-        "subtitle_leakage_status": {"type": "string", "enum": ["pass", "fail", "not_run"]},
-        "decision": {"type": "string", "enum": ["accept", "revise", "reject"]}
+        "answer_only_leakage": {"type": "string", "enum": ["low", "medium", "high", "pass", "fail", "not_run", ""]},
+        "single_frame_sufficient": {"type": "string", "enum": ["yes", "no", "uncertain", "pass", "fail", "not_run", ""]},
+        "sparse_frames_sufficient": {"type": "string", "enum": ["yes", "no", "uncertain", "pass", "fail", "not_run", ""]},
+        "dynamic_knowledge_supported": {"type": "string", "enum": ["yes", "no", "uncertain", "pass", "fail", "not_run", ""]},
+        "ocr_leakage_status": {"type": "string", "enum": ["pass", "fail", "target_text_present", "not_run", ""]}
       }
     }
   }
 }
-

@@ -1,0 +1,8 @@
+id,video_path,duration_sec,first,middle,last,sparse,contact_sheet,error
+vdcr_commons_mr12_000001,media/vdcr_commons_manual_round12_v1/vdcr_commons_mr12_000001.webm,,missing,missing,missing,0,missing,ffprobe:could not convert string to float: 'N/A'
+vdcr_commons_mr12_000002,media/vdcr_commons_manual_round12_v1/vdcr_commons_mr12_000002.webm,83.363,ok,ok,ok,8,ok,
+vdcr_commons_mr12_000003,media/vdcr_commons_manual_round12_v1/vdcr_commons_mr12_000003.gif,8.750,ok,ok,ok,8,ok,
+vdcr_commons_mr12_000004,media/vdcr_commons_manual_round12_v1/vdcr_commons_mr12_000004.webm,32.720,ok,ok,ok,8,ok,
+vdcr_commons_mr12_000005,media/vdcr_commons_manual_round12_v1/vdcr_commons_mr12_000005.webm,5.272,ok,ok,ok,8,ok,
+vdcr_commons_mr12_000006,media/vdcr_commons_manual_round12_v1/vdcr_commons_mr12_000006.gif,6.100,ok,ok,missing,5,ok,partial_frame_extraction
+vdcr_commons_mr12_000007,media/vdcr_commons_manual_round12_v1/vdcr_commons_mr12_000007.webm,60.007,ok,ok,ok,8,ok,

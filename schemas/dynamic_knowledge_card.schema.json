@@ -1,0 +1,184 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DynaKnow-Video v1 Dynamic Knowledge Card",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "video_id",
+    "filter_decision",
+    "domain",
+    "subdomain",
+    "local_media",
+    "visible_dynamic_process",
+    "temporal_evidence",
+    "single_frame_failure",
+    "video_anchor_check",
+    "source_text_check",
+    "distractor_check",
+    "candidate_mechanisms",
+    "selected_mechanism",
+    "knowledge_point",
+    "canonical_knowledge_point",
+    "verifier_flags",
+    "critic_notes"
+  ],
+  "properties": {
+    "video_id": {"type": "string", "pattern": "^dynaknow_[0-9]{6}$"},
+    "filter_decision": {"type": "string", "enum": ["pass", "review", "fail", "unknown"]},
+    "domain": {
+      "type": "string",
+      "enum": [
+        "physics_physical_systems",
+        "chemistry_materials_change",
+        "biology_living_systems",
+        "earth_environmental_systems",
+        "engineering_operational_systems",
+        "unmapped"
+      ]
+    },
+    "subdomain": {"type": "string", "minLength": 1},
+    "local_media": {"type": "string"},
+    "source_url": {"type": "string"},
+    "visible_dynamic_process": {"type": "string", "minLength": 10},
+    "temporal_evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["start_sec", "end_sec", "description"],
+        "properties": {
+          "start_sec": {"type": "number", "minimum": 0},
+          "end_sec": {"type": "number", "exclusiveMinimum": 0},
+          "description": {"type": "string", "minLength": 10}
+        }
+      }
+    },
+    "single_frame_failure": {"type": "string", "minLength": 10},
+    "video_anchor_check": {
+      "type": "object",
+      "required": [
+        "visible_temporal_process",
+        "single_frame_blocked",
+        "mechanism_level_wording",
+        "not_just_event_description",
+        "no_shortcut_risk"
+      ],
+      "properties": {
+        "visible_temporal_process": {"type": "boolean"},
+        "single_frame_blocked": {"type": "boolean"},
+        "mechanism_level_wording": {"type": "boolean"},
+        "not_just_event_description": {"type": "boolean"},
+        "no_shortcut_risk": {"type": "boolean"}
+      }
+    },
+    "source_text_check": {
+      "type": "object",
+      "required": [
+        "support_status",
+        "alignment_status",
+        "source_role",
+        "source_grounding_note",
+        "requires_human_source_review"
+      ],
+      "properties": {
+        "support_status": {
+          "type": "string",
+          "enum": ["confirmed", "descriptive_only_not_used", "not_recorded", "needs_review", "source_only_or_hidden"]
+        },
+        "alignment_status": {
+          "type": "string",
+          "enum": [
+            "video_and_source_agree",
+            "video_primary_source_not_used",
+            "source_claim_not_visually_anchored",
+            "source_or_text_leakage_risk",
+            "needs_review"
+          ]
+        },
+        "source_role": {
+          "type": "string",
+          "enum": [
+            "confirm_mechanism_identity",
+            "needs_human_source_check",
+            "reject_source_only_mechanism",
+            "not_used_no_knowledge",
+            "not_recorded"
+          ]
+        },
+        "source_grounding_note": {"type": "string"},
+        "source_risk_tags": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "requires_human_source_review": {"type": "boolean"}
+      }
+    },
+    "candidate_mechanisms": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 5}
+    },
+    "distractor_check": {
+      "type": "object",
+      "required": [
+        "hard_negative_status",
+        "copied_from_other_sample_answer",
+        "answer_only_elimination_risk",
+        "choice_count",
+        "notes"
+      ],
+      "properties": {
+        "hard_negative_status": {"type": "string", "enum": ["pass", "review", "fail"]},
+        "copied_from_other_sample_answer": {
+          "type": "array",
+          "items": {"type": "object"}
+        },
+        "weak_distractors": {
+          "type": "array",
+          "items": {"type": "object"}
+        },
+        "answer_only_elimination_risk": {"type": "boolean"},
+        "choice_count": {"type": "integer", "minimum": 0},
+        "notes": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    },
+    "selected_mechanism": {"type": "string", "minLength": 10},
+    "knowledge_point": {"type": "string", "minLength": 10},
+    "canonical_knowledge_point": {"type": "string", "minLength": 10},
+    "source_grounding": {"type": "string"},
+    "verifier_flags": {
+      "type": "object",
+      "required": [
+        "visible_temporal_process",
+        "single_frame_blocked",
+        "mechanism_level_wording",
+        "not_just_event_description",
+        "source_grounding_is_bounded",
+        "no_hidden_assumption_risk",
+        "no_leakage_risk",
+        "no_shortcut_risk"
+      ],
+      "properties": {
+        "visible_temporal_process": {"type": "boolean"},
+        "single_frame_blocked": {"type": "boolean"},
+        "mechanism_level_wording": {"type": "boolean"},
+        "not_just_event_description": {"type": "boolean"},
+        "not_weak_generic_mechanism": {"type": "boolean"},
+        "source_grounding_is_bounded": {"type": "boolean"},
+        "no_hidden_assumption_risk": {"type": "boolean"},
+        "no_leakage_risk": {"type": "boolean"},
+        "no_shortcut_risk": {"type": "boolean"},
+        "hard_negative_quality": {"type": "boolean"},
+        "duplicate_group_size": {"type": "integer", "minimum": 1}
+      }
+    },
+    "critic_notes": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "audit_reason": {"type": "string"}
+  }
+}

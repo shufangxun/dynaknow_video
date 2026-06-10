@@ -20,6 +20,7 @@ BROAD_KNOWLEDGE_PATTERNS = [
     "some reactions form a precipitate",
     "some mixtures produce gas during chemical reactions",
 ]
+CONSTRUCT_AFTER_DYNAMIC_GATE = "__construct_after_dynamic_gate__"
 
 
 def read_knowledge_points(path: Path) -> tuple[dict[str, dict[str, str]], dict[str, list[str]]]:
@@ -96,10 +97,8 @@ def collect_distractors(
         if candidate != point and candidate not in distractors:
             distractors.append(candidate)
 
-    for other_point in knowledge_by_point:
-        if other_point != point and other_point not in distractors:
-            distractors.append(other_point)
-
+    # Do not backfill from the global knowledge pool. Cross-domain or
+    # cross-mechanism fillers create answer-only elimination shortcuts.
     return distractors[:3]
 
 
@@ -119,6 +118,8 @@ def build_sample(row: dict[str, str], video_id: str, sample_index: int, knowledg
     duration = parse_duration(row.get("raw_duration_sec", ""))
     source_url = row.get("source_url", "").strip()
     if not point or not category or not duration or not source_url:
+        return None
+    if point == CONSTRUCT_AFTER_DYNAMIC_GATE:
         return None
     if has_broad_knowledge_point(point):
         return None

@@ -152,6 +152,8 @@ def main() -> int:
             extension = ".ogv"
         elif direct_url.endswith(".mp4"):
             extension = ".mp4"
+        elif direct_url.endswith(".gif"):
+            extension = ".gif"
         video_path = args.media_dir / f"{item_id}{extension}"
         result = {"id": item_id}
         result.update(extract(video_path, args.frames_dir / item_id, args.sparse_count, args.skip_dark_edges, args.dark_threshold))

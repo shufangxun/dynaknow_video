@@ -1,0 +1,5 @@
+id,video_path,duration_sec,first,middle,last,sparse,contact_sheet,error
+vdcr_commons_mr36_000001,media/vdcr_commons_manual_round36_v1/vdcr_commons_mr36_000001.ogv,10.000,ok,ok,ok,8,ok,
+vdcr_commons_mr36_000002,media/vdcr_commons_manual_round36_v1/vdcr_commons_mr36_000002.ogv,6.750,ok,ok,ok,8,ok,
+vdcr_commons_mr36_000003,media/vdcr_commons_manual_round36_v1/vdcr_commons_mr36_000003.ogv,15.250,ok,ok,ok,8,ok,
+vdcr_commons_mr36_000004,media/vdcr_commons_manual_round36_v1/vdcr_commons_mr36_000004.webm,195.046,ok,ok,ok,8,ok,

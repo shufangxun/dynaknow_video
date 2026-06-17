@@ -1,0 +1,114 @@
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Endocytosis","video_id":"vdcr_000001"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Exocytosis","video_id":"vdcr_000002"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Dzhanibekov Effect / Tennis Racket Theorem","video_id":"vdcr_000003"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Briggs-Rauscher Reaction","video_id":"vdcr_000004"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Double Pendulum Chaos","video_id":"vdcr_000005"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Murmuration","video_id":"vdcr_000006"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Diffusion Flame","video_id":"vdcr_000007"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Slab Avalanche Release","video_id":"vdcr_000008"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Belousov-Zhabotinsky Reaction","video_id":"vdcr_000009"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Pahoehoe Lava Roping","video_id":"vdcr_000010"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Ice Cliff Calving","video_id":"vdcr_000011"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Iodine Clock Reaction","video_id":"vdcr_000012"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Cytoplasmic Streaming","video_id":"vdcr_000013"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Thigmonasty","video_id":"vdcr_000014"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Shear Thickening","video_id":"vdcr_000015"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Aa Lava Front Advance","video_id":"vdcr_000016"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Fire-Whirl Vortex Formation","video_id":"vdcr_000017"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Chemical Garden Growth","video_id":"vdcr_000018"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Blue Bottle Reaction","video_id":"vdcr_000019"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Phototropism","video_id":"vdcr_000020"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Tidal Bore","video_id":"vdcr_000021"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Hydraulic Jump","video_id":"vdcr_000022"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Vortex Shedding / Karman Vortex Street","video_id":"vdcr_000023"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Leidenfrost Droplet Motion","video_id":"vdcr_000024"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Capillary-Driven Jet/Thread Breakup","video_id":"vdcr_000025"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Supercell Mesocyclone Rotation","video_id":"vdcr_000026"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Supercooled Liquid Rapid Crystallization","video_id":"vdcr_000027"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Liesegang Ring Formation","video_id":"vdcr_000028"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Thin-Film Dewetting","video_id":"vdcr_000029"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Bistable Snap-Trap Closure","video_id":"vdcr_000030"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Gust Front Propagation","video_id":"vdcr_000031"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Microtubule Dynamic Instability","video_id":"vdcr_000032"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Calcium Wave Propagation","video_id":"vdcr_000033"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Dust Storm Front Propagation","video_id":"vdcr_000034"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Buoyancy-Driven Smoke Plume Rise","video_id":"vdcr_000035"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Brazil Nut Effect","video_id":"vdcr_000036"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Liquid Bridge Pinch-Off","video_id":"vdcr_000037"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Spinodal Decomposition","video_id":"vdcr_000038"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Metachronal Wave Locomotion","video_id":"vdcr_000039"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Pyroclastic Density Current","video_id":"vdcr_000040"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Meander Neck Cutoff","video_id":"vdcr_000041"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Kelvin-Helmholtz Instability","video_id":"vdcr_000042"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Vortex Ring Formation","video_id":"vdcr_000043"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Bubble-Net Feeding","video_id":"vdcr_000044"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Dendritic Crystal Growth","video_id":"vdcr_000045"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Ostwald Ripening","video_id":"vdcr_000046"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Axonal Transport","video_id":"vdcr_000047"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Phagocytosis","video_id":"vdcr_000048"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Debris-Flow Surge Propagation","video_id":"vdcr_000049"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Plunging Breaker","video_id":"vdcr_000050"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Pyrocumulus Development","video_id":"vdcr_000051"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Cavitation Bubble Growth and Collapse","video_id":"vdcr_000052"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Chemical Traffic Light Reaction","video_id":"vdcr_000053"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Electrolysis Bubble Nucleation and Detachment","video_id":"vdcr_000055"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Coordinated Ciliary Beating Dynamics","video_id":"vdcr_000056"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Gyroscopic Precession","video_id":"vdcr_000057"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Turbidity Current Propagation","video_id":"vdcr_000058"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Nyctinasty","video_id":"vdcr_000059"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Reactive Flame-Front Propagation","video_id":"vdcr_000060"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Metal Displacement Dendrite Growth","video_id":"vdcr_000061"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Gravitropism","video_id":"vdcr_000062"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Tornadogenesis","video_id":"vdcr_000063"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Rayleigh-Plateau Breakup","video_id":"vdcr_000064"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Marangoni-Driven Flow","video_id":"vdcr_000065"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Weissenberg Rod-Climbing Effect","video_id":"vdcr_000066"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Plasmolysis and Deplasmolysis","video_id":"vdcr_000067"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"River Avulsion","video_id":"vdcr_000068"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Taylor-Couette Vortices","video_id":"vdcr_000069"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Crystallization Front Propagation","video_id":"vdcr_000070"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Cytokinetic Furrow Ingression","video_id":"vdcr_000071"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Magnus Effect","video_id":"vdcr_000072"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Osmotic Gel Swelling Dynamics","video_id":"vdcr_000073"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Membrane Blebbing","video_id":"vdcr_000074"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Headward Erosion","video_id":"vdcr_000075"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Thermocapillary Convection","video_id":"vdcr_000076"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Evaporation-Induced Deposition Front","video_id":"vdcr_000077"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Actin Wave","video_id":"vdcr_000078"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Braided Channel Migration","video_id":"vdcr_000079"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Faraday Waves","video_id":"vdcr_000080"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"C-Start Escape Response","video_id":"vdcr_000081"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Crystal Nucleation-and-Growth Dynamics","video_id":"vdcr_000082"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Internal Wave Propagation","video_id":"vdcr_000083"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Euler's Disk Motion","video_id":"vdcr_000084"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Reaction-Precipitation Front Propagation","video_id":"vdcr_000085"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Medusan Jet Propulsion by Bell Contraction","video_id":"vdcr_000086"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Rip Current Formation","video_id":"vdcr_000087"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Rayleigh-Benard Convection","video_id":"vdcr_000088"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Reaction-Diffusion Wave","video_id":"vdcr_000089"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Neutrophil Chemotaxis","video_id":"vdcr_000090"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Downburst / Microburst Outflow","video_id":"vdcr_000091"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Saffman-Taylor Viscous Fingering","video_id":"vdcr_000092"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Gully Headcut Retreat","video_id":"vdcr_000093"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Freeze-Induced Phase Separation","video_id":"vdcr_000094"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Boiling Bubble Nucleation and Departure","video_id":"vdcr_000095"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Early Embryonic Cleavage Sequence","video_id":"vdcr_000096"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Coalescence-Driven Coarsening","video_id":"vdcr_000097"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Coupled Pendulum Synchronization","video_id":"vdcr_000098"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Bacterial Swarming Motility","video_id":"vdcr_000099"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Wind-Driven Fire-Front Propagation","video_id":"vdcr_000100"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Inertia-Capillarity Droplet Rebound","video_id":"vdcr_000101"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Pollen Tube Chemotropic Growth","video_id":"vdcr_000102"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Root Hair Tip Growth","video_id":"vdcr_000103"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Seismic Wave Propagation","video_id":"vdcr_000104"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Stokes Flow Kinematic Reversibility","video_id":"vdcr_000105"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Benedict Positive Reducing-Sugar Reaction","video_id":"vdcr_000106"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Cutbank Erosion / Point-Bar Deposition","video_id":"vdcr_000107"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Worthington Jet","video_id":"vdcr_000108"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Biofilm Colony Expansion Dynamics","video_id":"vdcr_000109"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Electrodeposition Dendrite Growth","video_id":"vdcr_000110"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Dune Slip-Face Grain Avalanche","video_id":"vdcr_000111"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Capillary Rise / Wicking","video_id":"vdcr_000112"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Mitotic Chromosome Segregation","video_id":"vdcr_000113"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Droplet Spreading and Retraction","video_id":"vdcr_000114"}
+{"baseline":"oracle","mode":"full_video","predicted_answer":"Flame Blowoff","video_id":"vdcr_000115"}

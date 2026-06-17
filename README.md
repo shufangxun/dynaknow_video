@@ -8,6 +8,30 @@ Core task:
 Given a video, identify the knowledge point best demonstrated by its dynamic process.
 ```
 
+## Current Usable VDCR v1 Release
+
+The currently runnable evaluation package is the VDCR v1 direct-answer pilot release:
+
+- Dataset: `release/v1/dataset_v1.jsonl`
+- Provenance manifest: `release/v1/manifest_v1.csv`
+- Stats: `release/v1/stats_v1.md`
+- Oracle smoke score: `release/v1/score_oracle_v1.md`
+
+This release contains 114 source-hidden direct-answer samples after excluding one 0.1s single-frame GIF that does not satisfy the dynamic-video requirement. It covers the four VDCR main domains with max imbalance 1: biology 29, chemistry/materials 29, earth/environment 28, and physics 28.
+
+Validate it with:
+
+```bash
+python3 scripts/validate_vdcr_direct_answer.py \
+  --input release/v1/dataset_v1.jsonl \
+  --release-mode \
+  --check-media \
+  --min-samples 100 \
+  --min-duration-sec 1.0 \
+  --min-video-frames 2 \
+  --max-domain-imbalance 1
+```
+
 v1 choices:
 
 - Source: public videos only.

@@ -1,0 +1,4 @@
+run,params_b,correct,total,accuracy,error_rate,score_path
+qwen3vl_2b,2.0,0,114,0.0,1.0,reports/score_vdcr_qwen3vl_2b_frames_fps1.md
+qwen3vl_4b,4.0,1,114,0.008771929824561403,0.9912280701754386,reports/score_vdcr_qwen3vl_4b_frames_fps1.md
+qwen3vl_8b,8.0,0,114,0.0,1.0,reports/score_vdcr_qwen3vl_8b_frames_fps1.md

@@ -1,0 +1,2 @@
+run,params_b,total,direct_exact_correct,direct_exact_accuracy,direct_semantic_correct,direct_semantic_accuracy,mcq_correct,mcq_accuracy
+qwen3vl_2b,2.0,114,0,0.0,0,0.0,114,1.0

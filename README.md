@@ -13,11 +13,16 @@ Given a video, identify the knowledge point best demonstrated by its dynamic pro
 The currently runnable evaluation package is the VDCR v1 direct-answer pilot release:
 
 - Dataset: `release/v1/dataset_v1.jsonl`
+- MCQ variant: `release/v1/dataset_v1_mcq_seed20260619.jsonl`
 - Provenance manifest: `release/v1/manifest_v1.csv`
 - Stats: `release/v1/stats_v1.md`
 - Oracle smoke score: `release/v1/score_oracle_v1.md`
 
 This release contains 114 source-hidden direct-answer samples after excluding one 0.1s single-frame GIF that does not satisfy the dynamic-video requirement. It covers the four VDCR main domains with max imbalance 1: biology 29, chemistry/materials 29, earth/environment 28, and physics 28.
+
+Recommended evaluation reporting uses three separate granularities: open exact
+naming, open description judge, and MCQ recognition. The scoring standards and
+reviewer-facing interpretation are in `docs/vdcr_evaluation_granularity.md`.
 
 Validate it with:
 

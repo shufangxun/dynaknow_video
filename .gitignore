@@ -1,2 +1,16 @@
 __pycache__/
 *.pyc
+.venv*/
+runs/
+media/**
+*.jpg
+*.jpeg
+*.png
+*.webp
+*.gif
+*.mp4
+*.webm
+*.ogv
+*.mov
+*.avi
+*.mkv

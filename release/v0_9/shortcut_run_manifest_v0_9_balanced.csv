@@ -1,4 +1,0 @@
-run_id,shortcut_type,task_file,num_tasks,required_input,status,notes
-shortcut_answer_only_seed,answer_only,release/v0_9/answer_only_tasks_v0_9_balanced.jsonl,12,question_and_choices_only,ready,Use a strong text-only model or human; accept sample only if answer is not reliably inferable.
-shortcut_single_frame_seed,single_frame,release/v0_9/frame_shortcut_tasks_v0_9_balanced.jsonl,36,one_still_frame_plus_question_and_choices,ready,Run first/middle/last separately; flag sample if any single frame is sufficient.
-shortcut_sparse_frames_seed,sparse_frames,release/v0_9/frame_shortcut_tasks_v0_9_balanced.jsonl,12,sparse_still_frames_plus_question_and_choices,ready,"This is a stricter shortcut; if sparse frames solve it, the item may still be valid only if full temporal ordering is needed."

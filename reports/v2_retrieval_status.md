@@ -2,58 +2,61 @@
 
 Date: 2026-06-20
 
-## Active Background Runs
+## Current State
 
-### Shard 0-120, Commons + Archive
+No V2 retrieval background process is currently running.
+
+Recent runs wrote outputs under ignored `runs/v2_retrieval/` directories. These
+outputs are local working artifacts and should be inspected before any rows are
+imported into tracked candidate CSVs.
+
+## Completed Runs
+
+| Run | Query asset | Source mode | Query window | Candidate rows | Notes |
+|---|---|---|---:|---:|---|
+| `v2_shard_000_120_20260620T040948Z` | `data/vdcr_concept_search_queries_v1.csv` | both | 0-120 | no summary | Commons returned throttling before a complete summary was written. |
+| `v2_archive_shard_120_240_20260620T041144Z` | `data/vdcr_concept_search_queries_v1.csv` | archive | 120-240 | 13 | Needs manual quality review before import. |
+| `v2_expansion_archive_smoke_20260620T000000Z` | `data/vdcr_v2_expansion_queries.csv` | archive | 0-40 | 1 | Pre-round-robin smoke; yielded an obvious false positive. |
+| `v2_expansion_archive_smoke_rr_20260620T000000Z` | `data/vdcr_v2_expansion_queries.csv` | archive | 0-40 | 1 | Domain round-robin smoke; yielded the same obvious false positive. |
+
+The expansion smoke false positive was:
 
 ```text
-run_id=v2_shard_000_120_20260620T040948Z
-pid=168567
-run_dir=runs/v2_retrieval/v2_shard_000_120_20260620T040948Z
-log=runs/v2_retrieval/v2_shard_000_120_20260620T040948Z/retrieval.log
+candidate_id=v2_archive_0_000001
+concept=Standing-Wave Mode Formation
+url=https://archive.org/details/the-complete-history-of-the-super-mario-64-a-button-challenge
 ```
 
-This shard was launched with the default source setting (`VDCR_SOURCES=both`).
-Commons is currently returning `403 Too Many Reqs`, so the shard is recording
-Commons skipped rows and will continue into Archive search.
+This row should not be imported; it is a title/metadata false match, not a
+standing-wave video.
 
-### Shard 120-240, Archive Only
+## Retrieval Implications
 
-```text
-run_id=v2_archive_shard_120_240_20260620T041144Z
-pid=169847
-run_dir=runs/v2_retrieval/v2_archive_shard_120_240_20260620T041144Z
-log=runs/v2_retrieval/v2_archive_shard_120_240_20260620T041144Z/retrieval.log
-```
+Archive-only retrieval has low yield for the current V2 expansion backlog. It
+should be used as a secondary source, not the main path for V2 scale-up.
 
-This shard was launched with `VDCR_SOURCES=archive` to avoid wasting time while
-Commons is throttled. Outputs are written under `runs/`, which is ignored by git.
+The better next steps are:
 
-## Monitoring Commands
+1. Retry Commons in small, throttled shards once `403 Too Many Reqs` cools down.
+2. Use curated public-source intake for chemistry/materials and high-value
+   physics/biology concepts.
+3. Inspect the 13 rows from
+   `runs/v2_retrieval/v2_archive_shard_120_240_20260620T041144Z/archive_candidates.csv`
+   before deciding whether any deserve import.
+4. Keep `data/vdcr_v2_expansion_queries.csv` as the main query entry point; it
+   now round-robins domains so early shards do not overfocus on one domain.
+
+## Useful Commands
 
 ```bash
-ps -p 168567 -o pid,etime,cmd
-ps -p 169847 -o pid,etime,cmd
-
-tail -f runs/v2_retrieval/v2_shard_000_120_20260620T040948Z/retrieval.log
-tail -f runs/v2_retrieval/v2_archive_shard_120_240_20260620T041144Z/retrieval.log
-
-cat runs/v2_retrieval/v2_shard_000_120_20260620T040948Z/summary.txt
 cat runs/v2_retrieval/v2_archive_shard_120_240_20260620T041144Z/summary.txt
-```
+head -20 runs/v2_retrieval/v2_archive_shard_120_240_20260620T041144Z/archive_candidates.csv
 
-## Next Shard Commands
-
-If Archive-only retrieval remains stable, continue with:
-
-```bash
-VDCR_SOURCES=archive VDCR_QUERY_OFFSET=240 VDCR_QUERY_LIMIT=120 VDCR_PER_QUERY=5 \
-  bash scripts/start_v2_retrieval_background.sh
-```
-
-When Commons throttling cools down, retry Commons-only shards:
-
-```bash
-VDCR_SOURCES=commons VDCR_QUERY_OFFSET=0 VDCR_QUERY_LIMIT=120 VDCR_PER_QUERY=5 \
-  bash scripts/start_v2_retrieval_background.sh
+VDCR_RUN_ID=v2_expansion_commons_smoke_<timestamp> \
+VDCR_SOURCES=commons \
+VDCR_QUERY_OFFSET=0 \
+VDCR_QUERY_LIMIT=40 \
+VDCR_PER_QUERY=5 \
+VDCR_COMMONS_SLEEP_SEC=3.0 \
+bash scripts/start_v2_retrieval_background.sh data/vdcr_v2_expansion_queries.csv
 ```

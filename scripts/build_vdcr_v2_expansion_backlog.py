@@ -164,8 +164,26 @@ def build_expansion_backlog(
     return rows
 
 
+def round_robin_by_domain(backlog_rows: list[dict[str, str]], max_concepts: int = 0) -> list[dict[str, str]]:
+    by_domain = {domain: [] for domain in DOMAINS}
+    for row in backlog_rows:
+        by_domain.setdefault(row.get("domain", ""), []).append(row)
+
+    selected: list[dict[str, str]] = []
+    while True:
+        added = False
+        for domain in DOMAINS:
+            if by_domain.get(domain):
+                selected.append(by_domain[domain].pop(0))
+                added = True
+                if max_concepts > 0 and len(selected) >= max_concepts:
+                    return selected
+        if not added:
+            return selected
+
+
 def build_backlog_queries(backlog_rows: list[dict[str, str]], max_concepts: int = 0) -> list[dict[str, str]]:
-    selected = backlog_rows[:max_concepts] if max_concepts > 0 else backlog_rows
+    selected = round_robin_by_domain(backlog_rows, max_concepts=max_concepts)
     rows: list[dict[str, str]] = []
     for concept in selected:
         concept_en = concept.get("concept_en", "")

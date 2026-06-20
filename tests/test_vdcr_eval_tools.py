@@ -505,6 +505,65 @@ def test_build_backlog_queries_emits_gate_aware_query_forms() -> None:
     assert "must show liquid front rising" in rows[0]["notes"]
 
 
+def test_build_backlog_queries_round_robins_domains() -> None:
+    backlog_rows = [
+        {
+            "concept_id": "bio",
+            "domain": "biology_living_systems",
+            "subdomain": "biology_family_01",
+            "concept_en": "Phototropism",
+            "concept_zh": "向光性",
+            "priority": "A",
+            "needed_candidates": "3",
+        },
+        {
+            "concept_id": "bio2",
+            "domain": "biology_living_systems",
+            "subdomain": "biology_family_02",
+            "concept_en": "Hydrotropism",
+            "concept_zh": "向水性",
+            "priority": "B",
+            "needed_candidates": "3",
+        },
+        {
+            "concept_id": "chem",
+            "domain": "chemistry_materials_change",
+            "subdomain": "chemistry_family_01",
+            "concept_en": "Iodine Clock Reaction",
+            "concept_zh": "碘钟反应",
+            "priority": "A",
+            "needed_candidates": "3",
+        },
+        {
+            "concept_id": "earth",
+            "domain": "earth_environmental_systems",
+            "subdomain": "earth_family_01",
+            "concept_en": "Tidal Bore",
+            "concept_zh": "涌潮",
+            "priority": "A",
+            "needed_candidates": "3",
+        },
+        {
+            "concept_id": "phys",
+            "domain": "physics_physical_systems",
+            "subdomain": "physics_family_01",
+            "concept_en": "Vortex Shedding",
+            "concept_zh": "涡脱落",
+            "priority": "A",
+            "needed_candidates": "3",
+        },
+    ]
+
+    rows = build_backlog_queries(backlog_rows, max_concepts=4)
+
+    assert [row["domain_seed"] for row in rows[::4]] == [
+        "biology_living_systems",
+        "chemistry_materials_change",
+        "earth_environmental_systems",
+        "physics_physical_systems",
+    ]
+
+
 def test_discover_local_v2_candidate_paths_excludes_combined_output(tmp_path: Path) -> None:
     data = tmp_path / "data"
     data.mkdir()

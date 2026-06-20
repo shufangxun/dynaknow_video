@@ -4,7 +4,8 @@ from pathlib import Path
 import pytest
 
 from scripts.build_vdcr_mcq_from_direct_answer import build_mcq_rows
-from scripts.build_vdcr_v2_construction_assets import build_v2_assets
+from scripts.build_vdcr_v2_construction_assets import build_v2_assets, discover_local_v2_candidate_paths
+from scripts.build_vdcr_v2_gap_queries import build_gap_queries
 from scripts.report_vdcr_dual_eval import build_summary_rows
 from scripts.run_qwen3_vl_vdcr import build_task_prompt, prediction_from_response
 from scripts.score_vdcr_mcq import extract_choice, score_rows
@@ -353,3 +354,67 @@ def test_build_v2_assets_filters_archive_query_term_false_positives() -> None:
     )
 
     assert [row["candidate_id"] for row in assets.review_queue] == ["good_magnus"]
+
+
+def test_build_gap_queries_prioritizes_undercovered_chemistry_concepts() -> None:
+    concepts = [
+        {
+            "concept_id": "c1",
+            "domain": "chemistry_materials_change",
+            "subdomain": "chemistry_family_01",
+            "concept_en": "Iodine Clock Reaction",
+            "concept_zh": "碘钟反应",
+            "priority": "A",
+            "video_availability_guess": "high",
+            "concept_type": "自然动态机制",
+        },
+        {
+            "concept_id": "c2",
+            "domain": "chemistry_materials_change",
+            "subdomain": "chemistry_family_02",
+            "concept_en": "Spinodal Decomposition",
+            "concept_zh": "旋节线分解",
+            "priority": "A",
+            "video_availability_guess": "medium",
+            "concept_type": "自然动态机制",
+        },
+        {
+            "concept_id": "c3",
+            "domain": "physics_physical_systems",
+            "subdomain": "physics_family_01",
+            "concept_en": "Vortex Shedding",
+            "concept_zh": "涡脱落",
+            "priority": "A",
+            "video_availability_guess": "high",
+            "concept_type": "自然动态机制",
+        },
+    ]
+    candidates = [
+        {"candidate_knowledge_point": "Iodine Clock Reaction"},
+        {"candidate_knowledge_point": "Iodine Clock Reaction"},
+    ]
+
+    rows = build_gap_queries(concepts, candidates, domain="chemistry_materials_change", target_candidates_per_concept=3)
+
+    assert [row["candidate_knowledge_point"] for row in rows[:4]] == ["Spinodal Decomposition"] * 4
+    assert {row["search_term"] for row in rows[:4]} == {
+        "Spinodal Decomposition",
+        "Spinodal Decomposition demonstration",
+        "Spinodal Decomposition experiment video",
+        "旋节线分解 Spinodal Decomposition",
+    }
+    assert all(row["initial_category"] == "chemistry_materials_change" for row in rows)
+    assert all(row["candidate_knowledge_point"] != "Vortex Shedding" for row in rows)
+
+
+def test_discover_local_v2_candidate_paths_excludes_combined_output(tmp_path: Path) -> None:
+    data = tmp_path / "data"
+    data.mkdir()
+    curated = data / "vdcr_candidate_videos_curated_chemistry_v2.csv"
+    combined = data / "vdcr_candidate_videos_combined_v2.csv"
+    unrelated = data / "vdcr_candidate_videos_archive_batch02_v1.csv"
+    curated.write_text("candidate_id,source_url\n", encoding="utf-8")
+    combined.write_text("candidate_id,source_url\n", encoding="utf-8")
+    unrelated.write_text("candidate_id,source_url\n", encoding="utf-8")
+
+    assert discover_local_v2_candidate_paths(tmp_path) == [curated]

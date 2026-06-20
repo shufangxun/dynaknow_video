@@ -118,7 +118,7 @@ def read_jsonl(path: Path) -> list[dict[str, Any]]:
 def write_csv(path: Path, rows: list[dict[str, str]], fields: list[str]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=fields)
+        writer = csv.DictWriter(handle, fieldnames=fields, lineterminator="\n")
         writer.writeheader()
         writer.writerows([{field: row.get(field, "") for field in fields} for row in rows])
 
@@ -399,6 +399,17 @@ def discover_v2_candidate_paths(root: Path) -> list[Path]:
     return paths
 
 
+def discover_local_v2_candidate_paths(root: Path) -> list[Path]:
+    data_dir = root / "data"
+    if not data_dir.exists():
+        return []
+    return [
+        path
+        for path in sorted(data_dir.glob("vdcr_candidate_videos_*_v2.csv"))
+        if path.name != "vdcr_candidate_videos_combined_v2.csv"
+    ]
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--v1-samples", type=Path, default=Path("data/vdcr_pilot_samples_direct_answer_v1.jsonl"))
@@ -418,6 +429,8 @@ def main() -> int:
     args = parser.parse_args()
 
     candidate_paths = args.candidate_input or [Path("data/vdcr_candidate_videos_combined_v1.csv")]
+    if not args.candidate_input:
+        candidate_paths.extend(discover_local_v2_candidate_paths(Path(".")))
     if not args.no_discover_runs:
         candidate_paths.extend(discover_v2_candidate_paths(Path(".")))
     candidate_groups = []

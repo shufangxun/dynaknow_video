@@ -162,11 +162,13 @@ Current V2 construction assets:
 - Source-deduplicated candidate pool: `data/vdcr_candidate_videos_combined_v2.csv`
 - Main-set review queue: `data/vdcr_v2_review_queue.csv`
 - Local review triage sheet: `data/vdcr_v2_local_review_triage.csv`
+- Draft source-hidden samples: `data/vdcr_v2_draft_samples.jsonl`
 - Expansion backlog: `data/vdcr_v2_expansion_backlog.csv`
 - Expansion retrieval queries: `data/vdcr_v2_expansion_queries.csv`
 - Review dashboard: `reports/vdcr_v2_review_dashboard.html`
 - Construction status: `reports/vdcr_v2_construction_status.md`
 - Local review triage status: `reports/vdcr_v2_local_review_triage.md`
+- Draft status: `reports/vdcr_v2_draft_status.md`
 - Expansion status: `reports/vdcr_v2_expansion_backlog.md`
 
 Regenerate them with:
@@ -175,6 +177,7 @@ Regenerate them with:
 python3 scripts/build_vdcr_v2_construction_assets.py
 python3 scripts/build_vdcr_v2_review_triage.py
 python3 scripts/apply_vdcr_v2_triage_decisions.py
+python3 scripts/build_vdcr_v2_draft_samples.py
 python3 scripts/build_vdcr_v2_expansion_backlog.py
 python3 scripts/build_vdcr_review_dashboard.py \
   --review-csv data/vdcr_v2_review_queue.csv \

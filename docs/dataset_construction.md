@@ -175,6 +175,19 @@ python3 scripts/apply_vdcr_v2_triage_decisions.py
 Only triage rows with `pass_candidate`, `revise`, or `reject` decisions update
 `data/vdcr_v2_review_queue.csv`.
 
+Build the source-hidden V2 draft dataset from the v1 release seed plus
+`pass_candidate` review rows:
+
+```bash
+python3 scripts/build_vdcr_v2_draft_samples.py
+```
+
+This writes:
+
+- `data/vdcr_v2_draft_samples.jsonl`: source-hidden V2 draft rows.
+- `data/vdcr_v2_draft_manifest.csv`: internal provenance manifest for V2 draft
+  rows. Do not pass this file to models.
+
 Build the V2 expansion backlog after the construction assets:
 
 ```bash

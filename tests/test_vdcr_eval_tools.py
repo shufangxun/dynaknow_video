@@ -14,6 +14,7 @@ from scripts.build_vdcr_v2_expansion_backlog import build_backlog_queries, build
 from scripts.build_vdcr_v2_gap_queries import build_gap_queries
 from scripts.build_vdcr_v2_review_triage import build_triage_rows, decision_counts
 from scripts.apply_vdcr_v2_triage_decisions import apply_triage_decisions
+from scripts.build_vdcr_v2_draft_samples import build_draft_samples
 from scripts.report_vdcr_dual_eval import build_summary_rows
 from scripts.run_qwen3_vl_vdcr import build_task_prompt, prediction_from_response
 from scripts.score_vdcr_mcq import extract_choice, score_rows
@@ -687,6 +688,77 @@ def test_apply_triage_decisions_updates_review_queue_status_and_notes() -> None:
     assert "clear bending sequence" in updated[0]["review_notes"]
     assert updated[1]["review_status"] == "revise"
     assert updated[1]["recommended_action"] == "revise_or_trim_before_draft"
+
+
+def test_build_draft_samples_appends_source_hidden_pass_candidates() -> None:
+    seed_rows = [
+        {
+            "video_id": "vdcr_000001",
+            "split": "v2_seed",
+            "domain": "biology_living_systems",
+            "subdomain": "biology_family_04",
+            "concept_id": "vdcr_concept_0143",
+            "concept": {"en": "Phototropism", "zh": "向光性", "type": "自然动态机制", "validity_tier": "core_main"},
+            "answer": "Phototropism",
+            "accepted_answers": ["Phototropism", "向光性"],
+            "local_media": "media/seed.mp4",
+            "duration_sec": 10,
+            "question": "Which named dynamic concept is instantiated by the temporally evolving process in this video?",
+            "dynamic_evidence": [{"start_sec": 0, "end_sec": 10, "description": "seed evidence long enough"}],
+            "static_insufficient_reason": "A single frame is insufficient because the named dynamic concept requires observing change over time.",
+            "quality_gates": {
+                "temporal_necessity": "pass",
+                "domain_specificity": "pass",
+                "mechanism_bearing_label": "pass",
+                "expert_naming_gap": "pass",
+                "text_or_audio_leakage": "pass",
+                "single_frame_shortcut": "pass",
+                "concept_validity_tier": "core_main",
+            },
+            "source_url": "https://example.test/seed",
+        }
+    ]
+    review_rows = [
+        {
+            "candidate_id": "curated_003002",
+            "candidate_knowledge_point": "Phototropism",
+            "concept_id": "vdcr_concept_0143",
+            "domain_seed": "biology_living_systems",
+            "subdomain_seed": "biology_family_04",
+            "review_status": "pass_candidate",
+            "local_media": "media/photo.ogv",
+            "suggested_start_sec": "0",
+            "suggested_end_sec": "34",
+            "review_notes": "Visible plant bending toward light over time, with no answer text in sparse frames.",
+        }
+    ]
+    concepts = {
+        "Phototropism": {
+            "concept_id": "vdcr_concept_0143",
+            "domain": "biology_living_systems",
+            "subdomain": "biology_family_04",
+            "concept_en": "Phototropism",
+            "concept_zh": "向光性",
+            "recommended_answer_en": "",
+            "recommended_answer_zh": "",
+            "concept_type": "自然动态机制",
+            "concept_validity_tier": "core_main",
+            "accepted_answers_json": '["Phototropism","向光性"]',
+            "production_gate": "must show bending",
+        }
+    }
+    frame_status = {"curated_003002": {"duration_sec": "33.5"}}
+
+    rows = build_draft_samples(seed_rows, review_rows, concepts, frame_status)
+
+    assert len(rows) == 2
+    added = rows[1]
+    assert added["video_id"] == "vdcr_v2_000001"
+    assert added["split"] == "v2_draft"
+    assert added["answer"] == "Phototropism"
+    assert "source_url" not in added
+    assert added["quality_gates"]["text_or_audio_leakage"] == "pass"
+    assert added["duration_sec"] == 33.5
 
 
 def test_discover_local_v2_candidate_paths_excludes_combined_output(tmp_path: Path) -> None:

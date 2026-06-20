@@ -5,6 +5,7 @@ import pytest
 
 from scripts.build_vdcr_mcq_from_direct_answer import build_mcq_rows
 from scripts.build_vdcr_v2_construction_assets import (
+    build_concept_map,
     build_v2_assets,
     discover_local_v2_candidate_paths,
     discover_review_assets,
@@ -359,6 +360,24 @@ def test_build_v2_assets_filters_archive_query_term_false_positives() -> None:
     )
 
     assert [row["candidate_id"] for row in assets.review_queue] == ["good_magnus"]
+
+
+def test_build_concept_map_includes_recommended_answer_names() -> None:
+    rows = [
+        {
+            "concept_id": "vdcr_concept_0011",
+            "concept_en": "Droplet Coalescence",
+            "concept_zh": "液滴并合",
+            "recommended_answer_en": "Capillary-Driven Droplet Coalescence",
+            "recommended_answer_zh": "毛细驱动液滴并合",
+            "accepted_answers_json": '["droplet merging"]',
+        }
+    ]
+
+    mapped = build_concept_map(rows)
+
+    assert mapped["capillary-driven droplet coalescence"]["concept_id"] == "vdcr_concept_0011"
+    assert mapped["毛细驱动液滴并合"]["concept_id"] == "vdcr_concept_0011"
 
 
 def test_build_gap_queries_prioritizes_undercovered_chemistry_concepts() -> None:

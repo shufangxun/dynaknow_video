@@ -1,0 +1,5 @@
+id,video_path,duration_sec,first,middle,last,sparse,contact_sheet,error
+curated_003001,media/vdcr_curated_expansion_v2/curated_003001.webm,16.917,ok,ok,ok,8,ok,
+curated_003002,media/vdcr_curated_expansion_v2/curated_003002.ogv,33.520,ok,ok,ok,8,ok,
+curated_003003,media/vdcr_curated_expansion_v2/curated_003003.webm,9.333,ok,ok,ok,8,ok,
+curated_003004,media/vdcr_curated_expansion_v2/curated_003004.ogv,33.750,ok,ok,ok,8,ok,

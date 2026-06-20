@@ -173,7 +173,7 @@ Build the dashboard with:
 python3 scripts/build_vdcr_review_dashboard.py \
   --review-csv data/vdcr_v2_review_queue.csv \
   --samples data/vdcr_v2_seed_samples.jsonl \
-  --concepts data/vdcr_concept_inventory_v1.csv \
+  --concepts data/vdcr_concept_inventory_tiered_v1.csv \
   --candidates data/vdcr_candidate_videos_combined_v2.csv \
   --output reports/vdcr_v2_review_dashboard.html
 ```

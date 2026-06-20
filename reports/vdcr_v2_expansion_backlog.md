@@ -15,17 +15,16 @@ This backlog identifies main-eligible, non-action concepts whose candidate buffe
 
 | Domain | Concepts | Needed candidates |
 |---|---:|---:|
-| `biology_living_systems` | 36 | 82 |
+| `biology_living_systems` | 36 | 81 |
 | `chemistry_materials_change` | 35 | 76 |
 | `earth_environmental_systems` | 32 | 68 |
-| `physics_physical_systems` | 37 | 85 |
+| `physics_physical_systems` | 37 | 82 |
 
 ## Top Backlog Concepts
 
 | Concept | Domain | Role | Current candidates | Needed candidates | Gate |
 |---|---|---|---:|---:|---|
 | `Guard-Cell Turgor-Driven Stomatal Aperture Dynamics` | `biology_living_systems` | `new_concept` | 0 | 3 | video_must_show_biological_dynamic_sequence_or_strategy_not_species_or_generic_action |
-| `Standing-Wave Mode Formation` | `physics_physical_systems` | `new_concept` | 0 | 3 | video_must_show_named_dynamic_mechanism_sequence_without_title_or_source_leakage |
 | `Actin-Driven Filopodium Protrusion` | `biology_living_systems` | `new_concept` | 0 | 3 | must_show_thin_actin_rich_protrusion_extension_and_retraction_or_exploration_over_time |
 | `Actin-Driven Lamellipodium Extension` | `biology_living_systems` | `new_concept` | 0 | 3 | must_show_actin_driven_sheetlike_cell_edge_protrusion_over_time |
 | `Actomyosin Contractile Ring Constriction` | `biology_living_systems` | `new_concept` | 0 | 3 | video_must_show_biological_dynamic_sequence_or_strategy_not_species_or_generic_action |
@@ -34,7 +33,6 @@ This backlog identifies main-eligible, non-action concepts whose candidate buffe
 | `Pinocytosis` | `biology_living_systems` | `new_concept` | 0 | 3 | video_must_show_biological_dynamic_sequence_or_strategy_not_species_or_generic_action |
 | `Quorum-Sensing Wave` | `biology_living_systems` | `new_concept` | 0 | 3 | video_must_show_biological_dynamic_sequence_or_strategy_not_species_or_generic_action |
 | `Seismonasty` | `biology_living_systems` | `new_concept` | 0 | 3 | video_must_show_biological_dynamic_sequence_or_strategy_not_species_or_generic_action |
-| `Tendril Circumnutation` | `biology_living_systems` | `new_concept` | 0 | 3 | video_must_show_biological_dynamic_sequence_or_strategy_not_species_or_generic_action |
 | `Tendril Coiling` | `biology_living_systems` | `new_concept` | 0 | 3 | video_must_show_biological_dynamic_sequence_or_strategy_not_species_or_generic_action |
 | `Tissue Invagination` | `biology_living_systems` | `new_concept` | 0 | 3 | video_must_show_biological_dynamic_sequence_or_strategy_not_species_or_generic_action |
 | `Vesicle Budding` | `biology_living_systems` | `new_concept` | 0 | 3 | video_must_show_biological_dynamic_sequence_or_strategy_not_species_or_generic_action |
@@ -57,10 +55,12 @@ This backlog identifies main-eligible, non-action concepts whose candidate buffe
 | `Retrogressive Slump Failure` | `earth_environmental_systems` | `new_concept` | 0 | 3 | video_must_show_process_evolution_or_instability_sequence_not_static_landform_or_event_label |
 | `Rotational Slump Failure` | `earth_environmental_systems` | `new_concept` | 0 | 3 | video_must_show_process_evolution_or_instability_sequence_not_static_landform_or_event_label |
 | `Snow Slab Crown Crack Propagation` | `earth_environmental_systems` | `new_concept` | 0 | 3 | video_must_show_process_evolution_or_instability_sequence_not_static_landform_or_event_label |
-| `Capillary-Driven Droplet Coalescence` | `physics_physical_systems` | `new_concept` | 0 | 3 | video_must_show_named_dynamic_mechanism_sequence_without_title_or_source_leakage |
 | `Coherent Interference Pattern Formation` | `physics_physical_systems` | `new_concept` | 0 | 3 | video_must_show_named_dynamic_mechanism_sequence_without_title_or_source_leakage |
 | `Contact-Line Pinning and Depinning` | `physics_physical_systems` | `new_concept` | 0 | 3 | video_must_show_named_dynamic_mechanism_sequence_without_title_or_source_leakage |
 | `Detonation Front Propagation` | `physics_physical_systems` | `new_concept` | 0 | 3 | video_must_show_named_dynamic_mechanism_sequence_without_title_or_source_leakage |
 | `Dielectric Barrier Discharge Streamers` | `physics_physical_systems` | `new_concept` | 0 | 3 | video_must_show_named_dynamic_mechanism_sequence_without_title_or_source_leakage |
 | `Glow Discharge Propagation` | `physics_physical_systems` | `new_concept` | 0 | 3 | video_must_show_named_dynamic_mechanism_sequence_without_title_or_source_leakage |
 | `Granular Surface Avalanche` | `physics_physical_systems` | `new_concept` | 0 | 3 | video_must_show_named_dynamic_mechanism_sequence_without_title_or_source_leakage |
+| `Inertia-Driven Droplet Impact Spreading` | `physics_physical_systems` | `new_concept` | 0 | 3 | must_show_impact_then_radial_spreading_sequence |
+| `Ligament-Mediated Atomization` | `physics_physical_systems` | `new_concept` | 0 | 3 | video_must_show_named_dynamic_mechanism_sequence_without_title_or_source_leakage |
+| `Mach Cone Formation` | `physics_physical_systems` | `new_concept` | 0 | 3 | video_must_show_named_dynamic_mechanism_sequence_without_title_or_source_leakage |

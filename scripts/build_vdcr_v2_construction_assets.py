@@ -192,7 +192,12 @@ def needs_auto_retrieval_text_filter(row: dict[str, str]) -> bool:
 def build_concept_map(rows: list[dict[str, str]]) -> dict[str, dict[str, str]]:
     mapped: dict[str, dict[str, str]] = {}
     for row in rows:
-        keys = [row.get("concept_en", ""), row.get("concept_zh", "")]
+        keys = [
+            row.get("concept_en", ""),
+            row.get("concept_zh", ""),
+            row.get("recommended_answer_en", ""),
+            row.get("recommended_answer_zh", ""),
+        ]
         try:
             keys.extend(json.loads(row.get("accepted_answers_json", "[]")))
         except json.JSONDecodeError:
@@ -436,7 +441,7 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--v1-samples", type=Path, default=Path("data/vdcr_pilot_samples_direct_answer_v1.jsonl"))
     parser.add_argument("--v1-release-filter", type=Path, default=Path("release/v1/dataset_v1.jsonl"))
-    parser.add_argument("--concepts", type=Path, default=Path("data/vdcr_concept_inventory_v1.csv"))
+    parser.add_argument("--concepts", type=Path, default=Path("data/vdcr_concept_inventory_tiered_v1.csv"))
     parser.add_argument("--candidate-input", action="append", default=[], type=Path)
     parser.add_argument("--review-input", action="append", default=[], type=Path)
     parser.add_argument("--output-candidates", type=Path, default=Path("data/vdcr_candidate_videos_combined_v2.csv"))

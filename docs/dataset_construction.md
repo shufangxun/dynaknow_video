@@ -152,6 +152,19 @@ This writes:
   review status, and concept-cluster rank fields.
 - `reports/vdcr_v2_construction_status.md`: current construction counts.
 
+Build the local review triage sheet after media/contact-sheet assets are
+available:
+
+```bash
+python3 scripts/build_vdcr_v2_review_triage.py
+```
+
+This writes:
+
+- `data/vdcr_v2_local_review_triage.csv`: V2 candidates that already have local
+  media and sparse contact sheets, with blank decision fields for manual review.
+- `reports/vdcr_v2_local_review_triage.md`: local-review candidate summary.
+
 Build the V2 expansion backlog after the construction assets:
 
 ```bash

@@ -12,6 +12,7 @@ from scripts.build_vdcr_v2_construction_assets import (
 )
 from scripts.build_vdcr_v2_expansion_backlog import build_backlog_queries, build_expansion_backlog
 from scripts.build_vdcr_v2_gap_queries import build_gap_queries
+from scripts.build_vdcr_v2_review_triage import build_triage_rows
 from scripts.report_vdcr_dual_eval import build_summary_rows
 from scripts.run_qwen3_vl_vdcr import build_task_prompt, prediction_from_response
 from scripts.score_vdcr_mcq import extract_choice, score_rows
@@ -581,6 +582,34 @@ def test_build_backlog_queries_round_robins_domains() -> None:
         "earth_environmental_systems",
         "physics_physical_systems",
     ]
+
+
+def test_build_triage_rows_keeps_only_local_reviewable_candidates() -> None:
+    review_rows = [
+        {
+            "candidate_id": "curated_003002",
+            "candidate_knowledge_point": "Phototropism",
+            "domain_seed": "biology_living_systems",
+            "local_media": "media/photo.ogv",
+            "contact_sheet": "reports/photo.jpg",
+            "review_notes": "visible bending",
+        },
+        {
+            "candidate_id": "remote_only",
+            "candidate_knowledge_point": "Tidal Bore",
+            "domain_seed": "earth_environmental_systems",
+            "local_media": "",
+            "contact_sheet": "",
+            "review_notes": "remote source only",
+        },
+    ]
+
+    rows = build_triage_rows(review_rows)
+
+    assert [row["candidate_id"] for row in rows] == ["curated_003002"]
+    assert rows[0]["triage_status"] == "ready_for_manual_review"
+    assert rows[0]["reviewer_decision"] == ""
+    assert rows[0]["visual_gate_focus"] == "visible bending"
 
 
 def test_discover_local_v2_candidate_paths_excludes_combined_output(tmp_path: Path) -> None:

@@ -152,6 +152,21 @@ This writes:
   review status, and concept-cluster rank fields.
 - `reports/vdcr_v2_construction_status.md`: current construction counts.
 
+Build the V2 expansion backlog after the construction assets:
+
+```bash
+python3 scripts/build_vdcr_v2_expansion_backlog.py
+```
+
+This writes:
+
+- `data/vdcr_v2_expansion_backlog.csv`: main-eligible, non-action concepts
+  whose candidate buffer is below the V2 target.
+- `data/vdcr_v2_expansion_queries.csv`: retrieval queries for the highest
+  priority backlog concepts.
+- `reports/vdcr_v2_expansion_backlog.md`: domain and role summary for V2
+  concept/video expansion.
+
 Build the dashboard with:
 
 ```bash

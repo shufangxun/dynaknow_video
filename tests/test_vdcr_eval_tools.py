@@ -9,6 +9,7 @@ from scripts.build_vdcr_v2_construction_assets import (
     discover_local_v2_candidate_paths,
     discover_review_assets,
 )
+from scripts.build_vdcr_v2_expansion_backlog import build_backlog_queries, build_expansion_backlog
 from scripts.build_vdcr_v2_gap_queries import build_gap_queries
 from scripts.report_vdcr_dual_eval import build_summary_rows
 from scripts.run_qwen3_vl_vdcr import build_task_prompt, prediction_from_response
@@ -409,6 +410,99 @@ def test_build_gap_queries_prioritizes_undercovered_chemistry_concepts() -> None
     }
     assert all(row["initial_category"] == "chemistry_materials_change" for row in rows)
     assert all(row["candidate_knowledge_point"] != "Vortex Shedding" for row in rows)
+
+
+def test_build_expansion_backlog_prioritizes_main_eligible_undercovered_concepts() -> None:
+    concepts = [
+        {
+            "concept_id": "c1",
+            "domain": "physics_physical_systems",
+            "subdomain": "physics_family_01",
+            "concept_en": "Capillary Rise / Wicking",
+            "concept_zh": "毛细上升/芯吸",
+            "priority": "A",
+            "video_availability_guess": "high",
+            "concept_type": "自然动态机制",
+            "concept_validity_tier": "core_main",
+            "production_gate": "must show liquid front rising",
+        },
+        {
+            "concept_id": "c2",
+            "domain": "chemistry_materials_change",
+            "subdomain": "chemistry_family_01",
+            "concept_en": "Iodine Clock Reaction",
+            "concept_zh": "碘钟反应",
+            "priority": "A",
+            "video_availability_guess": "high",
+            "concept_type": "实验动态图样",
+            "concept_validity_tier": "strict_main_candidate",
+            "production_gate": "must show delayed color change",
+        },
+        {
+            "concept_id": "c3",
+            "domain": "biology_living_systems",
+            "subdomain": "biology_family_01",
+            "concept_en": "Rabona",
+            "concept_zh": "拉波纳",
+            "priority": "A",
+            "video_availability_guess": "high",
+            "concept_type": "专有动态动作概念",
+            "concept_validity_tier": "stress_slice",
+            "production_gate": "action",
+        },
+    ]
+    seed_samples = [
+        {"answer": "Iodine Clock Reaction", "domain": "chemistry_materials_change"},
+    ]
+    candidates = [
+        {"candidate_knowledge_point": "Iodine Clock Reaction"},
+        {"candidate_knowledge_point": "Iodine Clock Reaction"},
+    ]
+    review_queue = [
+        {"candidate_knowledge_point": "Iodine Clock Reaction"},
+    ]
+
+    rows = build_expansion_backlog(
+        concepts=concepts,
+        seed_samples=seed_samples,
+        candidates=candidates,
+        review_queue=review_queue,
+        target_candidates_per_concept=3,
+    )
+
+    assert [row["concept_en"] for row in rows] == ["Capillary Rise / Wicking", "Iodine Clock Reaction"]
+    assert rows[0]["expansion_role"] == "new_concept"
+    assert rows[0]["needed_candidates"] == "3"
+    assert rows[1]["expansion_role"] == "repeat_concept"
+    assert rows[1]["current_candidates"] == "2"
+    assert rows[1]["current_review_queue"] == "1"
+
+
+def test_build_backlog_queries_emits_gate_aware_query_forms() -> None:
+    backlog_rows = [
+        {
+            "concept_id": "c1",
+            "domain": "physics_physical_systems",
+            "subdomain": "physics_family_01",
+            "concept_en": "Capillary Rise / Wicking",
+            "concept_zh": "毛细上升/芯吸",
+            "priority": "A",
+            "video_availability_guess": "high",
+            "needed_candidates": "3",
+            "production_gate": "must show liquid front rising",
+        }
+    ]
+
+    rows = build_backlog_queries(backlog_rows, max_concepts=1)
+
+    assert [row["search_term"] for row in rows] == [
+        "Capillary Rise / Wicking",
+        "Capillary Rise / Wicking demonstration",
+        "Capillary Rise / Wicking experiment video",
+        "毛细上升/芯吸 Capillary Rise / Wicking",
+    ]
+    assert all(row["candidate_knowledge_point"] == "Capillary Rise / Wicking" for row in rows)
+    assert "must show liquid front rising" in rows[0]["notes"]
 
 
 def test_discover_local_v2_candidate_paths_excludes_combined_output(tmp_path: Path) -> None:

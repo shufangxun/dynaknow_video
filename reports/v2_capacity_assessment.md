@@ -49,22 +49,31 @@ Remaining main-eligible concepts by domain:
 
 Current candidate pool:
 
-- 593 source-deduplicated candidates
+- 616 source-deduplicated candidates
 - 296 reviewed rows
-- 395 currently unreviewed candidates
+- 172 current V2 main-set review queue rows
 
-Unreviewed candidates by domain:
+Current V2 main review queue by domain:
 
-| Domain | Unreviewed candidates |
+| Domain | Review queue rows |
 |---|---:|
-| biology_living_systems | 191 |
-| earth_environmental_systems | 84 |
-| physics_physical_systems | 83 |
-| chemistry_materials_change | 37 |
+| biology_living_systems | 50 |
+| chemistry_materials_change | 22 |
+| earth_environmental_systems | 49 |
+| physics_physical_systems | 51 |
 
 Observed reviewed-pass rates are roughly 18-35% depending on domain, before
 final license, leakage, and release filtering. This means the current pool can
 likely support a V1.1 expansion, but not a clean 300-video V2 by itself.
+
+Current V2 expansion backlog:
+
+- `data/vdcr_v2_expansion_backlog.csv`: 140 concepts below the target candidate
+  buffer of 3 candidates per concept.
+- `data/vdcr_v2_expansion_queries.csv`: 480 retrieval query rows for the top
+  backlog concepts.
+- Backlog mix: 66 V1-uncovered concepts and 74 repeated-concept clusters that
+  need more visually distinct candidate videos.
 
 ## Why 240 First
 

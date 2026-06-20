@@ -161,13 +161,17 @@ Current V2 construction assets:
 - Seed samples from the formal v1 release: `data/vdcr_v2_seed_samples.jsonl`
 - Source-deduplicated candidate pool: `data/vdcr_candidate_videos_combined_v2.csv`
 - Main-set review queue: `data/vdcr_v2_review_queue.csv`
+- Expansion backlog: `data/vdcr_v2_expansion_backlog.csv`
+- Expansion retrieval queries: `data/vdcr_v2_expansion_queries.csv`
 - Review dashboard: `reports/vdcr_v2_review_dashboard.html`
 - Construction status: `reports/vdcr_v2_construction_status.md`
+- Expansion status: `reports/vdcr_v2_expansion_backlog.md`
 
 Regenerate them with:
 
 ```bash
 python3 scripts/build_vdcr_v2_construction_assets.py
+python3 scripts/build_vdcr_v2_expansion_backlog.py
 python3 scripts/build_vdcr_review_dashboard.py \
   --review-csv data/vdcr_v2_review_queue.csv \
   --samples data/vdcr_v2_seed_samples.jsonl \

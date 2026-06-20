@@ -17,10 +17,10 @@ Files:
 
 Current draft contents:
 
-- total samples: 121
+- total samples: 122
 - V1 seed samples: 114
-- appended V2 pass-candidate samples: 7
-- unique answers: 114
+- appended V2 pass-candidate samples: 8
+- unique answers: 115
 - repeated concepts currently added: `Blue Bottle Reaction`, `Briggs-Rauscher Reaction`, `Chemical Garden Growth`, `Hydraulic Jump`, `Ice Cliff Calving`, `Iodine Clock Reaction`, `Phototropism`
 
 Domain distribution:
@@ -30,7 +30,7 @@ Domain distribution:
 | `biology_living_systems` | 30 |
 | `chemistry_materials_change` | 33 |
 | `earth_environmental_systems` | 29 |
-| `physics_physical_systems` | 29 |
+| `physics_physical_systems` | 30 |
 
 ## Appended V2 Draft Rows
 
@@ -38,11 +38,12 @@ Domain distribution:
 |---|---|---|---|
 | `vdcr_v2_000001` | `curated_004001` | `Hydraulic Jump` | `physics_physical_systems` |
 | `vdcr_v2_000002` | `curated_005001` | `Ice Cliff Calving` | `earth_environmental_systems` |
-| `vdcr_v2_000003` | `curated_002003` | `Chemical Garden Growth` | `chemistry_materials_change` |
-| `vdcr_v2_000004` | `curated_002006` | `Briggs-Rauscher Reaction` | `chemistry_materials_change` |
-| `vdcr_v2_000005` | `curated_003002` | `Phototropism` | `biology_living_systems` |
-| `vdcr_v2_000006` | `curated_002002` | `Iodine Clock Reaction` | `chemistry_materials_change` |
-| `vdcr_v2_000007` | `curated_002004_seg_020000_145000` | `Blue Bottle Reaction` | `chemistry_materials_change` |
+| `vdcr_v2_000003` | `curated_006001` | `Rayleigh-Taylor Instability` | `physics_physical_systems` |
+| `vdcr_v2_000004` | `curated_002003` | `Chemical Garden Growth` | `chemistry_materials_change` |
+| `vdcr_v2_000005` | `curated_002006` | `Briggs-Rauscher Reaction` | `chemistry_materials_change` |
+| `vdcr_v2_000006` | `curated_003002` | `Phototropism` | `biology_living_systems` |
+| `vdcr_v2_000007` | `curated_002002` | `Iodine Clock Reaction` | `chemistry_materials_change` |
+| `vdcr_v2_000008` | `curated_002004_seg_020000_145000` | `Blue Bottle Reaction` | `chemistry_materials_change` |
 
 ## Validation
 
@@ -52,17 +53,20 @@ Schema/source-hidden validation:
 python3 scripts/validate_vdcr_direct_answer.py \
   --input data/vdcr_v2_draft_samples.jsonl \
   --release-mode \
-  --min-samples 121 \
+  --min-samples 122 \
   --allow-duplicate-answers \
   --max-videos-per-answer 3
 ```
 
-This validates 121 rows. Full `--check-media` currently depends on restoring the
-ignored V1 media cache. The 7 appended V2 media files were checked locally with
+This validates 122 rows. Full `--check-media` currently depends on restoring the
+ignored V1 media cache. The 8 appended V2 media files were checked locally with
 `ffmpeg` and each yielded at least 2 video frames.
 
 Recent appended rows include:
 
+- `curated_006001`: a Commons/Scientific Reports `Rayleigh-Taylor Instability`
+  OGV. Sparse frames show a real-time density interface evolving into descending
+  fingers/plumes, with no visible answer text leakage.
 - `curated_005001`: a second `Ice Cliff Calving` video from Commons. Sparse
   frames show glacier/ice cliff detachment and collapse into water with a splash
   plume, with no obvious text leakage.

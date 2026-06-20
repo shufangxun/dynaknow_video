@@ -224,8 +224,8 @@ def merge_candidates(candidate_groups: list[list[dict[str, str]]]) -> list[dict[
 def build_review_status(review_rows: list[dict[str, str]]) -> dict[str, str]:
     status_by_id: dict[str, str] = {}
     for row in review_rows:
-        review_id = row.get("id", "")
-        status = row.get("review_status", "")
+        review_id = row.get("id", "") or row.get("candidate_id", "")
+        status = row.get("review_status", "") or row.get("reviewer_decision", "")
         if not review_id or not status:
             continue
         status_by_id[review_id] = status
@@ -260,7 +260,13 @@ def candidate_subdomain(row: dict[str, str], concept: dict[str, str]) -> str:
     return concept.get("subdomain") or row.get("subdomain_seed", "")
 
 
-def priority_rank(row: dict[str, str], concept: dict[str, str], status: str, gap: int) -> tuple[int, int, int, float, str]:
+def priority_rank(
+    row: dict[str, str],
+    concept: dict[str, str],
+    status: str,
+    gap: int,
+    has_review_assets: bool = False,
+) -> tuple[int, bool, int, int, float, str]:
     priority = concept.get("priority") or ("A" if "priority=A" in row.get("collector_notes", "") else "")
     priority_order = {"A": 0, "B": 1, "C": 2, "": 3}
     try:
@@ -269,6 +275,7 @@ def priority_rank(row: dict[str, str], concept: dict[str, str], status: str, gap
         duration = 0.0
     return (
         -gap,
+        not has_review_assets,
         STATUS_RANK.get(status, 4),
         priority_order.get(priority, 3),
         duration <= 0 or duration > 180,
@@ -327,7 +334,9 @@ def build_v2_assets(
             filtered_cluster_cap += 1
             continue
         gap = max(target_per_domain - domain_counts.get(domain, 0), 0)
-        eligible.append((priority_rank(row, concept, status, gap), row, concept, status, domain, gap, repeat_rank))
+        review_assets = (review_assets_by_id or {}).get(row.get("candidate_id", ""), {})
+        has_review_assets = bool(review_assets.get("local_media") and review_assets.get("contact_sheet"))
+        eligible.append((priority_rank(row, concept, status, gap, has_review_assets), row, concept, status, domain, gap, repeat_rank))
 
     eligible.sort(key=lambda item: item[0])
     review_queue: list[dict[str, str]] = []
@@ -420,7 +429,24 @@ def discover_local_v2_candidate_paths(root: Path) -> list[Path]:
 def discover_review_assets(root: Path) -> dict[str, dict[str, str]]:
     assets: dict[str, dict[str, str]] = {}
     data_dir = root / "data"
+    def exists_in_root(path_text: str) -> bool:
+        if not path_text:
+            return False
+        path = Path(path_text)
+        if not path.is_absolute():
+            path = root / path
+        return path.exists()
+
     if data_dir.exists():
+        for review_path in sorted(data_dir.glob("vdcr_pilot_manual_review*_v1.csv")):
+            for row in read_csv(review_path):
+                item_id = row.get("id", "")
+                if not item_id:
+                    continue
+                if exists_in_root(row.get("local_media", "")):
+                    assets.setdefault(item_id, {})["local_media"] = row.get("local_media", "")
+                if exists_in_root(row.get("contact_sheet", "")):
+                    assets.setdefault(item_id, {})["contact_sheet"] = row.get("contact_sheet", "")
         for status_path in sorted(data_dir.glob("vdcr_v2_*download_status.csv")):
             for row in read_csv(status_path):
                 if row.get("ok") != "true" or not row.get("local_media"):
@@ -469,7 +495,10 @@ def main() -> int:
                 row["source_csv"] = str(path)
         candidate_groups.append(rows)
 
-    review_paths = args.review_input or sorted(Path("data").glob("vdcr_pilot_manual_review*_v1.csv"))
+    review_paths = args.review_input or [
+        *sorted(Path("data").glob("vdcr_pilot_manual_review*_v1.csv")),
+        Path("data/vdcr_v2_local_review_triage.csv"),
+    ]
     reviewed_status = build_review_status([row for path in review_paths for row in read_csv(path)])
 
     release_rows = read_jsonl(args.v1_release_filter)

@@ -52,29 +52,50 @@
     <div class="metrics">
       <div class="metric"><strong>114</strong><span>Samples</span><small>direct-answer JSONL</small></div>
       <div class="metric"><strong>175</strong><span>Reviewed Rows</span><small>manual review CSV</small></div>
-      <div class="metric"><strong>7</strong><span>Pass Candidates</span></div>
+      <div class="metric"><strong>8</strong><span>Pass Candidates</span></div>
       <div class="metric"><strong>114</strong><span>Unique Answers</span><small>duplicates: 0</small></div>
       <div class="metric"><strong>Direct</strong><span>Question Type</span><small>no MCQ options</small></div>
     </div>
     <div class="filters">
-      <select id="status"><option value="">All statuses</option><option value="pass_candidate">pass_candidate (7)</option><option value="review">review (162)</option><option value="revise">revise (6)</option></select>
+      <select id="status"><option value="">All statuses</option><option value="pass_candidate">pass_candidate (8)</option><option value="reject">reject (1)</option><option value="review">review (160)</option><option value="revise">revise (6)</option></select>
       <select id="domain"><option value="">All domains</option><option value="biology_living_systems">biology_living_systems (29)</option><option value="chemistry_materials_change">chemistry_materials_change (29)</option><option value="earth_environmental_systems">earth_environmental_systems (28)</option><option value="physics_physical_systems">physics_physical_systems (28)</option></select>
       <input id="search" placeholder="Search answer, id, notes">
     </div>
   </header>
   <main>
     <div class="tables">
-      <section class="panel"><h2>Review Status</h2><table><tbody><tr><td>review</td><td>162</td></tr><tr><td>pass_candidate</td><td>7</td></tr><tr><td>revise</td><td>6</td></tr></tbody></table></section>
+      <section class="panel"><h2>Review Status</h2><table><tbody><tr><td>review</td><td>160</td></tr><tr><td>pass_candidate</td><td>8</td></tr><tr><td>revise</td><td>6</td></tr><tr><td>reject</td><td>1</td></tr></tbody></table></section>
       <section class="panel"><h2>Pass Samples By Domain</h2><table><tbody><tr><td>biology_living_systems</td><td>29</td></tr><tr><td>chemistry_materials_change</td><td>29</td></tr><tr><td>physics_physical_systems</td><td>28</td></tr><tr><td>earth_environmental_systems</td><td>28</td></tr></tbody></table></section>
       <section class="panel"><h2>Pass Samples By Tier</h2><table><tbody><tr><td>strict_main_candidate</td><td>70</td></tr><tr><td>core_main</td><td>44</td></tr></tbody></table></section>
-      <section class="panel"><h2>Reviewed Sources</h2><table><tbody><tr><td>internet_archive</td><td>152</td></tr><tr><td>unknown</td><td>13</td></tr><tr><td>wikimedia_commons</td><td>8</td></tr><tr><td>national_park_service</td><td>1</td></tr><tr><td>Wikimedia Commons</td><td>1</td></tr></tbody></table></section>
+      <section class="panel"><h2>Reviewed Sources</h2><table><tbody><tr><td>internet_archive</td><td>151</td></tr><tr><td>unknown</td><td>14</td></tr><tr><td>wikimedia_commons</td><td>8</td></tr><tr><td>national_park_service</td><td>1</td></tr><tr><td>Wikimedia Commons</td><td>1</td></tr></tbody></table></section>
     </div>
     <section id="cards">
-    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Rayleigh-Taylor Instability">
-      <div class="media"></div>
+    <article class="card pass" data-status="pass_candidate" data-domain="physics_physical_systems" data-answer="Hydraulic Jump">
+      <div class="media"><video controls preload="metadata" src="../media/vdcr_curated_physics_v2/curated_004001.webm" type="video/webm"></video><a href="vdcr_v2_curated_physics_sparse_sheets/curated_004001_sparse.jpg" target="_blank"><img src="vdcr_v2_curated_physics_sparse_sheets/curated_004001_sparse.jpg" alt="contact sheet"></a></div>
       <div class="body">
         <div class="topline">
-          <span class="status">review</span>
+          <span class="status">pass_candidate</span>
+          <span class="id">curated_004001</span>
+
+        </div>
+        <h2>Hydraulic Jump <span>水跃</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_01</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>candidate_ready_for_v2_draft</dd>
+          <dt>Window</dt><dd>0.0s - 11.0s</dd>
+          <dt>Source</dt><dd></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate should show a transition from fast shallow flow to slower turbulent deeper flow, not merely a static water surface. | triage_decision=pass_candidate; triage_notes=sparse frames show persistent hydraulic-jump transition from fast incoming flow to turbulent deeper downstream flow; no obvious text leakage</dd>
+        </dl>
+      </div>
+    </article>
+
+    <article class="card reject" data-status="reject" data-domain="physics_physical_systems" data-answer="Rayleigh-Taylor Instability">
+      <div class="media"><video controls preload="metadata" src="../media/vdcr_commons_manual_round13_v1/vdcr_commons_mr13_000005.gif" type="image/gif"></video><a href="vdcr_v2_legacy_round13_sparse_sheets/vdcr_commons_mr13_000005_sparse.jpg" target="_blank"><img src="vdcr_v2_legacy_round13_sparse_sheets/vdcr_commons_mr13_000005_sparse.jpg" alt="contact sheet"></a></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">reject</span>
           <span class="id">vdcr_commons_mr13_000005</span>
 
         </div>
@@ -82,11 +103,116 @@
         <dl>
           <dt>Domain</dt><dd>physics_physical_systems / physics_family_01</dd>
           <dt>Tier</dt><dd></dd>
-          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Action</dt><dd>do_not_use_for_v2</dd>
           <dt>Window</dt><dd>0s - 0.1s</dd>
           <dt>Source</dt><dd><a href="https://commons.wikimedia.org/wiki/File:HD-Rayleigh-Taylor.gif" target="_blank" rel="noreferrer">https://commons.wikimedia.org/wiki/File:HD-Rayleigh-Taylor.gif</a></dd>
           <dt>Gate</dt><dd></dd>
-          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Rayleigh-Taylor Instability, not merely an object, scene, or static result.</dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Rayleigh-Taylor Instability, not merely an object, scene, or static result. | triage_decision=reject; triage_notes=source is a single composite GIF frame showing multiple panels rather than a temporal video sequence; too much single-frame shortcut risk</dd>
+        </dl>
+      </div>
+    </article>
+
+    <article class="card pass" data-status="pass_candidate" data-domain="earth_environmental_systems" data-answer="Ice Cliff Calving">
+      <div class="media"><video controls preload="metadata" src="../media/vdcr_curated_earth_v2/curated_005001.webm" type="video/webm"></video><a href="vdcr_v2_curated_earth_sparse_sheets/curated_005001_sparse.jpg" target="_blank"><img src="vdcr_v2_curated_earth_sparse_sheets/curated_005001_sparse.jpg" alt="contact sheet"></a></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">pass_candidate</span>
+          <span class="id">curated_005001</span>
+
+        </div>
+        <h2>Ice Cliff Calving <span>冰崖崩解</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_05</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>candidate_ready_for_v2_draft</dd>
+          <dt>Window</dt><dd>0.0s - 38.0s</dd>
+          <dt>Source</dt><dd></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate should show an ice cliff destabilizing and detaching into the water, not merely a static glacier face. | triage_decision=pass_candidate; triage_notes=sparse frames show glacier/ice cliff detachment and collapse into water with splash plume; no obvious text leakage</dd>
+        </dl>
+      </div>
+    </article>
+
+    <article class="card revise" data-status="revise" data-domain="" data-answer="Standing-Wave Mode Formation">
+      <div class="media"><video controls preload="metadata" src="../media/vdcr_curated_expansion_v2/curated_003003.webm" type="video/webm"></video><a href="vdcr_v2_curated_expansion_sparse_sheets/curated_003003_sparse.jpg" target="_blank"><img src="vdcr_v2_curated_expansion_sparse_sheets/curated_003003_sparse.jpg" alt="contact sheet"></a></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">revise</span>
+          <span class="id">curated_003003</span>
+
+        </div>
+        <h2>Standing-Wave Mode Formation <span></span></h2>
+        <dl>
+          <dt>Domain</dt><dd> / </dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>revise_or_trim_before_draft</dd>
+          <dt>Window</dt><dd>0.0s - 9.3s</dd>
+          <dt>Source</dt><dd></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate should show oscillatory standing-wave current or field mode structure forming over time, not merely a static wave diagram. | triage_decision=revise; triage_notes=diagrammatic electromagnetic animation may be radiation/field propagation rather than standing-wave mode formation; needs concept rebinding or rejection</dd>
+        </dl>
+      </div>
+    </article>
+
+    <article class="card revise" data-status="revise" data-domain="earth_environmental_systems" data-answer="Pyroclastic Density Current">
+      <div class="media"><video controls preload="metadata" src="../media/vdcr_curated_earth_v2/curated_005002.webm" type="video/webm"></video><a href="vdcr_v2_curated_earth_sparse_sheets/curated_005002_sparse.jpg" target="_blank"><img src="vdcr_v2_curated_earth_sparse_sheets/curated_005002_sparse.jpg" alt="contact sheet"></a></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">revise</span>
+          <span class="id">curated_005002</span>
+
+        </div>
+        <h2>Pyroclastic Density Current <span>火山碎屑密度流</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_04</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>revise_or_trim_before_draft</dd>
+          <dt>Window</dt><dd>0.0s - 82.0s</dd>
+          <dt>Source</dt><dd></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate should show eruption-column collapse or ground-hugging pyroclastic density currents traveling down volcano slopes over time, not merely a static eruption plume. | triage_decision=revise; triage_notes=night camera/watermark frames show eruption and possible downslope incandescent flow but sparse frames do not fully prove a ground-hugging pyroclastic density current</dd>
+        </dl>
+      </div>
+    </article>
+
+    <article class="card revise" data-status="revise" data-domain="" data-answer="Capillary-Driven Droplet Coalescence">
+      <div class="media"><video controls preload="metadata" src="../media/vdcr_curated_expansion_v2/curated_003004.ogv" type="video/ogg"></video><a href="vdcr_v2_curated_expansion_sparse_sheets/curated_003004_sparse.jpg" target="_blank"><img src="vdcr_v2_curated_expansion_sparse_sheets/curated_003004_sparse.jpg" alt="contact sheet"></a></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">revise</span>
+          <span class="id">curated_003004</span>
+
+        </div>
+        <h2>Capillary-Driven Droplet Coalescence <span></span></h2>
+        <dl>
+          <dt>Domain</dt><dd> / </dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>revise_or_trim_before_draft</dd>
+          <dt>Window</dt><dd>0.0s - 34.0s</dd>
+          <dt>Source</dt><dd></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate should show primary droplets merging into larger droplets over time; reviewer must check whether capillary coalescence is visually grounded rather than only source-described. | triage_decision=revise; triage_notes=sparse frames show droplet array growth/contact but not enough to prove capillary-driven coalescence without full-video review</dd>
+        </dl>
+      </div>
+    </article>
+
+    <article class="card pass" data-status="pass_candidate" data-domain="physics_physical_systems" data-answer="Rayleigh-Taylor Instability">
+      <div class="media"><video controls preload="metadata" src="../media/vdcr_curated_physics_rt_v2/curated_006001.ogv" type="video/ogg"></video><a href="vdcr_v2_curated_physics_rt_sparse_sheets/curated_006001_sparse.jpg" target="_blank"><img src="vdcr_v2_curated_physics_rt_sparse_sheets/curated_006001_sparse.jpg" alt="contact sheet"></a></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">pass_candidate</span>
+          <span class="id">curated_006001</span>
+
+        </div>
+        <h2>Rayleigh-Taylor Instability <span>瑞利-泰勒不稳定性</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_01</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>candidate_ready_for_v2_draft</dd>
+          <dt>Window</dt><dd>0.0s - 12.0s</dd>
+          <dt>Source</dt><dd></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate should show a density interface evolving into Rayleigh-Taylor fingers/plumes over time, not a static instability diagram or a single composite frame. | triage_decision=pass_candidate; triage_notes=sparse frames show a real-time density interface evolving into descending fingers/plumes; no visible answer text leakage</dd>
         </dl>
       </div>
     </article>
@@ -238,27 +364,6 @@
       </div>
     </article>
 
-    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Rayleigh-Taylor Instability">
-      <div class="media"></div>
-      <div class="body">
-        <div class="topline">
-          <span class="status">review</span>
-          <span class="id">vdcr_archive_only_000002</span>
-
-        </div>
-        <h2>Rayleigh-Taylor Instability <span>瑞利-泰勒不稳定性</span></h2>
-        <dl>
-          <dt>Domain</dt><dd>physics_physical_systems / physics_family_01</dd>
-          <dt>Tier</dt><dd></dd>
-          <dt>Action</dt><dd>inspect_video</dd>
-          <dt>Window</dt><dd>0.0s - 15.8s</dd>
-          <dt>Source</dt><dd><a href="https://archive.org/details/SVS-44" target="_blank" rel="noreferrer">https://archive.org/details/SVS-44</a></dd>
-          <dt>Gate</dt><dd></dd>
-          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Rayleigh-Taylor Instability, not merely an object, scene, or static result.</dd>
-        </dl>
-      </div>
-    </article>
-
     <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Faraday Waves">
       <div class="media"></div>
       <div class="body">
@@ -360,69 +465,6 @@
           <dt>Source</dt><dd><a href="https://commons.wikimedia.org/wiki/File:Refraction-animation.gif" target="_blank" rel="noreferrer">https://commons.wikimedia.org/wiki/File:Refraction-animation.gif</a></dd>
           <dt>Gate</dt><dd></dd>
           <dt>Notes</dt><dd>Candidate must show wavefronts bending as they enter a region with different propagation speed; a static wave pattern is insufficient.</dd>
-        </dl>
-      </div>
-    </article>
-
-    <article class="card revise" data-status="revise" data-domain="" data-answer="Standing-Wave Mode Formation">
-      <div class="media"><video controls preload="metadata" src="../media/vdcr_curated_expansion_v2/curated_003003.webm" type="video/webm"></video><a href="vdcr_v2_curated_expansion_sparse_sheets/curated_003003_sparse.jpg" target="_blank"><img src="vdcr_v2_curated_expansion_sparse_sheets/curated_003003_sparse.jpg" alt="contact sheet"></a></div>
-      <div class="body">
-        <div class="topline">
-          <span class="status">revise</span>
-          <span class="id">curated_003003</span>
-
-        </div>
-        <h2>Standing-Wave Mode Formation <span></span></h2>
-        <dl>
-          <dt>Domain</dt><dd> / </dd>
-          <dt>Tier</dt><dd></dd>
-          <dt>Action</dt><dd>revise_or_trim_before_draft</dd>
-          <dt>Window</dt><dd>0.0s - 9.3s</dd>
-          <dt>Source</dt><dd></dd>
-          <dt>Gate</dt><dd></dd>
-          <dt>Notes</dt><dd>Candidate should show oscillatory standing-wave current or field mode structure forming over time, not merely a static wave diagram. | triage_decision=revise; triage_notes=diagrammatic electromagnetic animation may be radiation/field propagation rather than standing-wave mode formation; needs concept rebinding or rejection</dd>
-        </dl>
-      </div>
-    </article>
-
-    <article class="card pass" data-status="pass_candidate" data-domain="physics_physical_systems" data-answer="Hydraulic Jump">
-      <div class="media"><video controls preload="metadata" src="../media/vdcr_curated_physics_v2/curated_004001.webm" type="video/webm"></video><a href="vdcr_v2_curated_physics_sparse_sheets/curated_004001_sparse.jpg" target="_blank"><img src="vdcr_v2_curated_physics_sparse_sheets/curated_004001_sparse.jpg" alt="contact sheet"></a></div>
-      <div class="body">
-        <div class="topline">
-          <span class="status">pass_candidate</span>
-          <span class="id">curated_004001</span>
-
-        </div>
-        <h2>Hydraulic Jump <span>水跃</span></h2>
-        <dl>
-          <dt>Domain</dt><dd>physics_physical_systems / physics_family_01</dd>
-          <dt>Tier</dt><dd></dd>
-          <dt>Action</dt><dd>candidate_ready_for_v2_draft</dd>
-          <dt>Window</dt><dd>0.0s - 11.0s</dd>
-          <dt>Source</dt><dd></dd>
-          <dt>Gate</dt><dd></dd>
-          <dt>Notes</dt><dd>Candidate should show a transition from fast shallow flow to slower turbulent deeper flow, not merely a static water surface. | triage_decision=pass_candidate; triage_notes=sparse frames show persistent hydraulic-jump transition from fast incoming flow to turbulent deeper downstream flow; no obvious text leakage</dd>
-        </dl>
-      </div>
-    </article>
-
-    <article class="card revise" data-status="revise" data-domain="earth_environmental_systems" data-answer="Pyroclastic Density Current">
-      <div class="media"><video controls preload="metadata" src="../media/vdcr_curated_earth_v2/curated_005002.webm" type="video/webm"></video><a href="vdcr_v2_curated_earth_sparse_sheets/curated_005002_sparse.jpg" target="_blank"><img src="vdcr_v2_curated_earth_sparse_sheets/curated_005002_sparse.jpg" alt="contact sheet"></a></div>
-      <div class="body">
-        <div class="topline">
-          <span class="status">revise</span>
-          <span class="id">curated_005002</span>
-
-        </div>
-        <h2>Pyroclastic Density Current <span>火山碎屑密度流</span></h2>
-        <dl>
-          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_04</dd>
-          <dt>Tier</dt><dd></dd>
-          <dt>Action</dt><dd>revise_or_trim_before_draft</dd>
-          <dt>Window</dt><dd>0.0s - 82.0s</dd>
-          <dt>Source</dt><dd></dd>
-          <dt>Gate</dt><dd></dd>
-          <dt>Notes</dt><dd>Candidate should show eruption-column collapse or ground-hugging pyroclastic density currents traveling down volcano slopes over time, not merely a static eruption plume. | triage_decision=revise; triage_notes=night camera/watermark frames show eruption and possible downslope incandescent flow but sparse frames do not fully prove a ground-hugging pyroclastic density current</dd>
         </dl>
       </div>
     </article>
@@ -927,48 +969,6 @@
           <dt>Source</dt><dd><a href="https://archive.org/details/kdamore" target="_blank" rel="noreferrer">https://archive.org/details/kdamore</a></dd>
           <dt>Gate</dt><dd></dd>
           <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Crown Splash, not merely an object, scene, or static result.</dd>
-        </dl>
-      </div>
-    </article>
-
-    <article class="card revise" data-status="revise" data-domain="" data-answer="Capillary-Driven Droplet Coalescence">
-      <div class="media"><video controls preload="metadata" src="../media/vdcr_curated_expansion_v2/curated_003004.ogv" type="video/ogg"></video><a href="vdcr_v2_curated_expansion_sparse_sheets/curated_003004_sparse.jpg" target="_blank"><img src="vdcr_v2_curated_expansion_sparse_sheets/curated_003004_sparse.jpg" alt="contact sheet"></a></div>
-      <div class="body">
-        <div class="topline">
-          <span class="status">revise</span>
-          <span class="id">curated_003004</span>
-
-        </div>
-        <h2>Capillary-Driven Droplet Coalescence <span></span></h2>
-        <dl>
-          <dt>Domain</dt><dd> / </dd>
-          <dt>Tier</dt><dd></dd>
-          <dt>Action</dt><dd>revise_or_trim_before_draft</dd>
-          <dt>Window</dt><dd>0.0s - 34.0s</dd>
-          <dt>Source</dt><dd></dd>
-          <dt>Gate</dt><dd></dd>
-          <dt>Notes</dt><dd>Candidate should show primary droplets merging into larger droplets over time; reviewer must check whether capillary coalescence is visually grounded rather than only source-described. | triage_decision=revise; triage_notes=sparse frames show droplet array growth/contact but not enough to prove capillary-driven coalescence without full-video review</dd>
-        </dl>
-      </div>
-    </article>
-
-    <article class="card pass" data-status="pass_candidate" data-domain="earth_environmental_systems" data-answer="Ice Cliff Calving">
-      <div class="media"><video controls preload="metadata" src="../media/vdcr_curated_earth_v2/curated_005001.webm" type="video/webm"></video><a href="vdcr_v2_curated_earth_sparse_sheets/curated_005001_sparse.jpg" target="_blank"><img src="vdcr_v2_curated_earth_sparse_sheets/curated_005001_sparse.jpg" alt="contact sheet"></a></div>
-      <div class="body">
-        <div class="topline">
-          <span class="status">pass_candidate</span>
-          <span class="id">curated_005001</span>
-
-        </div>
-        <h2>Ice Cliff Calving <span>冰崖崩解</span></h2>
-        <dl>
-          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_05</dd>
-          <dt>Tier</dt><dd></dd>
-          <dt>Action</dt><dd>candidate_ready_for_v2_draft</dd>
-          <dt>Window</dt><dd>0.0s - 38.0s</dd>
-          <dt>Source</dt><dd></dd>
-          <dt>Gate</dt><dd></dd>
-          <dt>Notes</dt><dd>Candidate should show an ice cliff destabilizing and detaching into the water, not merely a static glacier face. | triage_decision=pass_candidate; triage_notes=sparse frames show glacier/ice cliff detachment and collapse into water with splash plume; no obvious text leakage</dd>
         </dl>
       </div>
     </article>
@@ -2212,6 +2212,174 @@
       </div>
     </article>
 
+    <article class="card pass" data-status="pass_candidate" data-domain="chemistry_materials_change" data-answer="Chemical Garden Growth">
+      <div class="media"><video controls preload="metadata" src="../media/vdcr_curated_chemistry_v2/curated_002003.ogv" type="video/ogg"></video><a href="vdcr_v2_curated_chemistry_sparse_sheets/curated_002003_sparse.jpg" target="_blank"><img src="vdcr_v2_curated_chemistry_sparse_sheets/curated_002003_sparse.jpg" alt="contact sheet"></a></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">pass_candidate</span>
+          <span class="id">curated_002003</span>
+
+        </div>
+        <h2>Chemical Garden Growth <span>化学花园生长</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>chemistry_materials_change / materials_family_04</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>candidate_ready_for_v2_draft</dd>
+          <dt>Window</dt><dd>0.0s - 32.0s</dd>
+          <dt>Source</dt><dd></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate should show mineral tube growth over time in a chemical garden, not merely the final grown structure. | triage_decision=pass_candidate; triage_notes=strong mineral tube growth over time; no obvious sparse-frame text leakage</dd>
+        </dl>
+      </div>
+    </article>
+
+    <article class="card pass" data-status="pass_candidate" data-domain="chemistry_materials_change" data-answer="Briggs-Rauscher Reaction">
+      <div class="media"><video controls preload="metadata" src="../media/vdcr_curated_chemistry_v2/curated_002006.webm" type="video/webm"></video><a href="vdcr_v2_curated_chemistry_sparse_sheets/curated_002006_sparse.jpg" target="_blank"><img src="vdcr_v2_curated_chemistry_sparse_sheets/curated_002006_sparse.jpg" alt="contact sheet"></a></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">pass_candidate</span>
+          <span class="id">curated_002006</span>
+
+        </div>
+        <h2>Briggs-Rauscher Reaction <span>布里格斯-劳舍尔振荡反应</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>chemistry_materials_change / materials_family_03</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>candidate_ready_for_v2_draft</dd>
+          <dt>Window</dt><dd>0.0s - 32.0s</dd>
+          <dt>Source</dt><dd></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate should show oscillating color changes characteristic of the Briggs-Rauscher reaction, not merely a static reaction vessel. | triage_decision=pass_candidate; triage_notes=strong repeated color oscillation visible across sparse frames</dd>
+        </dl>
+      </div>
+    </article>
+
+    <article class="card pass" data-status="pass_candidate" data-domain="biology_living_systems" data-answer="Phototropism">
+      <div class="media"><video controls preload="metadata" src="../media/vdcr_curated_expansion_v2/curated_003002.ogv" type="video/ogg"></video><a href="vdcr_v2_curated_expansion_sparse_sheets/curated_003002_sparse.jpg" target="_blank"><img src="vdcr_v2_curated_expansion_sparse_sheets/curated_003002_sparse.jpg" alt="contact sheet"></a></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">pass_candidate</span>
+          <span class="id">curated_003002</span>
+
+        </div>
+        <h2>Phototropism <span>向光性</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_04</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>candidate_ready_for_v2_draft</dd>
+          <dt>Window</dt><dd>0.0s - 34.0s</dd>
+          <dt>Source</dt><dd></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate should show plant bending/growth direction change in response to light over time, not merely a static plant orientation. | triage_decision=pass_candidate; triage_notes=clean time-lapse plant bending; no obvious sparse-frame text leakage</dd>
+        </dl>
+      </div>
+    </article>
+
+    <article class="card pass" data-status="pass_candidate" data-domain="chemistry_materials_change" data-answer="Iodine Clock Reaction">
+      <div class="media"><video controls preload="metadata" src="../media/vdcr_curated_chemistry_v2/curated_002002.ogv" type="video/ogg"></video><a href="vdcr_v2_curated_chemistry_sparse_sheets/curated_002002_sparse.jpg" target="_blank"><img src="vdcr_v2_curated_chemistry_sparse_sheets/curated_002002_sparse.jpg" alt="contact sheet"></a></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">pass_candidate</span>
+          <span class="id">curated_002002</span>
+
+        </div>
+        <h2>Iodine Clock Reaction <span>碘钟反应</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>chemistry_materials_change / materials_family_03</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>candidate_ready_for_v2_draft</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate should show the delayed rapid color change of an iodine clock reaction, not merely a static flask or explanatory setup. | triage_decision=pass_candidate; triage_notes=clean delayed color transition; no obvious sparse-frame text leakage</dd>
+        </dl>
+      </div>
+    </article>
+
+    <article class="card pass" data-status="pass_candidate" data-domain="chemistry_materials_change" data-answer="Blue Bottle Reaction">
+      <div class="media"><video controls preload="metadata" src="../media/vdcr_v2_segments_from_revise/curated_002004_seg_020000_145000.webm" type="video/webm"></video><a href="vdcr_v2_revise_segment_sparse_sheets/curated_002004_seg_020000_145000_sparse.jpg" target="_blank"><img src="vdcr_v2_revise_segment_sparse_sheets/curated_002004_seg_020000_145000_sparse.jpg" alt="contact sheet"></a></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">pass_candidate</span>
+          <span class="id">curated_002004_seg_020000_145000</span>
+
+        </div>
+        <h2>Blue Bottle Reaction <span>蓝瓶反应</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>chemistry_materials_change / materials_family_03</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>candidate_ready_for_v2_draft</dd>
+          <dt>Window</dt><dd>0.0s - 125.0s</dd>
+          <dt>Source</dt><dd></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Segment removes the opening handwritten answer card and preserves repeated blue/colorless oscillation during the blue bottle reaction. | triage_decision=pass_candidate; triage_notes=20-145s segment removes opening handwritten answer card; sparse frames show repeated blue/colorless cycling without concept text leakage</dd>
+        </dl>
+      </div>
+    </article>
+
+    <article class="card revise" data-status="revise" data-domain="chemistry_materials_change" data-answer="Iodine Clock Reaction">
+      <div class="media"><video controls preload="metadata" src="../media/vdcr_curated_chemistry_v2/curated_002001.ogv" type="video/ogg"></video><a href="vdcr_v2_curated_chemistry_sparse_sheets/curated_002001_sparse.jpg" target="_blank"><img src="vdcr_v2_curated_chemistry_sparse_sheets/curated_002001_sparse.jpg" alt="contact sheet"></a></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">revise</span>
+          <span class="id">curated_002001</span>
+
+        </div>
+        <h2>Iodine Clock Reaction <span>碘钟反应</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>chemistry_materials_change / materials_family_03</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>revise_or_trim_before_draft</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate should show the delayed rapid color change of an iodine clock reaction, not merely a static flask or explanatory setup. | triage_decision=revise; triage_notes=delayed darkening is visible but table handwriting/labels may leak answer; needs crop or tighter segment</dd>
+        </dl>
+      </div>
+    </article>
+
+    <article class="card revise" data-status="revise" data-domain="chemistry_materials_change" data-answer="Blue Bottle Reaction">
+      <div class="media"><video controls preload="metadata" src="../media/vdcr_curated_chemistry_v2/curated_002004.webm" type="video/webm"></video><a href="vdcr_v2_curated_chemistry_sparse_sheets/curated_002004_sparse.jpg" target="_blank"><img src="vdcr_v2_curated_chemistry_sparse_sheets/curated_002004_sparse.jpg" alt="contact sheet"></a></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">revise</span>
+          <span class="id">curated_002004</span>
+
+        </div>
+        <h2>Blue Bottle Reaction <span>蓝瓶反应</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>chemistry_materials_change / materials_family_03</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>revise_or_trim_before_draft</dd>
+          <dt>Window</dt><dd>0.0s - 45.0s</dd>
+          <dt>Source</dt><dd></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate should show repeated blue/colorless redox cycling in the blue bottle reaction, not merely a static colored solution. | triage_decision=revise; triage_notes=opening contains handwritten answer/experiment text; trim or verify non-leaky segment before draft</dd>
+        </dl>
+      </div>
+    </article>
+
+    <article class="card revise" data-status="revise" data-domain="biology_living_systems" data-answer="Tendril Circumnutation">
+      <div class="media"><video controls preload="metadata" src="../media/vdcr_curated_expansion_v2/curated_003001.webm" type="video/webm"></video><a href="vdcr_v2_curated_expansion_sparse_sheets/curated_003001_sparse.jpg" target="_blank"><img src="vdcr_v2_curated_expansion_sparse_sheets/curated_003001_sparse.jpg" alt="contact sheet"></a></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">revise</span>
+          <span class="id">curated_003001</span>
+
+        </div>
+        <h2>Tendril Circumnutation <span>卷须旋转探寻</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_04</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>revise_or_trim_before_draft</dd>
+          <dt>Window</dt><dd>0.0s - 17.0s</dd>
+          <dt>Source</dt><dd></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate should show a cucumber tendril moving/searching for support over time, not merely a static vine or plant image. | triage_decision=revise; triage_notes=sparse sheet darkens and does not fully prove circumnutation; inspect full video or choose tighter segment</dd>
+        </dl>
+      </div>
+    </article>
+
     <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Phototropism">
       <div class="media"></div>
       <div class="body">
@@ -2464,90 +2632,6 @@
       </div>
     </article>
 
-    <article class="card revise" data-status="revise" data-domain="chemistry_materials_change" data-answer="Iodine Clock Reaction">
-      <div class="media"><video controls preload="metadata" src="../media/vdcr_curated_chemistry_v2/curated_002001.ogv" type="video/ogg"></video><a href="vdcr_v2_curated_chemistry_sparse_sheets/curated_002001_sparse.jpg" target="_blank"><img src="vdcr_v2_curated_chemistry_sparse_sheets/curated_002001_sparse.jpg" alt="contact sheet"></a></div>
-      <div class="body">
-        <div class="topline">
-          <span class="status">revise</span>
-          <span class="id">curated_002001</span>
-
-        </div>
-        <h2>Iodine Clock Reaction <span>碘钟反应</span></h2>
-        <dl>
-          <dt>Domain</dt><dd>chemistry_materials_change / materials_family_03</dd>
-          <dt>Tier</dt><dd></dd>
-          <dt>Action</dt><dd>revise_or_trim_before_draft</dd>
-          <dt>Window</dt><dd>0.0s - 30.0s</dd>
-          <dt>Source</dt><dd></dd>
-          <dt>Gate</dt><dd></dd>
-          <dt>Notes</dt><dd>Candidate should show the delayed rapid color change of an iodine clock reaction, not merely a static flask or explanatory setup. | triage_decision=revise; triage_notes=delayed darkening is visible but table handwriting/labels may leak answer; needs crop or tighter segment</dd>
-        </dl>
-      </div>
-    </article>
-
-    <article class="card pass" data-status="pass_candidate" data-domain="chemistry_materials_change" data-answer="Chemical Garden Growth">
-      <div class="media"><video controls preload="metadata" src="../media/vdcr_curated_chemistry_v2/curated_002003.ogv" type="video/ogg"></video><a href="vdcr_v2_curated_chemistry_sparse_sheets/curated_002003_sparse.jpg" target="_blank"><img src="vdcr_v2_curated_chemistry_sparse_sheets/curated_002003_sparse.jpg" alt="contact sheet"></a></div>
-      <div class="body">
-        <div class="topline">
-          <span class="status">pass_candidate</span>
-          <span class="id">curated_002003</span>
-
-        </div>
-        <h2>Chemical Garden Growth <span>化学花园生长</span></h2>
-        <dl>
-          <dt>Domain</dt><dd>chemistry_materials_change / materials_family_04</dd>
-          <dt>Tier</dt><dd></dd>
-          <dt>Action</dt><dd>candidate_ready_for_v2_draft</dd>
-          <dt>Window</dt><dd>0.0s - 32.0s</dd>
-          <dt>Source</dt><dd></dd>
-          <dt>Gate</dt><dd></dd>
-          <dt>Notes</dt><dd>Candidate should show mineral tube growth over time in a chemical garden, not merely the final grown structure. | triage_decision=pass_candidate; triage_notes=strong mineral tube growth over time; no obvious sparse-frame text leakage</dd>
-        </dl>
-      </div>
-    </article>
-
-    <article class="card pass" data-status="pass_candidate" data-domain="chemistry_materials_change" data-answer="Briggs-Rauscher Reaction">
-      <div class="media"><video controls preload="metadata" src="../media/vdcr_curated_chemistry_v2/curated_002006.webm" type="video/webm"></video><a href="vdcr_v2_curated_chemistry_sparse_sheets/curated_002006_sparse.jpg" target="_blank"><img src="vdcr_v2_curated_chemistry_sparse_sheets/curated_002006_sparse.jpg" alt="contact sheet"></a></div>
-      <div class="body">
-        <div class="topline">
-          <span class="status">pass_candidate</span>
-          <span class="id">curated_002006</span>
-
-        </div>
-        <h2>Briggs-Rauscher Reaction <span>布里格斯-劳舍尔振荡反应</span></h2>
-        <dl>
-          <dt>Domain</dt><dd>chemistry_materials_change / materials_family_03</dd>
-          <dt>Tier</dt><dd></dd>
-          <dt>Action</dt><dd>candidate_ready_for_v2_draft</dd>
-          <dt>Window</dt><dd>0.0s - 32.0s</dd>
-          <dt>Source</dt><dd></dd>
-          <dt>Gate</dt><dd></dd>
-          <dt>Notes</dt><dd>Candidate should show oscillating color changes characteristic of the Briggs-Rauscher reaction, not merely a static reaction vessel. | triage_decision=pass_candidate; triage_notes=strong repeated color oscillation visible across sparse frames</dd>
-        </dl>
-      </div>
-    </article>
-
-    <article class="card pass" data-status="pass_candidate" data-domain="biology_living_systems" data-answer="Phototropism">
-      <div class="media"><video controls preload="metadata" src="../media/vdcr_curated_expansion_v2/curated_003002.ogv" type="video/ogg"></video><a href="vdcr_v2_curated_expansion_sparse_sheets/curated_003002_sparse.jpg" target="_blank"><img src="vdcr_v2_curated_expansion_sparse_sheets/curated_003002_sparse.jpg" alt="contact sheet"></a></div>
-      <div class="body">
-        <div class="topline">
-          <span class="status">pass_candidate</span>
-          <span class="id">curated_003002</span>
-
-        </div>
-        <h2>Phototropism <span>向光性</span></h2>
-        <dl>
-          <dt>Domain</dt><dd>biology_living_systems / biology_family_04</dd>
-          <dt>Tier</dt><dd></dd>
-          <dt>Action</dt><dd>candidate_ready_for_v2_draft</dd>
-          <dt>Window</dt><dd>0.0s - 34.0s</dd>
-          <dt>Source</dt><dd></dd>
-          <dt>Gate</dt><dd></dd>
-          <dt>Notes</dt><dd>Candidate should show plant bending/growth direction change in response to light over time, not merely a static plant orientation. | triage_decision=pass_candidate; triage_notes=clean time-lapse plant bending; no obvious sparse-frame text leakage</dd>
-        </dl>
-      </div>
-    </article>
-
     <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Murmuration">
       <div class="media"></div>
       <div class="body">
@@ -2586,27 +2670,6 @@
           <dt>Source</dt><dd><a href="https://archive.org/details/yt_YAp1zKMH5BE" target="_blank" rel="noreferrer">https://archive.org/details/yt_YAp1zKMH5BE</a></dd>
           <dt>Gate</dt><dd></dd>
           <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Exocytosis, not merely an object, scene, or static result.</dd>
-        </dl>
-      </div>
-    </article>
-
-    <article class="card pass" data-status="pass_candidate" data-domain="chemistry_materials_change" data-answer="Iodine Clock Reaction">
-      <div class="media"><video controls preload="metadata" src="../media/vdcr_curated_chemistry_v2/curated_002002.ogv" type="video/ogg"></video><a href="vdcr_v2_curated_chemistry_sparse_sheets/curated_002002_sparse.jpg" target="_blank"><img src="vdcr_v2_curated_chemistry_sparse_sheets/curated_002002_sparse.jpg" alt="contact sheet"></a></div>
-      <div class="body">
-        <div class="topline">
-          <span class="status">pass_candidate</span>
-          <span class="id">curated_002002</span>
-
-        </div>
-        <h2>Iodine Clock Reaction <span>碘钟反应</span></h2>
-        <dl>
-          <dt>Domain</dt><dd>chemistry_materials_change / materials_family_03</dd>
-          <dt>Tier</dt><dd></dd>
-          <dt>Action</dt><dd>candidate_ready_for_v2_draft</dd>
-          <dt>Window</dt><dd>0.0s - 30.0s</dd>
-          <dt>Source</dt><dd></dd>
-          <dt>Gate</dt><dd></dd>
-          <dt>Notes</dt><dd>Candidate should show the delayed rapid color change of an iodine clock reaction, not merely a static flask or explanatory setup. | triage_decision=pass_candidate; triage_notes=clean delayed color transition; no obvious sparse-frame text leakage</dd>
         </dl>
       </div>
     </article>
@@ -2964,69 +3027,6 @@
           <dt>Source</dt><dd><a href="https://archive.org/details/dtns20240418" target="_blank" rel="noreferrer">https://archive.org/details/dtns20240418</a></dd>
           <dt>Gate</dt><dd></dd>
           <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Bacterial Chemotaxis, not merely an object, scene, or static result.</dd>
-        </dl>
-      </div>
-    </article>
-
-    <article class="card revise" data-status="revise" data-domain="chemistry_materials_change" data-answer="Blue Bottle Reaction">
-      <div class="media"><video controls preload="metadata" src="../media/vdcr_curated_chemistry_v2/curated_002004.webm" type="video/webm"></video><a href="vdcr_v2_curated_chemistry_sparse_sheets/curated_002004_sparse.jpg" target="_blank"><img src="vdcr_v2_curated_chemistry_sparse_sheets/curated_002004_sparse.jpg" alt="contact sheet"></a></div>
-      <div class="body">
-        <div class="topline">
-          <span class="status">revise</span>
-          <span class="id">curated_002004</span>
-
-        </div>
-        <h2>Blue Bottle Reaction <span>蓝瓶反应</span></h2>
-        <dl>
-          <dt>Domain</dt><dd>chemistry_materials_change / materials_family_03</dd>
-          <dt>Tier</dt><dd></dd>
-          <dt>Action</dt><dd>revise_or_trim_before_draft</dd>
-          <dt>Window</dt><dd>0.0s - 45.0s</dd>
-          <dt>Source</dt><dd></dd>
-          <dt>Gate</dt><dd></dd>
-          <dt>Notes</dt><dd>Candidate should show repeated blue/colorless redox cycling in the blue bottle reaction, not merely a static colored solution. | triage_decision=revise; triage_notes=opening contains handwritten answer/experiment text; trim or verify non-leaky segment before draft</dd>
-        </dl>
-      </div>
-    </article>
-
-    <article class="card pass" data-status="pass_candidate" data-domain="chemistry_materials_change" data-answer="Blue Bottle Reaction">
-      <div class="media"><video controls preload="metadata" src="../media/vdcr_v2_segments_from_revise/curated_002004_seg_020000_145000.webm" type="video/webm"></video><a href="vdcr_v2_revise_segment_sparse_sheets/curated_002004_seg_020000_145000_sparse.jpg" target="_blank"><img src="vdcr_v2_revise_segment_sparse_sheets/curated_002004_seg_020000_145000_sparse.jpg" alt="contact sheet"></a></div>
-      <div class="body">
-        <div class="topline">
-          <span class="status">pass_candidate</span>
-          <span class="id">curated_002004_seg_020000_145000</span>
-
-        </div>
-        <h2>Blue Bottle Reaction <span>蓝瓶反应</span></h2>
-        <dl>
-          <dt>Domain</dt><dd>chemistry_materials_change / materials_family_03</dd>
-          <dt>Tier</dt><dd></dd>
-          <dt>Action</dt><dd>candidate_ready_for_v2_draft</dd>
-          <dt>Window</dt><dd>0.0s - 125.0s</dd>
-          <dt>Source</dt><dd></dd>
-          <dt>Gate</dt><dd></dd>
-          <dt>Notes</dt><dd>Segment removes the opening handwritten answer card and preserves repeated blue/colorless oscillation during the blue bottle reaction. | triage_decision=pass_candidate; triage_notes=20-145s segment removes opening handwritten answer card; sparse frames show repeated blue/colorless cycling without concept text leakage</dd>
-        </dl>
-      </div>
-    </article>
-
-    <article class="card revise" data-status="revise" data-domain="biology_living_systems" data-answer="Tendril Circumnutation">
-      <div class="media"><video controls preload="metadata" src="../media/vdcr_curated_expansion_v2/curated_003001.webm" type="video/webm"></video><a href="vdcr_v2_curated_expansion_sparse_sheets/curated_003001_sparse.jpg" target="_blank"><img src="vdcr_v2_curated_expansion_sparse_sheets/curated_003001_sparse.jpg" alt="contact sheet"></a></div>
-      <div class="body">
-        <div class="topline">
-          <span class="status">revise</span>
-          <span class="id">curated_003001</span>
-
-        </div>
-        <h2>Tendril Circumnutation <span>卷须旋转探寻</span></h2>
-        <dl>
-          <dt>Domain</dt><dd>biology_living_systems / biology_family_04</dd>
-          <dt>Tier</dt><dd></dd>
-          <dt>Action</dt><dd>revise_or_trim_before_draft</dd>
-          <dt>Window</dt><dd>0.0s - 17.0s</dd>
-          <dt>Source</dt><dd></dd>
-          <dt>Gate</dt><dd></dd>
-          <dt>Notes</dt><dd>Candidate should show a cucumber tendril moving/searching for support over time, not merely a static vine or plant image. | triage_decision=revise; triage_notes=sparse sheet darkens and does not fully prove circumnutation; inspect full video or choose tighter segment</dd>
         </dl>
       </div>
     </article>

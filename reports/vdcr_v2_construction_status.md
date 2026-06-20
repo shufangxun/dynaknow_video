@@ -1,6 +1,6 @@
 # VDCR V2 Construction Status
 
-- candidate_rows: 625
+- candidate_rows: 626
 - filtered_action_concepts: 117
 - filtered_auto_retrieval_text_mismatch: 17
 - filtered_cluster_cap: 0

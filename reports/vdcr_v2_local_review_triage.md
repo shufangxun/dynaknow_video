@@ -7,11 +7,11 @@ They are reviewable candidates, not accepted samples.
 
 ## Summary
 
-- local-review candidates: 13
-- unique concepts: 11
-- pass candidates: 7
+- local-review candidates: 15
+- unique concepts: 12
+- pass candidates: 8
 - revise candidates: 6
-- reject candidates: 0
+- reject candidates: 1
 - pending candidates: 0
 
 ## Domain Counts
@@ -21,7 +21,7 @@ They are reviewable candidates, not accepted samples.
 | `biology_living_systems` | 2 |
 | `chemistry_materials_change` | 6 |
 | `earth_environmental_systems` | 2 |
-| `physics_physical_systems` | 3 |
+| `physics_physical_systems` | 5 |
 
 ## Candidate Rows
 
@@ -39,6 +39,8 @@ They are reviewable candidates, not accepted samples.
 | `curated_005002` | `Pyroclastic Density Current` | `earth_environmental_systems` | `revise` | `media/vdcr_curated_earth_v2/curated_005002.webm` | `reports/vdcr_v2_curated_earth_sparse_sheets/curated_005002_sparse.jpg` |
 | `curated_003004` | `Capillary-Driven Droplet Coalescence` | `physics_physical_systems` | `revise` | `media/vdcr_curated_expansion_v2/curated_003004.ogv` | `reports/vdcr_v2_curated_expansion_sparse_sheets/curated_003004_sparse.jpg` |
 | `curated_004001` | `Hydraulic Jump` | `physics_physical_systems` | `pass_candidate` | `media/vdcr_curated_physics_v2/curated_004001.webm` | `reports/vdcr_v2_curated_physics_sparse_sheets/curated_004001_sparse.jpg` |
+| `curated_006001` | `Rayleigh-Taylor Instability` | `physics_physical_systems` | `pass_candidate` | `media/vdcr_curated_physics_rt_v2/curated_006001.ogv` | `reports/vdcr_v2_curated_physics_rt_sparse_sheets/curated_006001_sparse.jpg` |
+| `vdcr_commons_mr13_000005` | `Rayleigh-Taylor Instability` | `physics_physical_systems` | `reject` | `media/vdcr_commons_manual_round13_v1/vdcr_commons_mr13_000005.gif` | `reports/vdcr_v2_legacy_round13_sparse_sheets/vdcr_commons_mr13_000005_sparse.jpg` |
 | `curated_003003` | `Standing-Wave Mode Formation` | `physics_physical_systems` | `revise` | `media/vdcr_curated_expansion_v2/curated_003003.webm` | `reports/vdcr_v2_curated_expansion_sparse_sheets/curated_003003_sparse.jpg` |
 
 ## Manual Review Decisions

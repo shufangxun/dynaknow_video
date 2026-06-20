@@ -6,6 +6,7 @@ import pytest
 from scripts.build_vdcr_mcq_from_direct_answer import build_mcq_rows
 from scripts.build_vdcr_v2_construction_assets import (
     build_concept_map,
+    build_review_status,
     build_v2_assets,
     discover_local_v2_candidate_paths,
     discover_review_assets,
@@ -307,6 +308,74 @@ def test_build_v2_assets_prioritizes_domain_gaps_and_caps_clusters() -> None:
     assert assets.review_queue[1]["repeat_concept_rank"] == "3"
     assert assets.stats["seed_samples"] == 3
     assert assets.stats["review_queue_rows"] == 2
+
+
+def test_build_review_status_uses_v2_triage_reviewer_decision() -> None:
+    statuses = build_review_status(
+        [
+            {
+                "candidate_id": "curated_006001",
+                "reviewer_decision": "pass_candidate",
+            },
+            {
+                "candidate_id": "vdcr_commons_mr13_000005",
+                "reviewer_decision": "reject",
+            },
+        ]
+    )
+
+    assert statuses == {
+        "curated_006001": "pass_candidate",
+        "vdcr_commons_mr13_000005": "reject",
+    }
+
+
+def test_build_v2_assets_prioritizes_reviewable_local_media_before_source_only_cap() -> None:
+    v1_samples = [
+        {"video_id": "vdcr_000001", "answer": "Rayleigh-Taylor Instability", "domain": "physics_physical_systems", "source_url": "https://example.test/seed"},
+    ]
+    candidates = []
+    for idx in range(1, 5):
+        candidates.append(
+            {
+                "candidate_id": f"rt{idx}",
+                "source_url": f"https://example.test/rt-{idx}",
+                "source_platform": "wikimedia_commons",
+                "license_or_usage_note": "ok",
+                "raw_duration_sec": "12",
+                "suggested_start_sec": "0",
+                "suggested_end_sec": "12",
+                "initial_category": "physics_physical_systems",
+                "candidate_knowledge_point": "Rayleigh-Taylor Instability",
+                "domain_seed": "physics_physical_systems",
+                "subdomain_seed": "physics_family_01",
+                "why_dynamic": "visible density interface evolution",
+                "collector_notes": "priority=A",
+                "source_csv": "data/vdcr_candidate_videos_combined_v1.csv",
+            }
+        )
+    concepts = {
+        "Rayleigh-Taylor Instability": {
+            "concept_id": "vdcr_concept_0005",
+            "domain": "physics_physical_systems",
+            "subdomain": "physics_family_01",
+            "priority": "A",
+        }
+    }
+
+    assets = build_v2_assets(
+        v1_samples=v1_samples,
+        candidate_rows=candidates,
+        concept_by_answer=concepts,
+        reviewed_status_by_id={},
+        target_per_domain=60,
+        max_videos_per_concept=3,
+        queue_limit=10,
+        review_assets_by_id={"rt4": {"local_media": "media/rt4.ogv", "contact_sheet": "reports/rt4.jpg"}},
+    )
+
+    assert "rt4" in [row["candidate_id"] for row in assets.review_queue]
+    assert [row["candidate_id"] for row in assets.review_queue] == ["rt4", "rt1"]
 
 
 def test_build_v2_assets_filters_archive_query_term_false_positives() -> None:
@@ -796,6 +865,53 @@ def test_discover_review_assets_uses_download_status_and_sparse_sheet(tmp_path: 
         "local_media": "media/a.webm",
         "contact_sheet": str(sheet),
     }
+
+
+def test_discover_review_assets_uses_v1_manual_review_media(tmp_path: Path) -> None:
+    data = tmp_path / "data"
+    data.mkdir()
+    media = tmp_path / "media/vdcr_commons_manual_round13_v1/vdcr_commons_mr13_000005.gif"
+    sheet = tmp_path / "media/vdcr_commons_manual_frames_round13_v1/vdcr_commons_mr13_000005/contact_sheet.jpg"
+    media.parent.mkdir(parents=True)
+    sheet.parent.mkdir(parents=True)
+    media.write_bytes(b"gif")
+    sheet.write_bytes(b"jpg")
+    review = data / "vdcr_pilot_manual_review_seed_v1.csv"
+    review.write_text(
+        "id,candidate_knowledge_point,local_media,contact_sheet,review_status,review_tag,start_sec,end_sec,review_notes\n"
+        "vdcr_commons_mr13_000005,Rayleigh-Taylor Instability,"
+        "media/vdcr_commons_manual_round13_v1/vdcr_commons_mr13_000005.gif,"
+        "media/vdcr_commons_manual_frames_round13_v1/vdcr_commons_mr13_000005/contact_sheet.jpg,"
+        "pass_candidate,commons_simulation_ready_for_license_check,0,0.1,"
+        "visible plume growth without answer text\n",
+        encoding="utf-8",
+    )
+
+    assets = discover_review_assets(tmp_path)
+
+    assert assets["vdcr_commons_mr13_000005"] == {
+        "local_media": "media/vdcr_commons_manual_round13_v1/vdcr_commons_mr13_000005.gif",
+        "contact_sheet": "media/vdcr_commons_manual_frames_round13_v1/vdcr_commons_mr13_000005/contact_sheet.jpg",
+    }
+
+
+def test_discover_review_assets_ignores_missing_v1_manual_review_media(tmp_path: Path) -> None:
+    data = tmp_path / "data"
+    data.mkdir()
+    review = data / "vdcr_pilot_manual_review_seed_v1.csv"
+    review.write_text(
+        "id,candidate_knowledge_point,local_media,contact_sheet,review_status,review_tag,start_sec,end_sec,review_notes\n"
+        "vdcr_archive_only_000003,Rayleigh-Taylor Instability,"
+        "media/vdcr_raw_pilot_v1/vdcr_archive_only_000003.ogv,"
+        "media/vdcr_frames_pilot_v1/vdcr_archive_only_000003/contact_sheet.jpg,"
+        "revise,text_overlay_answer_risk,0,15,"
+        "missing local cache should not create review asset\n",
+        encoding="utf-8",
+    )
+
+    assets = discover_review_assets(tmp_path)
+
+    assert "vdcr_archive_only_000003" not in assets
 
 
 def test_build_segment_manifest_rows_cuts_only_valid_revise_rows(tmp_path: Path) -> None:

@@ -27,6 +27,8 @@ concept inventory / taxonomy
   construction records.
 - `media/`: local videos, segments, extracted frames, and contact sheets. This
   directory is ignored by git but required for media validation and model runs.
+- `docs/v2_expansion_plan.md`: planned V2 expansion rules for concept clusters
+  and repeated concept videos.
 
 ## Gate 1: Coverage And Candidate Source
 
@@ -110,3 +112,23 @@ python3 scripts/validate_vdcr_direct_answer.py \
 
 Read `docs/annotation_guidelines.md` for annotation rules and
 `docs/source_and_leakage_policy.md` for source and leakage policy details.
+
+## V2 Concept Clusters
+
+Current v1 uses one primary sample per concept. V2 may include repeated
+concepts when each repeated video provides a meaningfully different visual
+realization of the same mechanism.
+
+The intended V2 data model is:
+
+```text
+video_concept_sample = one clean video or segment + one grounded dynamic concept
+concept_cluster = all samples sharing the same concept_id or canonical answer
+```
+
+Repeated concepts are allowed only when they remain specific, mechanism-bearing,
+and independently pass all dynamic, leakage, and shortcut gates. Broad concepts
+such as `gravity`, `motion`, `growth`, or `chemical reaction` should not be used
+to inflate the main benchmark.
+
+See `docs/v2_expansion_plan.md` for the full policy.

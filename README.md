@@ -33,6 +33,8 @@ Start here if you are new to the benchmark:
 4. Read `docs/evaluation.md` to understand the three reporting metrics.
 5. Read `docs/media_restore.md` before running media validation or video model
    evaluation on a fresh checkout.
+6. Read `docs/v2_expansion_plan.md` for the planned path from the v1 pilot to a
+   larger concept-clustered V2.
 
 ```mermaid
 flowchart TD
@@ -42,6 +44,7 @@ flowchart TD
     D -->|Run evaluation| E[docs/evaluation.md]
     D -->|Inspect or extend data| F[docs/dataset_construction.md]
     D -->|Restore local videos| G[docs/media_restore.md]
+    D -->|Plan V2 expansion| N[docs/v2_expansion_plan.md]
     F --> H[data/ construction records]
     F --> I[reports/ audit and run reports]
     E --> J[scripts/score_vdcr_direct_answer.py]
@@ -60,7 +63,7 @@ flowchart TD
   build and audit the benchmark. This is provenance, not the clean model-facing
   release.
 - `reports/`: construction audits, dashboards, model outputs, score reports,
-  and run summaries.
+  run summaries, and capacity assessments.
 - `scripts/`: utilities for candidate collection, media processing, validation,
   release export, model runs, and scoring.
 - `schemas/`: JSON/CSV contracts for samples, manifests, and review artifacts.
@@ -137,6 +140,21 @@ Every accepted item must pass the main gates:
 - local media exists and decodes.
 
 See `docs/dataset_construction.md` for the detailed gate sequence.
+
+## V2 Scaling Direction
+
+V2 should scale by treating the data unit as a `video-concept sample` and
+grouping repeated concepts into `concept clusters`. The main set can include
+multiple videos for the same mechanism when each video is clean, visually
+distinct, and independently grounded. The default cap is up to 3 main-set videos
+per concept, with concept-balanced reporting to avoid over-weighting repeated
+concepts.
+
+See `docs/v2_expansion_plan.md` for the expansion rules.
+
+Current V2 planning recommends 240 video-concept samples as the first target,
+with 160-180 unique concepts and up to 3 main-set videos per concept cluster.
+See `reports/v2_capacity_assessment.md` for the current capacity estimate.
 
 ## Important Working Rule
 

@@ -79,3 +79,17 @@ Large gaps are diagnostic:
   wrong mechanisms.
 
 The full rubric is in `docs/vdcr_evaluation_granularity.md`.
+
+## V2 Concept-Balanced Reporting
+
+If V2 includes multiple videos per concept, report both:
+
+```text
+video-level score | concept-balanced score
+```
+
+Video-level score counts every video-concept sample. Concept-balanced score
+either samples one video per concept cluster with a fixed seed or averages
+within each concept cluster before averaging across concepts. This prevents
+repeated concepts from dominating the benchmark while still preserving the value
+of testing multiple visual realizations of the same mechanism.

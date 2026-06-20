@@ -15,9 +15,15 @@ imported into tracked candidate CSVs.
 | Run | Query asset | Source mode | Query window | Candidate rows | Notes |
 |---|---|---|---:|---:|---|
 | `v2_shard_000_120_20260620T040948Z` | `data/vdcr_concept_search_queries_v1.csv` | both | 0-120 | no summary | Commons returned throttling before a complete summary was written. |
-| `v2_archive_shard_120_240_20260620T041144Z` | `data/vdcr_concept_search_queries_v1.csv` | archive | 120-240 | 13 | Needs manual quality review before import. |
+| `v2_archive_shard_120_240_20260620T041144Z` | `data/vdcr_concept_search_queries_v1.csv` | archive | 120-240 | 13 | Inspected; do not import into the V2 main pool. |
 | `v2_expansion_archive_smoke_20260620T000000Z` | `data/vdcr_v2_expansion_queries.csv` | archive | 0-40 | 1 | Pre-round-robin smoke; yielded an obvious false positive. |
 | `v2_expansion_archive_smoke_rr_20260620T000000Z` | `data/vdcr_v2_expansion_queries.csv` | archive | 0-40 | 1 | Domain round-robin smoke; yielded the same obvious false positive. |
+
+The 13-row Archive shard was inspected locally. It is dominated by metadata
+false positives and action/noise rows, including broadcast news, basketball
+replays, gameplay recordings, and television programs mapped to concepts such
+as `Spain Action`, `Elevator Screen`, and `Hammer Action`. These rows do not
+support the V2 mechanism-first benchmark and should not be imported.
 
 The expansion smoke false positive was:
 
@@ -40,10 +46,7 @@ The better next steps are:
 1. Retry Commons in small, throttled shards once `403 Too Many Reqs` cools down.
 2. Use curated public-source intake for chemistry/materials and high-value
    physics/biology concepts.
-3. Inspect the 13 rows from
-   `runs/v2_retrieval/v2_archive_shard_120_240_20260620T041144Z/archive_candidates.csv`
-   before deciding whether any deserve import.
-4. Keep `data/vdcr_v2_expansion_queries.csv` as the main query entry point; it
+3. Keep `data/vdcr_v2_expansion_queries.csv` as the main query entry point; it
    now round-robins domains so early shards do not overfocus on one domain.
 
 ## Useful Commands

@@ -52,22 +52,22 @@
     <div class="metrics">
       <div class="metric"><strong>114</strong><span>Samples</span><small>direct-answer JSONL</small></div>
       <div class="metric"><strong>175</strong><span>Reviewed Rows</span><small>manual review CSV</small></div>
-      <div class="metric"><strong>5</strong><span>Pass Candidates</span></div>
+      <div class="metric"><strong>6</strong><span>Pass Candidates</span></div>
       <div class="metric"><strong>114</strong><span>Unique Answers</span><small>duplicates: 0</small></div>
       <div class="metric"><strong>Direct</strong><span>Question Type</span><small>no MCQ options</small></div>
     </div>
     <div class="filters">
-      <select id="status"><option value="">All statuses</option><option value="pass_candidate">pass_candidate (5)</option><option value="review">review (165)</option><option value="revise">revise (5)</option></select>
+      <select id="status"><option value="">All statuses</option><option value="pass_candidate">pass_candidate (6)</option><option value="review">review (164)</option><option value="revise">revise (5)</option></select>
       <select id="domain"><option value="">All domains</option><option value="biology_living_systems">biology_living_systems (29)</option><option value="chemistry_materials_change">chemistry_materials_change (29)</option><option value="earth_environmental_systems">earth_environmental_systems (28)</option><option value="physics_physical_systems">physics_physical_systems (28)</option></select>
       <input id="search" placeholder="Search answer, id, notes">
     </div>
   </header>
   <main>
     <div class="tables">
-      <section class="panel"><h2>Review Status</h2><table><tbody><tr><td>review</td><td>165</td></tr><tr><td>revise</td><td>5</td></tr><tr><td>pass_candidate</td><td>5</td></tr></tbody></table></section>
+      <section class="panel"><h2>Review Status</h2><table><tbody><tr><td>review</td><td>164</td></tr><tr><td>pass_candidate</td><td>6</td></tr><tr><td>revise</td><td>5</td></tr></tbody></table></section>
       <section class="panel"><h2>Pass Samples By Domain</h2><table><tbody><tr><td>biology_living_systems</td><td>29</td></tr><tr><td>chemistry_materials_change</td><td>29</td></tr><tr><td>physics_physical_systems</td><td>28</td></tr><tr><td>earth_environmental_systems</td><td>28</td></tr></tbody></table></section>
       <section class="panel"><h2>Pass Samples By Tier</h2><table><tbody><tr><td>strict_main_candidate</td><td>70</td></tr><tr><td>core_main</td><td>44</td></tr></tbody></table></section>
-      <section class="panel"><h2>Reviewed Sources</h2><table><tbody><tr><td>internet_archive</td><td>155</td></tr><tr><td>unknown</td><td>10</td></tr><tr><td>wikimedia_commons</td><td>8</td></tr><tr><td>national_park_service</td><td>1</td></tr><tr><td>Wikimedia Commons</td><td>1</td></tr></tbody></table></section>
+      <section class="panel"><h2>Reviewed Sources</h2><table><tbody><tr><td>internet_archive</td><td>154</td></tr><tr><td>unknown</td><td>11</td></tr><tr><td>wikimedia_commons</td><td>8</td></tr><tr><td>national_park_service</td><td>1</td></tr><tr><td>Wikimedia Commons</td><td>1</td></tr></tbody></table></section>
     </div>
     <section id="cards">
     <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Rayleigh-Taylor Instability">
@@ -381,6 +381,27 @@
           <dt>Source</dt><dd></dd>
           <dt>Gate</dt><dd></dd>
           <dt>Notes</dt><dd>Candidate should show oscillatory standing-wave current or field mode structure forming over time, not merely a static wave diagram. | triage_decision=revise; triage_notes=diagrammatic electromagnetic animation may be radiation/field propagation rather than standing-wave mode formation; needs concept rebinding or rejection</dd>
+        </dl>
+      </div>
+    </article>
+
+    <article class="card pass" data-status="pass_candidate" data-domain="physics_physical_systems" data-answer="Hydraulic Jump">
+      <div class="media"><video controls preload="metadata" src="../media/vdcr_curated_physics_v2/curated_004001.webm" type="video/webm"></video><a href="vdcr_v2_curated_physics_sparse_sheets/curated_004001_sparse.jpg" target="_blank"><img src="vdcr_v2_curated_physics_sparse_sheets/curated_004001_sparse.jpg" alt="contact sheet"></a></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">pass_candidate</span>
+          <span class="id">curated_004001</span>
+
+        </div>
+        <h2>Hydraulic Jump <span>水跃</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_01</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>candidate_ready_for_v2_draft</dd>
+          <dt>Window</dt><dd>0.0s - 11.0s</dd>
+          <dt>Source</dt><dd></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate should show a transition from fast shallow flow to slower turbulent deeper flow, not merely a static water surface. | triage_decision=pass_candidate; triage_notes=sparse frames show persistent hydraulic-jump transition from fast incoming flow to turbulent deeper downstream flow; no obvious text leakage</dd>
         </dl>
       </div>
     </article>
@@ -759,27 +780,6 @@
           <dt>Source</dt><dd><a href="https://archive.org/details/sulla-questione-delle-razze-e-su-molto-altro-ancora-joe-fallisi" target="_blank" rel="noreferrer">https://archive.org/details/sulla-questione-delle-razze-e-su-molto-altro-ancora-joe-fallisi</a></dd>
           <dt>Gate</dt><dd></dd>
           <dt>Notes</dt><dd>Candidate must show barchan dune form migrating over time.</dd>
-        </dl>
-      </div>
-    </article>
-
-    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Hydraulic Jump">
-      <div class="media"></div>
-      <div class="body">
-        <div class="topline">
-          <span class="status">review</span>
-          <span class="id">vdcr_archive_only_000007</span>
-
-        </div>
-        <h2>Hydraulic Jump <span>水跃</span></h2>
-        <dl>
-          <dt>Domain</dt><dd>physics_physical_systems / physics_family_01</dd>
-          <dt>Tier</dt><dd></dd>
-          <dt>Action</dt><dd>inspect_video</dd>
-          <dt>Window</dt><dd>0.0s - 30.0s</dd>
-          <dt>Source</dt><dd><a href="https://archive.org/details/C64GVA246-RockNBolt" target="_blank" rel="noreferrer">https://archive.org/details/C64GVA246-RockNBolt</a></dd>
-          <dt>Gate</dt><dd></dd>
-          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Hydraulic Jump, not merely an object, scene, or static result.</dd>
         </dl>
       </div>
     </article>

@@ -7,9 +7,9 @@ They are reviewable candidates, not accepted samples.
 
 ## Summary
 
-- local-review candidates: 10
-- unique concepts: 8
-- pass candidates: 5
+- local-review candidates: 11
+- unique concepts: 9
+- pass candidates: 6
 - revise candidates: 5
 - reject candidates: 0
 - pending candidates: 0
@@ -20,7 +20,7 @@ They are reviewable candidates, not accepted samples.
 |---|---:|
 | `biology_living_systems` | 2 |
 | `chemistry_materials_change` | 6 |
-| `physics_physical_systems` | 2 |
+| `physics_physical_systems` | 3 |
 
 ## Candidate Rows
 
@@ -35,6 +35,7 @@ They are reviewable candidates, not accepted samples.
 | `curated_002001` | `Iodine Clock Reaction` | `chemistry_materials_change` | `revise` | `media/vdcr_curated_chemistry_v2/curated_002001.ogv` | `reports/vdcr_v2_curated_chemistry_sparse_sheets/curated_002001_sparse.jpg` |
 | `curated_002002` | `Iodine Clock Reaction` | `chemistry_materials_change` | `pass_candidate` | `media/vdcr_curated_chemistry_v2/curated_002002.ogv` | `reports/vdcr_v2_curated_chemistry_sparse_sheets/curated_002002_sparse.jpg` |
 | `curated_003004` | `Capillary-Driven Droplet Coalescence` | `physics_physical_systems` | `revise` | `media/vdcr_curated_expansion_v2/curated_003004.ogv` | `reports/vdcr_v2_curated_expansion_sparse_sheets/curated_003004_sparse.jpg` |
+| `curated_004001` | `Hydraulic Jump` | `physics_physical_systems` | `pass_candidate` | `media/vdcr_curated_physics_v2/curated_004001.webm` | `reports/vdcr_v2_curated_physics_sparse_sheets/curated_004001_sparse.jpg` |
 | `curated_003003` | `Standing-Wave Mode Formation` | `physics_physical_systems` | `revise` | `media/vdcr_curated_expansion_v2/curated_003003.webm` | `reports/vdcr_v2_curated_expansion_sparse_sheets/curated_003003_sparse.jpg` |
 
 ## Manual Review Decisions

@@ -156,6 +156,30 @@ Current V2 planning recommends 240 video-concept samples as the first target,
 with 160-180 unique concepts and up to 3 main-set videos per concept cluster.
 See `reports/v2_capacity_assessment.md` for the current capacity estimate.
 
+Current V2 construction assets:
+
+- Seed samples from the formal v1 release: `data/vdcr_v2_seed_samples.jsonl`
+- Source-deduplicated candidate pool: `data/vdcr_candidate_videos_combined_v2.csv`
+- Main-set review queue: `data/vdcr_v2_review_queue.csv`
+- Review dashboard: `reports/vdcr_v2_review_dashboard.html`
+- Construction status: `reports/vdcr_v2_construction_status.md`
+
+Regenerate them with:
+
+```bash
+python3 scripts/build_vdcr_v2_construction_assets.py
+python3 scripts/build_vdcr_review_dashboard.py \
+  --review-csv data/vdcr_v2_review_queue.csv \
+  --samples data/vdcr_v2_seed_samples.jsonl \
+  --concepts data/vdcr_concept_inventory_v1.csv \
+  --candidates data/vdcr_candidate_videos_combined_v2.csv \
+  --output reports/vdcr_v2_review_dashboard.html
+```
+
+The main V2 queue excludes specialized action concepts by default. Use
+`--include-action-concepts` only for an optional ablation queue, not for the
+primary VDCR V2 benchmark.
+
 ## Important Working Rule
 
 Do not delete `media/` as routine cleanup. It is ignored by git because video

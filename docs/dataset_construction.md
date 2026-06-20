@@ -132,3 +132,38 @@ such as `gravity`, `motion`, `growth`, or `chemical reaction` should not be used
 to inflate the main benchmark.
 
 See `docs/v2_expansion_plan.md` for the full policy.
+
+## V2 Construction Commands
+
+V2 construction starts from the formal v1 release and then builds a larger
+candidate review queue:
+
+```bash
+python3 scripts/build_vdcr_v2_construction_assets.py
+```
+
+This writes:
+
+- `data/vdcr_v2_seed_samples.jsonl`: the 114 source-backed v1 release samples,
+  retagged as V2 seeds for construction.
+- `data/vdcr_candidate_videos_combined_v2.csv`: source-deduplicated V1 + V2
+  candidate pool.
+- `data/vdcr_v2_review_queue.csv`: main-set V2 review queue with domain gap,
+  review status, and concept-cluster rank fields.
+- `reports/vdcr_v2_construction_status.md`: current construction counts.
+
+Build the dashboard with:
+
+```bash
+python3 scripts/build_vdcr_review_dashboard.py \
+  --review-csv data/vdcr_v2_review_queue.csv \
+  --samples data/vdcr_v2_seed_samples.jsonl \
+  --concepts data/vdcr_concept_inventory_v1.csv \
+  --candidates data/vdcr_candidate_videos_combined_v2.csv \
+  --output reports/vdcr_v2_review_dashboard.html
+```
+
+The main queue excludes specialized action concepts by default because they are
+more likely to test action recognition than VDCR mechanism grounding. Pass
+`--include-action-concepts` only when building a separate optional analysis
+queue.

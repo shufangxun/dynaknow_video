@@ -1,0 +1,3665 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VDCR Review Dashboard v1</title>
+  <style>
+    :root { --bg:#f7f7f8; --panel:#fff; --text:#17202a; --muted:#667085; --line:#d7dce2; --pass:#0f766e; --review:#b45309; --revise:#4338ca; --reject:#b42318; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:Arial, Helvetica, sans-serif; background:var(--bg); color:var(--text); }
+    header, main { width:min(1440px, calc(100% - 32px)); margin:0 auto; }
+    header { padding:24px 0 14px; }
+    h1 { margin:0 0 8px; font-size:28px; letter-spacing:0; }
+    .sub { color:var(--muted); }
+    .metrics { display:grid; grid-template-columns:repeat(5, minmax(140px,1fr)); gap:12px; margin:16px 0; }
+    .metric, .panel, .card { background:var(--panel); border:1px solid var(--line); border-radius:8px; }
+    .metric { padding:12px; }
+    .metric strong { display:block; font-size:24px; }
+    .metric span, .metric small { display:block; color:var(--muted); font-size:13px; }
+    .filters { display:grid; grid-template-columns:repeat(3, minmax(180px,1fr)); gap:12px; margin:16px 0; }
+    input, select { width:100%; padding:9px 10px; border:1px solid var(--line); border-radius:6px; background:#fff; }
+    .tables { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:16px; }
+    .panel { padding:12px; }
+    .panel h2 { margin:0 0 8px; font-size:16px; }
+    table { width:100%; border-collapse:collapse; font-size:13px; }
+    td { border-top:1px solid var(--line); padding:6px 4px; }
+    .card { display:grid; grid-template-columns:minmax(360px, 44%) 1fr; gap:16px; margin:14px 0; overflow:hidden; }
+    .media { background:#101820; min-height:260px; display:grid; grid-template-columns:1fr; gap:0; align-content:start; }
+    video { width:100%; max-height:360px; background:#000; display:block; }
+    img { width:100%; display:block; border-top:1px solid #26313b; }
+    .body { padding:14px 16px 16px 0; }
+    .topline { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-bottom:8px; }
+    .status, .id, .sample { font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size:12px; padding:3px 6px; border-radius:5px; border:1px solid var(--line); }
+    .pass .status { color:var(--pass); border-color:var(--pass); }
+    .review .status { color:var(--review); border-color:var(--review); }
+    .revise .status { color:var(--revise); border-color:var(--revise); }
+    .reject .status { color:var(--reject); border-color:var(--reject); }
+    h2 { margin:0 0 10px; font-size:20px; letter-spacing:0; }
+    h2 span { color:var(--muted); font-size:15px; font-weight:400; }
+    dl { display:grid; grid-template-columns:96px 1fr; gap:7px 12px; margin:0; font-size:14px; }
+    dt { color:var(--muted); }
+    dd { margin:0; overflow-wrap:anywhere; }
+    a { color:#0f5f9a; }
+    .hidden { display:none; }
+    @media (max-width:900px) { .metrics,.tables,.filters,.card { grid-template-columns:1fr; } .body { padding:14px; } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>VDCR Review Dashboard v1</h1>
+    <div class="sub">Direct-answer benchmark production status. Pass candidates are visually reviewed but still require final license/source audit.</div>
+    <div class="metrics">
+      <div class="metric"><strong>114</strong><span>Samples</span><small>direct-answer JSONL</small></div>
+      <div class="metric"><strong>170</strong><span>Reviewed Rows</span><small>manual review CSV</small></div>
+      <div class="metric"><strong>0</strong><span>Pass Candidates</span></div>
+      <div class="metric"><strong>114</strong><span>Unique Answers</span><small>duplicates: 0</small></div>
+      <div class="metric"><strong>Direct</strong><span>Question Type</span><small>no MCQ options</small></div>
+    </div>
+    <div class="filters">
+      <select id="status"><option value="">All statuses</option><option value="review">review (170)</option></select>
+      <select id="domain"><option value="">All domains</option><option value="biology_living_systems">biology_living_systems (29)</option><option value="chemistry_materials_change">chemistry_materials_change (29)</option><option value="earth_environmental_systems">earth_environmental_systems (28)</option><option value="physics_physical_systems">physics_physical_systems (28)</option></select>
+      <input id="search" placeholder="Search answer, id, notes">
+    </div>
+  </header>
+  <main>
+    <div class="tables">
+      <section class="panel"><h2>Review Status</h2><table><tbody><tr><td>review</td><td>170</td></tr></tbody></table></section>
+      <section class="panel"><h2>Pass Samples By Domain</h2><table><tbody><tr><td>biology_living_systems</td><td>29</td></tr><tr><td>chemistry_materials_change</td><td>29</td></tr><tr><td>physics_physical_systems</td><td>28</td></tr><tr><td>earth_environmental_systems</td><td>28</td></tr></tbody></table></section>
+      <section class="panel"><h2>Pass Samples By Tier</h2><table><tbody><tr><td>strict_main_candidate</td><td>70</td></tr><tr><td>core_main</td><td>44</td></tr></tbody></table></section>
+      <section class="panel"><h2>Reviewed Sources</h2><table><tbody><tr><td>internet_archive</td><td>160</td></tr><tr><td>wikimedia_commons</td><td>8</td></tr><tr><td>national_park_service</td><td>1</td></tr><tr><td>Wikimedia Commons</td><td>1</td></tr></tbody></table></section>
+    </div>
+    <section id="cards">
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Rayleigh-Taylor Instability">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_commons_mr13_000005</span>
+          
+        </div>
+        <h2>Rayleigh-Taylor Instability <span>瑞利-泰勒不稳定性</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_01</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0s - 0.1s</dd>
+          <dt>Source</dt><dd><a href="https://commons.wikimedia.org/wiki/File:HD-Rayleigh-Taylor.gif" target="_blank" rel="noreferrer">https://commons.wikimedia.org/wiki/File:HD-Rayleigh-Taylor.gif</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Rayleigh-Taylor Instability, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="Glacier Surge">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_commons_mr19_000004</span>
+          
+        </div>
+        <h2>Glacier Surge <span>冰川跃动</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_05</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0s - 30s</dd>
+          <dt>Source</dt><dd><a href="https://www.nps.gov/media/video/view.htm?id=3891AE87-2739-4586-BA36-E57FCE285B37" target="_blank" rel="noreferrer">https://www.nps.gov/media/video/view.htm?id=3891AE87-2739-4586-BA36-E57FCE285B37</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show rapid surge-phase glacier toe advance and surface thickening/uplift over time, not ordinary slow glacier retreat or static ice morphology.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Magnetic Reconnection">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b08_000002</span>
+          
+        </div>
+        <h2>Magnetic Reconnection <span>磁场重联</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_07</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 15.6s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/CIL-10072" target="_blank" rel="noreferrer">https://archive.org/details/CIL-10072</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Magnetic Reconnection, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Coronal Mass Ejection">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b08_000009</span>
+          
+        </div>
+        <h2>Coronal Mass Ejection <span>日冕物质抛射</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_07</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 5.2s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/VE-VID-16618" target="_blank" rel="noreferrer">https://archive.org/details/VE-VID-16618</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Coronal Mass Ejection, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Rayleigh-Taylor Instability">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_only_000003</span>
+          
+        </div>
+        <h2>Rayleigh-Taylor Instability <span>瑞利-泰勒不稳定性</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_01</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 15.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/SVS-39" target="_blank" rel="noreferrer">https://archive.org/details/SVS-39</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Rayleigh-Taylor Instability, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Marangoni-Driven Flow">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_commons_mr10_000003</span>
+          
+        </div>
+        <h2>Marangoni-Driven Flow <span>马兰戈尼驱动流</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_02</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 29.0s</dd>
+          <dt>Source</dt><dd><a href="https://commons.wikimedia.org/wiki/File:Marangoni_effect_experimental_demonstration.ogv" target="_blank" rel="noreferrer">https://commons.wikimedia.org/wiki/File:Marangoni_effect_experimental_demonstration.ogv</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show surface-tension-gradient-driven liquid motion after surfactant/alcohol perturbation, not ordinary spreading or stirring.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="Meander Neck Cutoff">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_commons_mr7_000003</span>
+          
+        </div>
+        <h2>Meander Neck Cutoff <span>曲流河裁弯取直</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_02</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 13.0s</dd>
+          <dt>Source</dt><dd><a href="https://commons.wikimedia.org/wiki/File:OxbowAnimation.gif" target="_blank" rel="noreferrer">https://commons.wikimedia.org/wiki/File:OxbowAnimation.gif</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show a meander neck narrowing, cutoff formation, and abandoned loop/oxbow development over time, not a static river shape.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Solar Prominence Eruption">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b08_000006</span>
+          
+        </div>
+        <h2>Solar Prominence Eruption <span>太阳日珥喷发</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_07</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/youtube-L1X8oEbuCUA" target="_blank" rel="noreferrer">https://archive.org/details/youtube-L1X8oEbuCUA</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Solar Prominence Eruption, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Rayleigh-Taylor Instability">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_only_000002</span>
+          
+        </div>
+        <h2>Rayleigh-Taylor Instability <span>瑞利-泰勒不稳定性</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_01</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 15.8s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/SVS-44" target="_blank" rel="noreferrer">https://archive.org/details/SVS-44</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Rayleigh-Taylor Instability, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Faraday Waves">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_commons_mr13_000002</span>
+          
+        </div>
+        <h2>Faraday Waves <span>法拉第波</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_03</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0s - 0s</dd>
+          <dt>Source</dt><dd><a href="https://commons.wikimedia.org/wiki/File:Assembly_of_microscale_beads_on_Faraday_waves.gif" target="_blank" rel="noreferrer">https://commons.wikimedia.org/wiki/File:Assembly_of_microscale_beads_on_Faraday_waves.gif</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Faraday Waves, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="Wall Cloud Rotation">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b07_000003</span>
+          
+        </div>
+        <h2>Wall Cloud Rotation <span>墙云旋转</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_01</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/Flickr-2558636981" target="_blank" rel="noreferrer">https://archive.org/details/Flickr-2558636981</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Wall Cloud Rotation, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="Rip Current Formation">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_commons_mr12_000004</span>
+          
+        </div>
+        <h2>Rip Current Formation <span>近岸裂流形成</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_08</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0s - 33s</dd>
+          <dt>Source</dt><dd><a href="https://commons.wikimedia.org/wiki/File:Brandungsr%C3%BCckstrom_(Wangerooge).webm" target="_blank" rel="noreferrer">https://commons.wikimedia.org/wiki/File:Brandungsr%C3%BCckstrom_(Wangerooge).webm</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Rip Current Formation, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Magnetic Reconnection">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b08_000003</span>
+          
+        </div>
+        <h2>Magnetic Reconnection <span>磁场重联</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_07</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/CIL-10059" target="_blank" rel="noreferrer">https://archive.org/details/CIL-10059</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Magnetic Reconnection, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="Wave Refraction">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_commons_mr33_000005</span>
+          
+        </div>
+        <h2>Wave Refraction <span>波浪折射</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_08</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0s - 5.5s</dd>
+          <dt>Source</dt><dd><a href="https://commons.wikimedia.org/wiki/File:Refraction-animation.gif" target="_blank" rel="noreferrer">https://commons.wikimedia.org/wiki/File:Refraction-animation.gif</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show wavefronts bending as they enter a region with different propagation speed; a static wave pattern is insufficient.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Vortex Ring Formation">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b02_000002</span>
+          
+        </div>
+        <h2>Vortex Ring Formation <span>涡环形成</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_05</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 7.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/matrix-of-a-deepstate-alice-unfolds-mp4-162-gb" target="_blank" rel="noreferrer">https://archive.org/details/matrix-of-a-deepstate-alice-unfolds-mp4-162-gb</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Vortex Ring Formation, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="Supercell Mesocyclone Rotation">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_earth_000033</span>
+          
+        </div>
+        <h2>Supercell Mesocyclone Rotation <span>超级单体中气旋旋转</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_01</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 60.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/ybprlhwj-4t-0bg-09q" target="_blank" rel="noreferrer">https://archive.org/details/ybprlhwj-4t-0bg-09q</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show supercell cloud rotation or organized mesocyclone structure evolving over time.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="Downburst / Microburst Outflow">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_earth_000035</span>
+          
+        </div>
+        <h2>Downburst / Microburst Outflow <span>下击暴流出流扩散</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_01</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 60.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/Special_Report_-_Laurel_Storm_Damage_-_September_30_2015" target="_blank" rel="noreferrer">https://archive.org/details/Special_Report_-_Laurel_Storm_Damage_-_September_30_2015</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show downburst or microburst outflow spreading at the surface over time.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="Supercell Mesocyclone Rotation">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_earth_r3_000002</span>
+          
+        </div>
+        <h2>Supercell Mesocyclone Rotation <span>超级单体中气旋旋转</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_01</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 60.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/SVS-3377" target="_blank" rel="noreferrer">https://archive.org/details/SVS-3377</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show organized supercell cloud rotation over time, not a still storm cloud.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Hydraulic Jump">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_only_000006</span>
+          
+        </div>
+        <h2>Hydraulic Jump <span>水跃</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_01</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 16.6s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/sharware" target="_blank" rel="noreferrer">https://archive.org/details/sharware</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Hydraulic Jump, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Dzhanibekov Effect / Tennis Racket Theorem">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_only_000026</span>
+          
+        </div>
+        <h2>Dzhanibekov Effect / Tennis Racket Theorem <span>贾尼别科夫效应/网球拍定理</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_04</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/youtube-Vl07inMRIq8" target="_blank" rel="noreferrer">https://archive.org/details/youtube-Vl07inMRIq8</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Dzhanibekov Effect / Tennis Racket Theorem, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Dzhanibekov Effect / Tennis Racket Theorem">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_only_000027</span>
+          
+        </div>
+        <h2>Dzhanibekov Effect / Tennis Racket Theorem <span>贾尼别科夫效应/网球拍定理</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_04</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/youtube-_RK-emtrfNs" target="_blank" rel="noreferrer">https://archive.org/details/youtube-_RK-emtrfNs</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Dzhanibekov Effect / Tennis Racket Theorem, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Crown Splash">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_only_000030</span>
+          
+        </div>
+        <h2>Crown Splash <span>冠状飞溅</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_05</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 16.7s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/images-6_202110" target="_blank" rel="noreferrer">https://archive.org/details/images-6_202110</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Crown Splash, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Worthington Jet">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b02_000001</span>
+          
+        </div>
+        <h2>Worthington Jet <span>沃辛顿射流</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_05</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/17274industryonparadetimberskinnersvitovwr" target="_blank" rel="noreferrer">https://archive.org/details/17274industryonparadetimberskinnersvitovwr</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Worthington Jet, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="Downburst / Microburst Outflow">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b03_000045</span>
+          
+        </div>
+        <h2>Downburst / Microburst Outflow <span>下击暴流出流扩散</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_01</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/CaliforniaDroughtUpdateApril192015FIVEPROOFSOfHAARPCreatedDrought" target="_blank" rel="noreferrer">https://archive.org/details/CaliforniaDroughtUpdateApril192015FIVEPROOFSOfHAARPCreatedDrought</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Downburst / Microburst Outflow, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="Tidal Bore">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b03_000058</span>
+          
+        </div>
+        <h2>Tidal Bore <span>潮汐涌浪</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_08</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/worldsincollisionreel1" target="_blank" rel="noreferrer">https://archive.org/details/worldsincollisionreel1</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Tidal Bore, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="Tidal Bore">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b03_000059</span>
+          
+        </div>
+        <h2>Tidal Bore <span>潮汐涌浪</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_08</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/the_blue_planet" target="_blank" rel="noreferrer">https://archive.org/details/the_blue_planet</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Tidal Bore, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="Pyroclastic Density Current">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_earth_000001</span>
+          
+        </div>
+        <h2>Pyroclastic Density Current <span>火山碎屑密度流</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_04</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 60.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/the-last-day-of-pompeii" target="_blank" rel="noreferrer">https://archive.org/details/the-last-day-of-pompeii</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show a hot volcanic density current advancing downslope over time, not merely ash or a static volcano.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="Pyroclastic Density Current">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_earth_000002</span>
+          
+        </div>
+        <h2>Pyroclastic Density Current <span>火山碎屑密度流</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_04</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 60.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/youtube-2LsqbgtgeHY" target="_blank" rel="noreferrer">https://archive.org/details/youtube-2LsqbgtgeHY</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show a hot volcanic density current advancing downslope over time, not merely ash or a static volcano.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="Pahoehoe Lava Roping">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_earth_000006</span>
+          
+        </div>
+        <h2>Pahoehoe Lava Roping <span>绳状熔岩形成</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_04</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 60.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/TheVistaGroup-HawaiiIslandsoftheFireGoddess1988" target="_blank" rel="noreferrer">https://archive.org/details/TheVistaGroup-HawaiiIslandsoftheFireGoddess1988</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show ropy pahoehoe surface forming or advancing over time.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="Pahoehoe Lava Roping">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_earth_000007</span>
+          
+        </div>
+        <h2>Pahoehoe Lava Roping <span>绳状熔岩形成</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_04</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 60.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/9pgrQNjuBRvk6a1bL003HT44F4M7SN" target="_blank" rel="noreferrer">https://archive.org/details/9pgrQNjuBRvk6a1bL003HT44F4M7SN</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show ropy pahoehoe surface forming or advancing over time.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="Barchan Dune Migration">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_earth_r3_000003</span>
+          
+        </div>
+        <h2>Barchan Dune Migration <span>新月形沙丘迁移</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_07</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 60.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/animal-numbers-1999_202511" target="_blank" rel="noreferrer">https://archive.org/details/animal-numbers-1999_202511</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show barchan dune form migrating over time.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="Barchan Dune Migration">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_earth_r3_000004</span>
+          
+        </div>
+        <h2>Barchan Dune Migration <span>新月形沙丘迁移</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_07</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 60.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/sulla-questione-delle-razze-e-su-molto-altro-ancora-joe-fallisi" target="_blank" rel="noreferrer">https://archive.org/details/sulla-questione-delle-razze-e-su-molto-altro-ancora-joe-fallisi</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show barchan dune form migrating over time.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Hydraulic Jump">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_only_000007</span>
+          
+        </div>
+        <h2>Hydraulic Jump <span>水跃</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_01</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/C64GVA246-RockNBolt" target="_blank" rel="noreferrer">https://archive.org/details/C64GVA246-RockNBolt</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Hydraulic Jump, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Standing Wave Formation">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_only_000011</span>
+          
+        </div>
+        <h2>Standing Wave Formation <span>驻波形成</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_03</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/0559_Threads_of_Technology" target="_blank" rel="noreferrer">https://archive.org/details/0559_Threads_of_Technology</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Standing Wave Formation, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Standing Wave Formation">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_only_000012</span>
+          
+        </div>
+        <h2>Standing Wave Formation <span>驻波形成</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_03</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/SkyBillb1935" target="_blank" rel="noreferrer">https://archive.org/details/SkyBillb1935</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Standing Wave Formation, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Standing Wave Formation">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_only_000013</span>
+          
+        </div>
+        <h2>Standing Wave Formation <span>驻波形成</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_03</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/theworldatwar24thebombfebruarysept1945reel2" target="_blank" rel="noreferrer">https://archive.org/details/theworldatwar24thebombfebruarysept1945reel2</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Standing Wave Formation, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Faraday Waves">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_only_000016</span>
+          
+        </div>
+        <h2>Faraday Waves <span>法拉第波</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_03</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/Karl_Westerberg_Physics_Lectures_PHYC4C_Lectures" target="_blank" rel="noreferrer">https://archive.org/details/Karl_Westerberg_Physics_Lectures_PHYC4C_Lectures</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Faraday Waves, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Gyroscopic Precession">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_only_000021</span>
+          
+        </div>
+        <h2>Gyroscopic Precession <span>陀螺进动</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_04</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/58834AsTheEarthSpins" target="_blank" rel="noreferrer">https://archive.org/details/58834AsTheEarthSpins</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Gyroscopic Precession, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Crown Splash">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_only_000028</span>
+          
+        </div>
+        <h2>Crown Splash <span>冠状飞溅</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_05</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 0.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/blues-behind-the-hellraising-black-doors-body-horror-by-daniel-fx-staal-ode-to-c_202511" target="_blank" rel="noreferrer">https://archive.org/details/blues-behind-the-hellraising-black-doors-body-horror-by-daniel-fx-staal-ode-to-c_202511</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Crown Splash, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Crown Splash">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_only_000029</span>
+          
+        </div>
+        <h2>Crown Splash <span>冠状飞溅</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_05</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/kdamore" target="_blank" rel="noreferrer">https://archive.org/details/kdamore</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Crown Splash, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="Fire Whirl">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b03_000055</span>
+          
+        </div>
+        <h2>Fire Whirl <span></span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_06</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/ChronoTrigger_334" target="_blank" rel="noreferrer">https://archive.org/details/ChronoTrigger_334</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Fire Whirl, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="Fire Whirl">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b03_000056</span>
+          
+        </div>
+        <h2>Fire Whirl <span></span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_06</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/ClassicClips_170" target="_blank" rel="noreferrer">https://archive.org/details/ClassicClips_170</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Fire Whirl, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Capillary Rise / Wicking">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b04_000003</span>
+          
+        </div>
+        <h2>Capillary Rise / Wicking <span>毛细上升/芯吸</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_02</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/sinema-trailer_demons-of-the-mind" target="_blank" rel="noreferrer">https://archive.org/details/sinema-trailer_demons-of-the-mind</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Capillary Rise / Wicking, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Capillary Rise / Wicking">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b04_000004</span>
+          
+        </div>
+        <h2>Capillary Rise / Wicking <span>毛细上升/芯吸</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_02</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/sinema-trailer_blood-from-the-mummys-tomb" target="_blank" rel="noreferrer">https://archive.org/details/sinema-trailer_blood-from-the-mummys-tomb</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Capillary Rise / Wicking, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Coherent Wave Interference">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b04_000006</span>
+          
+        </div>
+        <h2>Coherent Wave Interference <span>波的相干干涉</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_03</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 5.1s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/Sora_and_Signal_Processing_-_The_Quest_Story_Line" target="_blank" rel="noreferrer">https://archive.org/details/Sora_and_Signal_Processing_-_The_Quest_Story_Line</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Coherent Wave Interference, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Double Pendulum Chaos">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b04_000012</span>
+          
+        </div>
+        <h2>Double Pendulum Chaos <span>双摆混沌</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_03</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/trollop-rullez-the-day-you-killed-yourself" target="_blank" rel="noreferrer">https://archive.org/details/trollop-rullez-the-day-you-killed-yourself</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Double Pendulum Chaos, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Stick-Slip Motion">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b04_000021</span>
+          
+        </div>
+        <h2>Stick-Slip Motion <span>黏滑运动</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_04</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/thief1_gold" target="_blank" rel="noreferrer">https://archive.org/details/thief1_gold</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Stick-Slip Motion, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Bubble-Bursting Jet">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b04_000024</span>
+          
+        </div>
+        <h2>Bubble-Bursting Jet <span>气泡破裂射流</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_05</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/paramount-pictures-skydance-media-skydance-animation-2024" target="_blank" rel="noreferrer">https://archive.org/details/paramount-pictures-skydance-media-skydance-animation-2024</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Bubble-Bursting Jet, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Bubble-Bursting Jet">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b04_000025</span>
+          
+        </div>
+        <h2>Bubble-Bursting Jet <span>气泡破裂射流</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_05</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/skydance-animation-skydance-media-paramount-pictures-2024" target="_blank" rel="noreferrer">https://archive.org/details/skydance-animation-skydance-media-paramount-pictures-2024</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Bubble-Bursting Jet, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Bubble-Bursting Jet">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b04_000026</span>
+          
+        </div>
+        <h2>Bubble-Bursting Jet <span>气泡破裂射流</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_05</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/skydance-animation-skydance-media-paramount-pictures-2024-low-tone" target="_blank" rel="noreferrer">https://archive.org/details/skydance-animation-skydance-media-paramount-pictures-2024-low-tone</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Bubble-Bursting Jet, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Bow Shock">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b04_000032</span>
+          
+        </div>
+        <h2>Bow Shock <span>弓形激波</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_06</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/AchievementHunter_2018" target="_blank" rel="noreferrer">https://archive.org/details/AchievementHunter_2018</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Bow Shock, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Film Boiling">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b04_000035</span>
+          
+        </div>
+        <h2>Film Boiling <span>膜态沸腾</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_08</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/Sita_Sings_the_Blues" target="_blank" rel="noreferrer">https://archive.org/details/Sita_Sings_the_Blues</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Film Boiling, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="Wall Cloud Rotation">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b07_000001</span>
+          
+        </div>
+        <h2>Wall Cloud Rotation <span>墙云旋转</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_01</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/schoolhouse-rock-30th" target="_blank" rel="noreferrer">https://archive.org/details/schoolhouse-rock-30th</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Wall Cloud Rotation, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="Crown Fire Transition">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_earth_000019</span>
+          
+        </div>
+        <h2>Crown Fire Transition <span>树冠火转变</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_06</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 26.6s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/Thief3_100p_13115" target="_blank" rel="noreferrer">https://archive.org/details/Thief3_100p_13115</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show surface fire transitioning into tree crown fire over time.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="Rip Current Formation">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_earth_000024</span>
+          
+        </div>
+        <h2>Rip Current Formation <span>近岸裂流形成</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_08</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 60.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/Quake4_20954" target="_blank" rel="noreferrer">https://archive.org/details/Quake4_20954</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show seaward current/channel formation, not beach interviews or warning signs.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="Debris-Flow Surge Propagation">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_earth_000025</span>
+          
+        </div>
+        <h2>Debris-Flow Surge Propagation <span>泥石流脉冲推进</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_03</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 60.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/JournalOfRegardless" target="_blank" rel="noreferrer">https://archive.org/details/JournalOfRegardless</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show a debris-flow surge propagating through a channel or slope.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="Debris-Flow Surge Propagation">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_earth_000027</span>
+          
+        </div>
+        <h2>Debris-Flow Surge Propagation <span>泥石流脉冲推进</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_03</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 50.1s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/colorado_flooding_13-sept-2013" target="_blank" rel="noreferrer">https://archive.org/details/colorado_flooding_13-sept-2013</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show a debris-flow surge propagating through a channel or slope.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Parametric Resonance">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b04_000007</span>
+          
+        </div>
+        <h2>Parametric Resonance <span>参数共振</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_03</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/parametric-excitation-of-electric-oscillations" target="_blank" rel="noreferrer">https://archive.org/details/parametric-excitation-of-electric-oscillations</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Parametric Resonance, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Damped Oscillation">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b04_000008</span>
+          
+        </div>
+        <h2>Damped Oscillation <span>阻尼振荡</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_03</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/AssemblyLinesPodcast151" target="_blank" rel="noreferrer">https://archive.org/details/AssemblyLinesPodcast151</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Damped Oscillation, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Damped Oscillation">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b04_000010</span>
+          
+        </div>
+        <h2>Damped Oscillation <span>阻尼振荡</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_03</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/vimeo-415215812" target="_blank" rel="noreferrer">https://archive.org/details/vimeo-415215812</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Damped Oscillation, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Double Pendulum Chaos">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b04_000011</span>
+          
+        </div>
+        <h2>Double Pendulum Chaos <span>双摆混沌</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_03</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/whats-up-prof-walter-veith-martin-smith-amazing-discoveries-africa" target="_blank" rel="noreferrer">https://archive.org/details/whats-up-prof-walter-veith-martin-smith-amazing-discoveries-africa</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Double Pendulum Chaos, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Euler&#x27;s Disk Motion">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b04_000016</span>
+          
+        </div>
+        <h2>Euler&#x27;s Disk Motion <span>欧拉圆盘运动</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_04</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/youtube-UqnPRProXJg" target="_blank" rel="noreferrer">https://archive.org/details/youtube-UqnPRProXJg</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Euler&#x27;s Disk Motion, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Elastic Pendulum Motion">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b04_000017</span>
+          
+        </div>
+        <h2>Elastic Pendulum Motion <span>弹性摆运动</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_04</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/blmtwpmiv-Try_This_at_Home" target="_blank" rel="noreferrer">https://archive.org/details/blmtwpmiv-Try_This_at_Home</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Elastic Pendulum Motion, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Granular Convection">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b04_000018</span>
+          
+        </div>
+        <h2>Granular Convection <span>颗粒对流</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_04</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/bigclive_20221202" target="_blank" rel="noreferrer">https://archive.org/details/bigclive_20221202</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Granular Convection, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Stick-Slip Motion">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b04_000019</span>
+          
+        </div>
+        <h2>Stick-Slip Motion <span>黏滑运动</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_04</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/my_favorite_brunette" target="_blank" rel="noreferrer">https://archive.org/details/my_favorite_brunette</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Stick-Slip Motion, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Stick-Slip Motion">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b04_000020</span>
+          
+        </div>
+        <h2>Stick-Slip Motion <span>黏滑运动</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_04</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/MartialLaw911" target="_blank" rel="noreferrer">https://archive.org/details/MartialLaw911</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Stick-Slip Motion, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Droplet Impact Spreading">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b04_000023</span>
+          
+        </div>
+        <h2>Droplet Impact Spreading <span>液滴撞击铺展</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_05</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/c-19-propaganda-war-ade-to-avengers-sleepy-joe-5-months" target="_blank" rel="noreferrer">https://archive.org/details/c-19-propaganda-war-ade-to-avengers-sleepy-joe-5-months</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Droplet Impact Spreading, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Bow Shock">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b04_000029</span>
+          
+        </div>
+        <h2>Bow Shock <span>弓形激波</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_06</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/boys_beware" target="_blank" rel="noreferrer">https://archive.org/details/boys_beware</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Bow Shock, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Bow Shock">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b04_000030</span>
+          
+        </div>
+        <h2>Bow Shock <span>弓形激波</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_06</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/operation_ivy" target="_blank" rel="noreferrer">https://archive.org/details/operation_ivy</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Bow Shock, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Film Boiling">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b04_000034</span>
+          
+        </div>
+        <h2>Film Boiling <span>膜态沸腾</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_08</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/JoanAvoi1947" target="_blank" rel="noreferrer">https://archive.org/details/JoanAvoi1947</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Film Boiling, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Film Boiling">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b04_000036</span>
+          
+        </div>
+        <h2>Film Boiling <span>膜态沸腾</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_08</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/ken.-burns.-the.-civil.-war." target="_blank" rel="noreferrer">https://archive.org/details/ken.-burns.-the.-civil.-war.</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Film Boiling, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="Wall Cloud Rotation">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b07_000002</span>
+          
+        </div>
+        <h2>Wall Cloud Rotation <span>墙云旋转</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_01</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/sm4c-urlfest" target="_blank" rel="noreferrer">https://archive.org/details/sm4c-urlfest</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Wall Cloud Rotation, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="Cutbank Erosion / Point-Bar Deposition">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b07_000004</span>
+          
+        </div>
+        <h2>Cutbank Erosion / Point-Bar Deposition <span>凹岸侵蚀与凸岸沉积</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_02</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/ZeldaMajorasMask_100p_655" target="_blank" rel="noreferrer">https://archive.org/details/ZeldaMajorasMask_100p_655</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Cutbank Erosion / Point-Bar Deposition, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="River Avulsion">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b07_000005</span>
+          
+        </div>
+        <h2>River Avulsion <span>河流决口改道</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_02</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/FranklynMonkPodcast61Video" target="_blank" rel="noreferrer">https://archive.org/details/FranklynMonkPodcast61Video</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates River Avulsion, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="Internal Wave Propagation">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b07_000008</span>
+          
+        </div>
+        <h2>Internal Wave Propagation <span>内波传播</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_02</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/reflectionandrefraction" target="_blank" rel="noreferrer">https://archive.org/details/reflectionandrefraction</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Internal Wave Propagation, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="Internal Wave Propagation">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b07_000009</span>
+          
+        </div>
+        <h2>Internal Wave Propagation <span>内波传播</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_02</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/UC_Berkeley_FOM_2014_05_02_Walter_Freeman" target="_blank" rel="noreferrer">https://archive.org/details/UC_Berkeley_FOM_2014_05_02_Walter_Freeman</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Internal Wave Propagation, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="Aa Lava Front Advance">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b07_000010</span>
+          
+        </div>
+        <h2>Aa Lava Front Advance <span>阿阿熔岩前缘推进</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_04</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/thegrandcanyonchronicles" target="_blank" rel="noreferrer">https://archive.org/details/thegrandcanyonchronicles</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Aa Lava Front Advance, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="Aa Lava Front Advance">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b07_000011</span>
+          
+        </div>
+        <h2>Aa Lava Front Advance <span>阿阿熔岩前缘推进</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_04</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/kidchameleon-timeattackv2-truncated" target="_blank" rel="noreferrer">https://archive.org/details/kidchameleon-timeattackv2-truncated</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Aa Lava Front Advance, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="Glacier Surge">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b07_000015</span>
+          
+        </div>
+        <h2>Glacier Surge <span>冰川跃动</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_05</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/PBS-TERRA-Weathered" target="_blank" rel="noreferrer">https://archive.org/details/PBS-TERRA-Weathered</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Glacier Surge, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="Crown Fire Transition">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b07_000016</span>
+          
+        </div>
+        <h2>Crown Fire Transition <span>树冠火转变</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_06</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/SEVENSEALRISEOFDIVIDEDROMANEMPIREBABYLONANDPERSIAUPDATEDLATEST6IRANDESTROYMpeg2video" target="_blank" rel="noreferrer">https://archive.org/details/SEVENSEALRISEOFDIVIDEDROMANEMPIREBABYLONANDPERSIAUPDATEDLATEST6IRANDESTROYMpeg2video</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Crown Fire Transition, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="Crown Fire Transition">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b07_000017</span>
+          
+        </div>
+        <h2>Crown Fire Transition <span>树冠火转变</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_06</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/SEVENSEALRISEOFDIVIDEDROMANEMPIREBABYLONANDPERSIAUPDATEDLATEST6IRANDESTROYMpeg2video_201812" target="_blank" rel="noreferrer">https://archive.org/details/SEVENSEALRISEOFDIVIDEDROMANEMPIREBABYLONANDPERSIAUPDATEDLATEST6IRANDESTROYMpeg2video_201812</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Crown Fire Transition, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="Spot Fire Propagation">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b07_000021</span>
+          
+        </div>
+        <h2>Spot Fire Propagation <span>飞火传播</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_06</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 0.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/new-coronavirusresearch-2021v-1.5" target="_blank" rel="noreferrer">https://archive.org/details/new-coronavirusresearch-2021v-1.5</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Spot Fire Propagation, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="Storm Surge Propagation">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b07_000023</span>
+          
+        </div>
+        <h2>Storm Surge Propagation <span>风暴潮推进</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_08</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/the-endless-voyage-01-the-water-planet" target="_blank" rel="noreferrer">https://archive.org/details/the-endless-voyage-01-the-water-planet</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Storm Surge Propagation, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="Ice Cliff Calving">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_earth_000012</span>
+          
+        </div>
+        <h2>Ice Cliff Calving <span>冰崖崩解</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_05</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 60.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/frozen-planet-ii" target="_blank" rel="noreferrer">https://archive.org/details/frozen-planet-ii</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show ice fracture/detachment and falling into water over time.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="Ice Cliff Calving">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_earth_000015</span>
+          
+        </div>
+        <h2>Ice Cliff Calving <span>冰崖崩解</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_05</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 60.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/deadly-mantis-1957-colorized" target="_blank" rel="noreferrer">https://archive.org/details/deadly-mantis-1957-colorized</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show ice fracture/detachment and falling into water over time.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="Dune Slip-Face Avalanche">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_earth_000021</span>
+          
+        </div>
+        <h2>Dune Slip-Face Avalanche <span>沙丘雪崩面滑移</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_07</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 60.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/youtube-78-YFytlyEU" target="_blank" rel="noreferrer">https://archive.org/details/youtube-78-YFytlyEU</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show granular sand sliding down a dune slip face over time.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="Gust Front Propagation">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_earth_000037</span>
+          
+        </div>
+        <h2>Gust Front Propagation <span>阵风锋推进</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_01</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 60.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/thehorrorofitallreel2" target="_blank" rel="noreferrer">https://archive.org/details/thehorrorofitallreel2</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show a gust front or shelf-cloud boundary advancing over time.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="Gust Front Propagation">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_earth_000038</span>
+          
+        </div>
+        <h2>Gust Front Propagation <span>阵风锋推进</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_01</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 60.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/0707_Atomic_Bomb_Blast_Effects" target="_blank" rel="noreferrer">https://archive.org/details/0707_Atomic_Bomb_Blast_Effects</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show a gust front or shelf-cloud boundary advancing over time.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="Wave Refraction">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b07_000026</span>
+          
+        </div>
+        <h2>Wave Refraction <span>波浪折射</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_08</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/MIT8.03SCF16" target="_blank" rel="noreferrer">https://archive.org/details/MIT8.03SCF16</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Wave Refraction, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Magnetic Reconnection">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b08_000001</span>
+          
+        </div>
+        <h2>Magnetic Reconnection <span>磁场重联</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_07</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/CIL-10110" target="_blank" rel="noreferrer">https://archive.org/details/CIL-10110</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Magnetic Reconnection, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Solar Prominence Eruption">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b08_000007</span>
+          
+        </div>
+        <h2>Solar Prominence Eruption <span>太阳日珥喷发</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_07</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/youtube-XVINKRi-eUo" target="_blank" rel="noreferrer">https://archive.org/details/youtube-XVINKRi-eUo</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Solar Prominence Eruption, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Coronal Mass Ejection">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b08_000011</span>
+          
+        </div>
+        <h2>Coronal Mass Ejection <span>日冕物质抛射</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_07</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 27.7s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/CIL-10076" target="_blank" rel="noreferrer">https://archive.org/details/CIL-10076</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Coronal Mass Ejection, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="Glacier Creep">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b08_000019</span>
+          
+        </div>
+        <h2>Glacier Creep <span>冰川塑性蠕变</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_05</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/tributeskyking_202204" target="_blank" rel="noreferrer">https://archive.org/details/tributeskyking_202204</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Glacier Creep, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="Longshore Drift">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b07_000007</span>
+          
+        </div>
+        <h2>Longshore Drift <span>沿岸漂移</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_02</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/papua-new-guinea-tidal-wave-tragedy-situation-update-360p" target="_blank" rel="noreferrer">https://archive.org/details/papua-new-guinea-tidal-wave-tragedy-situation-update-360p</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Longshore Drift, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="Wave Refraction">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b07_000025</span>
+          
+        </div>
+        <h2>Wave Refraction <span>波浪折射</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_08</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/MIT8.03F04" target="_blank" rel="noreferrer">https://archive.org/details/MIT8.03F04</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Wave Refraction, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Coronal Mass Ejection">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b08_000008</span>
+          
+        </div>
+        <h2>Coronal Mass Ejection <span>日冕物质抛射</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>physics_physical_systems / physics_family_07</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/NasaConnect-DancingInTheNightSky" target="_blank" rel="noreferrer">https://archive.org/details/NasaConnect-DancingInTheNightSky</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Coronal Mass Ejection, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="Glacier Creep">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b08_000020</span>
+          
+        </div>
+        <h2>Glacier Creep <span>冰川塑性蠕变</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_05</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/45984-castle-films-glacier-national-park_202103" target="_blank" rel="noreferrer">https://archive.org/details/45984-castle-films-glacier-national-park_202103</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Glacier Creep, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="Sea-Cliff Retreat">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b08_000021</span>
+          
+        </div>
+        <h2>Sea-Cliff Retreat <span>海蚀崖后退</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_08</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/planet_earth_2_bbc" target="_blank" rel="noreferrer">https://archive.org/details/planet_earth_2_bbc</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Sea-Cliff Retreat, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="Sea-Cliff Retreat">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b08_000022</span>
+          
+        </div>
+        <h2>Sea-Cliff Retreat <span>海蚀崖后退</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_08</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/america13themoreabundantlifereel2" target="_blank" rel="noreferrer">https://archive.org/details/america13themoreabundantlifereel2</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Sea-Cliff Retreat, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="earth_environmental_systems" data-answer="Sea-Cliff Retreat">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b08_000023</span>
+          
+        </div>
+        <h2>Sea-Cliff Retreat <span>海蚀崖后退</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>earth_environmental_systems / earth_family_08</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/gullivers-travels-1939" target="_blank" rel="noreferrer">https://archive.org/details/gullivers-travels-1939</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Sea-Cliff Retreat, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Phototropism">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b03_000021</span>
+          
+        </div>
+        <h2>Phototropism <span>向光性</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_04</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/youtube-iIhEhlRv9H4" target="_blank" rel="noreferrer">https://archive.org/details/youtube-iIhEhlRv9H4</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Phototropism, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="chemistry_materials_change" data-answer="Belousov-Zhabotinsky Reaction">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b02_000009</span>
+          
+        </div>
+        <h2>Belousov-Zhabotinsky Reaction <span>别洛乌索夫-扎鲍廷斯基振荡反应</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>chemistry_materials_change / materials_family_03</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/youtube-4rYX4ROqRlg" target="_blank" rel="noreferrer">https://archive.org/details/youtube-4rYX4ROqRlg</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Belousov-Zhabotinsky Reaction, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Murmuration">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b02_000048</span>
+          
+        </div>
+        <h2>Murmuration <span>鸟群群舞</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_01</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 17.1s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/dscn-3699" target="_blank" rel="noreferrer">https://archive.org/details/dscn-3699</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Murmuration, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Rabona">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b02_000078</span>
+          
+        </div>
+        <h2>Rabona <span></span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_03</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 3.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/acidplanet-audio-01101032" target="_blank" rel="noreferrer">https://archive.org/details/acidplanet-audio-01101032</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Rabona, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Thigmonasty">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b03_000025</span>
+          
+        </div>
+        <h2>Thigmonasty <span>感触性运动</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_04</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/wikimedia-org-Mimosa_pudica_leaves_folding_when_touched_1" target="_blank" rel="noreferrer">https://archive.org/details/wikimedia-org-Mimosa_pudica_leaves_folding_when_touched_1</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Thigmonasty, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Thigmonasty">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b03_000026</span>
+          
+        </div>
+        <h2>Thigmonasty <span>感触性运动</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_04</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 21.1s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/wikimedia-org-Mimosa_pudica_leaves_folding_when_touched_2" target="_blank" rel="noreferrer">https://archive.org/details/wikimedia-org-Mimosa_pudica_leaves_folding_when_touched_2</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Thigmonasty, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Ciliary Beating">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_commons_mr7_000001</span>
+          
+        </div>
+        <h2>Ciliary Beating <span>纤毛节律摆动</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_05</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 13.0s</dd>
+          <dt>Source</dt><dd><a href="https://commons.wikimedia.org/wiki/File:The-Behaviour-of-Both-Listeria-monocytogenes-and-Rat-Ciliated-Ependymal-Cells-Is-Altered-during-pone.0010450.s001.ogv" target="_blank" rel="noreferrer">https://commons.wikimedia.org/wiki/File:The-Behaviour-of-Both-Listeria-monocytogenes-and-Rat-Ciliated-Ependymal-Cells-Is-Altered-during-pone.0010450.s001.ogv</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show rhythmic ciliary strokes over time, not just a cell edge or static cilia morphology.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Gastrulation">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b03_000038</span>
+          
+        </div>
+        <h2>Gastrulation <span>原肠胚形成</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_08</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/af-amphibian-embryo-frog-toad-and-salamander" target="_blank" rel="noreferrer">https://archive.org/details/af-amphibian-embryo-frog-toad-and-salamander</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Gastrulation, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Ciliary Beating">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_commons_mr4_000001</span>
+          
+        </div>
+        <h2>Ciliary Beating <span>纤毛节律摆动</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_05</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 0.0s</dd>
+          <dt>Source</dt><dd><a href="https://commons.wikimedia.org/wiki/File:Vorticella_vortex_DSC_1703.webm" target="_blank" rel="noreferrer">https://commons.wikimedia.org/wiki/File:Vorticella_vortex_DSC_1703.webm</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show rhythmic coordinated ciliary beating or cilia-driven flow, not merely a microorganism in view.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="chemistry_materials_change" data-answer="Diffusion Flame">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b05_000007</span>
+          
+        </div>
+        <h2>Diffusion Flame <span>扩散火焰</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>chemistry_materials_change / materials_family_07</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 21.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/MSFC-0300183" target="_blank" rel="noreferrer">https://archive.org/details/MSFC-0300183</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Diffusion Flame, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Slime Mold Aggregation">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_commons_mr20_000005</span>
+          
+        </div>
+        <h2>Slime Mold Aggregation <span>黏菌聚集</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_10</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0s - 64.0s</dd>
+          <dt>Source</dt><dd><a href="https://commons.wikimedia.org/wiki/File:Timelapse_of_Slime_Mould.webm" target="_blank" rel="noreferrer">https://commons.wikimedia.org/wiki/File:Timelapse_of_Slime_Mould.webm</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Requires seeing slime-mold mass aggregate or reorganize through time rather than recognizing a static slime mold.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="chemistry_materials_change" data-answer="Reaction-Diffusion Wave">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b05_000001</span>
+          
+        </div>
+        <h2>Reaction-Diffusion Wave <span>反应-扩散波</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>chemistry_materials_change / materials_family_04</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/ClaudiusMaximus_-_rdex_2010-05-22" target="_blank" rel="noreferrer">https://archive.org/details/ClaudiusMaximus_-_rdex_2010-05-22</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Reaction-Diffusion Wave, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Murmuration">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b02_000043</span>
+          
+        </div>
+        <h2>Murmuration <span>鸟群群舞</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_01</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/IngvarBogdahnswarmofbirdsoverRomeat5" target="_blank" rel="noreferrer">https://archive.org/details/IngvarBogdahnswarmofbirdsoverRomeat5</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Murmuration, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Phototropism">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b03_000024</span>
+          
+        </div>
+        <h2>Phototropism <span>向光性</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_04</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/youtube-8G3HFTbMLd4" target="_blank" rel="noreferrer">https://archive.org/details/youtube-8G3HFTbMLd4</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Phototropism, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Exocytosis">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b03_000034</span>
+          
+        </div>
+        <h2>Exocytosis <span>胞吐作用</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_06</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 7.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/yt_YAp1zKMH5BE" target="_blank" rel="noreferrer">https://archive.org/details/yt_YAp1zKMH5BE</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Exocytosis, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="chemistry_materials_change" data-answer="Iodine Clock Reaction">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b02_000005</span>
+          
+        </div>
+        <h2>Iodine Clock Reaction <span>碘钟反应</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>chemistry_materials_change / materials_family_03</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/vctv7bc-Valemount_LIVE_Episode_75_David_Bouchard_Ralph_Shaw_Valemount_Quilter_s_Guild_RBN10" target="_blank" rel="noreferrer">https://archive.org/details/vctv7bc-Valemount_LIVE_Episode_75_David_Bouchard_Ralph_Shaw_Valemount_Quilter_s_Guild_RBN10</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Iodine Clock Reaction, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="chemistry_materials_change" data-answer="Belousov-Zhabotinsky Reaction">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b02_000008</span>
+          
+        </div>
+        <h2>Belousov-Zhabotinsky Reaction <span>别洛乌索夫-扎鲍廷斯基振荡反应</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>chemistry_materials_change / materials_family_03</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/youtube-kw9wF-GNjqs" target="_blank" rel="noreferrer">https://archive.org/details/youtube-kw9wF-GNjqs</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Belousov-Zhabotinsky Reaction, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="chemistry_materials_change" data-answer="Chemical Garden Growth">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b02_000011</span>
+          
+        </div>
+        <h2>Chemical Garden Growth <span>化学花园生长</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>chemistry_materials_change / materials_family_04</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/scm-410032-c4iforjune3kevinannettstewand" target="_blank" rel="noreferrer">https://archive.org/details/scm-410032-c4iforjune3kevinannettstewand</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Chemical Garden Growth, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="chemistry_materials_change" data-answer="Chemical Garden Growth">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b02_000012</span>
+          
+        </div>
+        <h2>Chemical Garden Growth <span>化学花园生长</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>chemistry_materials_change / materials_family_04</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/scm-377843-c4ifordec17wstewwebbandmikeha" target="_blank" rel="noreferrer">https://archive.org/details/scm-377843-c4ifordec17wstewwebbandmikeha</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Chemical Garden Growth, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="chemistry_materials_change" data-answer="Spinodal Decomposition">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b02_000015</span>
+          
+        </div>
+        <h2>Spinodal Decomposition <span>旋节线分解</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>chemistry_materials_change / materials_family_06</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/mit2_43s24" target="_blank" rel="noreferrer">https://archive.org/details/mit2_43s24</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Spinodal Decomposition, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Bubble-Net Feeding">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b02_000036</span>
+          
+        </div>
+        <h2>Bubble-Net Feeding <span>泡泡网捕食</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_01</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/interspeciesio-U_HUiC1dP00" target="_blank" rel="noreferrer">https://archive.org/details/interspeciesio-U_HUiC1dP00</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Bubble-Net Feeding, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Bubble-Net Feeding">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b02_000037</span>
+          
+        </div>
+        <h2>Bubble-Net Feeding <span>泡泡网捕食</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_01</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/44-amazing-animals-animal-helpers_202507" target="_blank" rel="noreferrer">https://archive.org/details/44-amazing-animals-animal-helpers_202507</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Bubble-Net Feeding, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Mud-Ring Feeding">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b02_000041</span>
+          
+        </div>
+        <h2>Mud-Ring Feeding <span>泥环捕食</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_01</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/thelivingplanetaportraitoftheearth8sweetfreshater" target="_blank" rel="noreferrer">https://archive.org/details/thelivingplanetaportraitoftheearth8sweetfreshater</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Mud-Ring Feeding, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Mud-Ring Feeding">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b02_000042</span>
+          
+        </div>
+        <h2>Mud-Ring Feeding <span>泥环捕食</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_01</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/frozen-planet" target="_blank" rel="noreferrer">https://archive.org/details/frozen-planet</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Mud-Ring Feeding, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Rabona">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b02_000076</span>
+          
+        </div>
+        <h2>Rabona <span></span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_03</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/archiveteam_videobot_twitter_com_799114868154470400" target="_blank" rel="noreferrer">https://archive.org/details/archiveteam_videobot_twitter_com_799114868154470400</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Rabona, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Rabona">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b02_000077</span>
+          
+        </div>
+        <h2>Rabona <span></span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_03</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/IRINN_20250325_140000" target="_blank" rel="noreferrer">https://archive.org/details/IRINN_20250325_140000</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Rabona, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Endocytosis">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b03_000029</span>
+          
+        </div>
+        <h2>Endocytosis <span>胞吞作用</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_06</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/youtube-bApadjmakKc" target="_blank" rel="noreferrer">https://archive.org/details/youtube-bApadjmakKc</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Endocytosis, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Endocytosis">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b03_000031</span>
+          
+        </div>
+        <h2>Endocytosis <span>胞吞作用</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_06</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/youtube-UfiXi9iaLc8" target="_blank" rel="noreferrer">https://archive.org/details/youtube-UfiXi9iaLc8</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Endocytosis, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Exocytosis">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b03_000036</span>
+          
+        </div>
+        <h2>Exocytosis <span>胞吐作用</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_06</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/youtube-9IeiqH4LeG0" target="_blank" rel="noreferrer">https://archive.org/details/youtube-9IeiqH4LeG0</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Exocytosis, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Gastrulation">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b03_000037</span>
+          
+        </div>
+        <h2>Gastrulation <span>原肠胚形成</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_08</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/4BghbtKzzpLnyd6loTFPlgJRbe0MUQ" target="_blank" rel="noreferrer">https://archive.org/details/4BghbtKzzpLnyd6loTFPlgJRbe0MUQ</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Gastrulation, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Gastrulation">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b03_000039</span>
+          
+        </div>
+        <h2>Gastrulation <span>原肠胚形成</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_08</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/youtube-H2-_WEGtDPs" target="_blank" rel="noreferrer">https://archive.org/details/youtube-H2-_WEGtDPs</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Gastrulation, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Bacterial Chemotaxis">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b03_000040</span>
+          
+        </div>
+        <h2>Bacterial Chemotaxis <span>细菌趋化游动</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_10</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/academictorrents_98961a881e8fd4139f4d1e09f0b7a4badfab7c9d" target="_blank" rel="noreferrer">https://archive.org/details/academictorrents_98961a881e8fd4139f4d1e09f0b7a4badfab7c9d</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Bacterial Chemotaxis, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Bacterial Chemotaxis">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b03_000041</span>
+          
+        </div>
+        <h2>Bacterial Chemotaxis <span>细菌趋化游动</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_10</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/idcreationismandbacterialchemotaxis" target="_blank" rel="noreferrer">https://archive.org/details/idcreationismandbacterialchemotaxis</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Bacterial Chemotaxis, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Bacterial Chemotaxis">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b03_000042</span>
+          
+        </div>
+        <h2>Bacterial Chemotaxis <span>细菌趋化游动</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_10</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/dtns20240418" target="_blank" rel="noreferrer">https://archive.org/details/dtns20240418</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Bacterial Chemotaxis, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="chemistry_materials_change" data-answer="Oscillating Flame">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b05_000013</span>
+          
+        </div>
+        <h2>Oscillating Flame <span>振荡火焰</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>chemistry_materials_change / materials_family_07</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/DonkeyKong64_101p_902" target="_blank" rel="noreferrer">https://archive.org/details/DonkeyKong64_101p_902</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Oscillating Flame, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Phagocytosis">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b06_000040</span>
+          
+        </div>
+        <h2>Phagocytosis <span>吞噬作用</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_06</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 23.6s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/biorxiv-10.1101-003616" target="_blank" rel="noreferrer">https://archive.org/details/biorxiv-10.1101-003616</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Phagocytosis, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Actin Wave">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b06_000042</span>
+          
+        </div>
+        <h2>Actin Wave <span>肌动蛋白波</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_07</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 22.9s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/m-4-h-00393" target="_blank" rel="noreferrer">https://archive.org/details/m-4-h-00393</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Actin Wave, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Cleavage">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b06_000043</span>
+          
+        </div>
+        <h2>Cleavage <span></span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_08</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 5.1s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/2019-nCoV" target="_blank" rel="noreferrer">https://archive.org/details/2019-nCoV</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Cleavage, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Root Hair Tip Growth">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b06_000049</span>
+          
+        </div>
+        <h2>Root Hair Tip Growth <span>根毛极性生长</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_09</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/hair-serum-video" target="_blank" rel="noreferrer">https://archive.org/details/hair-serum-video</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Root Hair Tip Growth, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Jet Propulsion Swimming">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b02_000031</span>
+          
+        </div>
+        <h2>Jet Propulsion Swimming <span></span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_01</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/nightofthesquidreel1" target="_blank" rel="noreferrer">https://archive.org/details/nightofthesquidreel1</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Jet Propulsion Swimming, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Jet Propulsion Swimming">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b02_000033</span>
+          
+        </div>
+        <h2>Jet Propulsion Swimming <span></span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_01</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/backyard-animals_20251123" target="_blank" rel="noreferrer">https://archive.org/details/backyard-animals_20251123</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Jet Propulsion Swimming, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Jet Propulsion Swimming">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b02_000034</span>
+          
+        </div>
+        <h2>Jet Propulsion Swimming <span></span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_01</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/animal-acrobats_202511" target="_blank" rel="noreferrer">https://archive.org/details/animal-acrobats_202511</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Jet Propulsion Swimming, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="chemistry_materials_change" data-answer="Blue Bottle Reaction">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b04_000041</span>
+          
+        </div>
+        <h2>Blue Bottle Reaction <span>蓝瓶反应</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>chemistry_materials_change / materials_family_03</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/MakeMine1948" target="_blank" rel="noreferrer">https://archive.org/details/MakeMine1948</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Blue Bottle Reaction, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="chemistry_materials_change" data-answer="Blue Bottle Reaction">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b04_000042</span>
+          
+        </div>
+        <h2>Blue Bottle Reaction <span>蓝瓶反应</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>chemistry_materials_change / materials_family_03</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/Gregg_Arthur_Subic_Bay_1966" target="_blank" rel="noreferrer">https://archive.org/details/Gregg_Arthur_Subic_Bay_1966</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Blue Bottle Reaction, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="chemistry_materials_change" data-answer="Chemical Traffic Light Reaction">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b04_000045</span>
+          
+        </div>
+        <h2>Chemical Traffic Light Reaction <span>化学交通灯反应</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>chemistry_materials_change / materials_family_03</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/thosewonderfuldogs" target="_blank" rel="noreferrer">https://archive.org/details/thosewonderfuldogs</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Chemical Traffic Light Reaction, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="chemistry_materials_change" data-answer="Coffee-Ring Formation">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b05_000003</span>
+          
+        </div>
+        <h2>Coffee-Ring Formation <span>咖啡环形成</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>chemistry_materials_change / materials_family_05</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/lifeinaweaverbirdcoloythevillageweaverbird" target="_blank" rel="noreferrer">https://archive.org/details/lifeinaweaverbirdcoloythevillageweaverbird</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Coffee-Ring Formation, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="chemistry_materials_change" data-answer="Flame Front Propagation">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b05_000004</span>
+          
+        </div>
+        <h2>Flame Front Propagation <span>火焰前沿传播</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>chemistry_materials_change / materials_family_07</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/e_history_StreamRoot_DH_0325_19610804_01" target="_blank" rel="noreferrer">https://archive.org/details/e_history_StreamRoot_DH_0325_19610804_01</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Flame Front Propagation, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="chemistry_materials_change" data-answer="Diffusion Flame">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b05_000005</span>
+          
+        </div>
+        <h2>Diffusion Flame <span>扩散火焰</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>chemistry_materials_change / materials_family_07</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/excretorysystemsinanimals" target="_blank" rel="noreferrer">https://archive.org/details/excretorysystemsinanimals</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Diffusion Flame, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="chemistry_materials_change" data-answer="Flame Flashback">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b05_000009</span>
+          
+        </div>
+        <h2>Flame Flashback <span>火焰闪回</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>chemistry_materials_change / materials_family_07</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/Dragon_Quest_4_PS1-Red_Scarlet" target="_blank" rel="noreferrer">https://archive.org/details/Dragon_Quest_4_PS1-Red_Scarlet</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Flame Flashback, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="chemistry_materials_change" data-answer="Flame Flashback">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b05_000010</span>
+          
+        </div>
+        <h2>Flame Flashback <span>火焰闪回</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>chemistry_materials_change / materials_family_07</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/FinalFantasy3_SS_448" target="_blank" rel="noreferrer">https://archive.org/details/FinalFantasy3_SS_448</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Flame Flashback, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="chemistry_materials_change" data-answer="Flame Flashback">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b05_000011</span>
+          
+        </div>
+        <h2>Flame Flashback <span>火焰闪回</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>chemistry_materials_change / materials_family_07</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/FirePat1951" target="_blank" rel="noreferrer">https://archive.org/details/FirePat1951</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Flame Flashback, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="chemistry_materials_change" data-answer="Gel Swelling">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b05_000014</span>
+          
+        </div>
+        <h2>Gel Swelling <span>凝胶溶胀</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>chemistry_materials_change / materials_family_09</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/buttocks-gluteal-implants-insertion" target="_blank" rel="noreferrer">https://archive.org/details/buttocks-gluteal-implants-insertion</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Gel Swelling, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="chemistry_materials_change" data-answer="Gel Swelling">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b05_000016</span>
+          
+        </div>
+        <h2>Gel Swelling <span>凝胶溶胀</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>chemistry_materials_change / materials_family_09</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/yt__D6Yku4uEFc" target="_blank" rel="noreferrer">https://archive.org/details/yt__D6Yku4uEFc</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Gel Swelling, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Axonal Transport">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b06_000036</span>
+          
+        </div>
+        <h2>Axonal Transport <span>轴突运输</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_05</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/youtube-nqNEtdHVUjM" target="_blank" rel="noreferrer">https://archive.org/details/youtube-nqNEtdHVUjM</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Axonal Transport, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Phagocytosis">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b06_000037</span>
+          
+        </div>
+        <h2>Phagocytosis <span>吞噬作用</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_06</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/YoungPharoahWhitePeopleMonkeyBlood" target="_blank" rel="noreferrer">https://archive.org/details/YoungPharoahWhitePeopleMonkeyBlood</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Phagocytosis, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Cleavage">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b06_000044</span>
+          
+        </div>
+        <h2>Cleavage <span></span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_08</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/bb_poor_cinderella" target="_blank" rel="noreferrer">https://archive.org/details/bb_poor_cinderella</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Cleavage, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Cleavage">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b06_000045</span>
+          
+        </div>
+        <h2>Cleavage <span></span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_08</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/hermione-growth-spurt" target="_blank" rel="noreferrer">https://archive.org/details/hermione-growth-spurt</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Cleavage, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Root Hair Tip Growth">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b06_000048</span>
+          
+        </div>
+        <h2>Root Hair Tip Growth <span>根毛极性生长</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_09</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/upenn-f16-0512_Llanos_Venezuela" target="_blank" rel="noreferrer">https://archive.org/details/upenn-f16-0512_Llanos_Venezuela</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Root Hair Tip Growth, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Biofilm Expansion">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b06_000050</span>
+          
+        </div>
+        <h2>Biofilm Expansion <span>生物膜扩张</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_10</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/lftvfl-Leesburg_Turnpike_Wasterwater-The_Nuvoda_Biofilm_Pilot_Study" target="_blank" rel="noreferrer">https://archive.org/details/lftvfl-Leesburg_Turnpike_Wasterwater-The_Nuvoda_Biofilm_Pilot_Study</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Biofilm Expansion, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Convergent Extension">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b08_000013</span>
+          
+        </div>
+        <h2>Convergent Extension <span>汇聚延伸运动</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_08</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 15.3s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/YouniverseMoblogMovies" target="_blank" rel="noreferrer">https://archive.org/details/YouniverseMoblogMovies</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Convergent Extension, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Neural Tube Closure">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b08_000014</span>
+          
+        </div>
+        <h2>Neural Tube Closure <span>神经管闭合</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_08</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/fronto-nasal-encephalocele-encephalocele-of-the-anterior-cranial-base" target="_blank" rel="noreferrer">https://archive.org/details/fronto-nasal-encephalocele-encephalocele-of-the-anterior-cranial-base</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Neural Tube Closure, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Epithelial-Mesenchymal Transition">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b08_000015</span>
+          
+        </div>
+        <h2>Epithelial-Mesenchymal Transition <span>上皮-间质转化</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_08</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/yt_zgLovgnDA6A" target="_blank" rel="noreferrer">https://archive.org/details/yt_zgLovgnDA6A</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Epithelial-Mesenchymal Transition, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Epithelial-Mesenchymal Transition">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b08_000016</span>
+          
+        </div>
+        <h2>Epithelial-Mesenchymal Transition <span>上皮-间质转化</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_08</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/Remarque88-olQAuFtFPRsT" target="_blank" rel="noreferrer">https://archive.org/details/Remarque88-olQAuFtFPRsT</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Epithelial-Mesenchymal Transition, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Epithelial-Mesenchymal Transition">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b08_000017</span>
+          
+        </div>
+        <h2>Epithelial-Mesenchymal Transition <span>上皮-间质转化</span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_08</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/Remarque88-FjRDANQQj4wT" target="_blank" rel="noreferrer">https://archive.org/details/Remarque88-FjRDANQQj4wT</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Epithelial-Mesenchymal Transition, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Spinning Back Kick">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b05_000038</span>
+          
+        </div>
+        <h2>Spinning Back Kick <span></span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_02</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/IndianaJonesEmperorsTomb_14643" target="_blank" rel="noreferrer">https://archive.org/details/IndianaJonesEmperorsTomb_14643</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Spinning Back Kick, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Spinning Back Kick">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b05_000036</span>
+          
+        </div>
+        <h2>Spinning Back Kick <span></span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_02</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/drugs_are_like_that" target="_blank" rel="noreferrer">https://archive.org/details/drugs_are_like_that</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Spinning Back Kick, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Spinning Back Kick">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b05_000037</span>
+          
+        </div>
+        <h2>Spinning Back Kick <span></span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_02</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/0767_Incredible_Machine_The_20_26_47_00" target="_blank" rel="noreferrer">https://archive.org/details/0767_Incredible_Machine_The_20_26_47_00</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Spinning Back Kick, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Ollie">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b06_000014</span>
+          
+        </div>
+        <h2>Ollie <span></span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_02</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/utopia" target="_blank" rel="noreferrer">https://archive.org/details/utopia</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Ollie, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Ollie">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b06_000015</span>
+          
+        </div>
+        <h2>Ollie <span></span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_02</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/TheFlyingDeuces" target="_blank" rel="noreferrer">https://archive.org/details/TheFlyingDeuces</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Ollie, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    
+    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Ollie">
+      <div class="media"></div>
+      <div class="body">
+        <div class="topline">
+          <span class="status">review</span>
+          <span class="id">vdcr_archive_b06_000016</span>
+          
+        </div>
+        <h2>Ollie <span></span></h2>
+        <dl>
+          <dt>Domain</dt><dd>biology_living_systems / biology_family_02</dd>
+          <dt>Tier</dt><dd></dd>
+          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Window</dt><dd>0.0s - 30.0s</dd>
+          <dt>Source</dt><dd><a href="https://archive.org/details/machine_gun_mama_1944" target="_blank" rel="noreferrer">https://archive.org/details/machine_gun_mama_1944</a></dd>
+          <dt>Gate</dt><dd></dd>
+          <dt>Notes</dt><dd>Candidate must show the temporal sequence that instantiates Ollie, not merely an object, scene, or static result.</dd>
+        </dl>
+      </div>
+    </article>
+    </section>
+  </main>
+  <script>
+    const statusFilter = document.getElementById('status');
+    const domainFilter = document.getElementById('domain');
+    const searchFilter = document.getElementById('search');
+    const cards = Array.from(document.querySelectorAll('.card'));
+    function applyFilters() {
+      const status = statusFilter.value;
+      const domain = domainFilter.value;
+      const q = searchFilter.value.toLowerCase();
+      for (const card of cards) {
+        const okStatus = !status || card.dataset.status === status;
+        const okDomain = !domain || card.dataset.domain === domain;
+        const okSearch = !q || card.innerText.toLowerCase().includes(q);
+        card.classList.toggle('hidden', !(okStatus && okDomain && okSearch));
+      }
+    }
+    statusFilter.addEventListener('change', applyFilters);
+    domainFilter.addEventListener('change', applyFilters);
+    searchFilter.addEventListener('input', applyFilters);
+  </script>
+</body>
+</html>

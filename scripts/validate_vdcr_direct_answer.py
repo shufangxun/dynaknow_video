@@ -200,6 +200,39 @@ def validate_row(
     validate_quality(errors, path, line_no, row)
 
 
+def validate_dataset_constraints(
+    plain_rows: list[dict[str, Any]],
+    min_samples: int,
+    max_domain_imbalance: int,
+    allow_duplicate_answers: bool,
+    max_videos_per_answer: int,
+) -> list[str]:
+    errors: list[str] = []
+    video_ids = [row.get("video_id", "") for row in plain_rows]
+    answers = [row.get("answer", "") for row in plain_rows]
+    domains = Counter(row.get("domain", "") for row in plain_rows)
+    if len(plain_rows) < min_samples:
+        errors.append(f"{Path('<dataset>')}:0: dataset has fewer than {min_samples} samples")
+    if len(video_ids) != len(set(video_ids)):
+        errors.append(f"{Path('<dataset>')}:0: video_id values must be unique")
+    if not allow_duplicate_answers and len(answers) != len(set(answers)):
+        errors.append(f"{Path('<dataset>')}:0: answer values must be concept-level unique")
+    if allow_duplicate_answers and max_videos_per_answer > 0:
+        for answer, count in sorted(Counter(answers).items()):
+            if count > max_videos_per_answer:
+                errors.append(
+                    f"{Path('<dataset>')}:0: concept cluster exceeds {max_videos_per_answer} videos: {answer}={count}"
+                )
+    if set(domains) != DOMAINS:
+        errors.append(f"{Path('<dataset>')}:0: dataset must cover exactly the four VDCR main domains")
+    if max_domain_imbalance >= 0 and domains:
+        if max(domains.values()) - min(domains.values()) > max_domain_imbalance:
+            errors.append(
+                f"{Path('<dataset>')}:0: domain imbalance exceeds {max_domain_imbalance}: {dict(sorted(domains.items()))}"
+            )
+    return errors
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--input", required=True, type=Path)
@@ -209,6 +242,17 @@ def main() -> int:
     parser.add_argument("--min-duration-sec", type=float, default=0.0)
     parser.add_argument("--min-video-frames", type=int, default=0)
     parser.add_argument("--max-domain-imbalance", type=int, default=-1)
+    parser.add_argument(
+        "--allow-duplicate-answers",
+        action="store_true",
+        help="Allow V2-style repeated concept clusters instead of requiring concept-level unique answers.",
+    )
+    parser.add_argument(
+        "--max-videos-per-answer",
+        type=int,
+        default=0,
+        help="When duplicate answers are allowed, fail if one answer appears more than this many times. 0 disables the cap.",
+    )
     args = parser.parse_args()
 
     rows = read_jsonl(args.input)
@@ -226,21 +270,15 @@ def main() -> int:
         )
 
     plain_rows = [row for _, row in rows]
-    video_ids = [row.get("video_id", "") for row in plain_rows]
-    answers = [row.get("answer", "") for row in plain_rows]
     domains = Counter(row.get("domain", "") for row in plain_rows)
-    require(errors, args.input, 0, len(plain_rows) >= args.min_samples, f"dataset has fewer than {args.min_samples} samples")
-    require(errors, args.input, 0, len(video_ids) == len(set(video_ids)), "video_id values must be unique")
-    require(errors, args.input, 0, len(answers) == len(set(answers)), "answer values must be concept-level unique")
-    require(errors, args.input, 0, set(domains) == DOMAINS, "dataset must cover exactly the four VDCR main domains")
-    if args.max_domain_imbalance >= 0 and domains:
-        require(
-            errors,
-            args.input,
-            0,
-            max(domains.values()) - min(domains.values()) <= args.max_domain_imbalance,
-            f"domain imbalance exceeds {args.max_domain_imbalance}: {dict(sorted(domains.items()))}",
-        )
+    for dataset_error in validate_dataset_constraints(
+        plain_rows,
+        min_samples=args.min_samples,
+        max_domain_imbalance=args.max_domain_imbalance,
+        allow_duplicate_answers=args.allow_duplicate_answers,
+        max_videos_per_answer=args.max_videos_per_answer,
+    ):
+        errors.append(dataset_error.replace("<dataset>", str(args.input)))
 
     if errors:
         for item in errors:
@@ -249,7 +287,7 @@ def main() -> int:
 
     print(f"validated {len(plain_rows)} VDCR direct-answer rows")
     print("domains:", ", ".join(f"{domain}={count}" for domain, count in sorted(domains.items())))
-    print(f"unique_answers={len(set(answers))}")
+    print(f"unique_answers={len({row.get('answer', '') for row in plain_rows})}")
     return 0
 
 

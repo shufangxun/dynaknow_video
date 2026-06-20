@@ -70,6 +70,11 @@ as `Rayleigh-Plateau Breakup`, `Vortex Shedding`, `Capillary Rise / Wicking`,
 `Phototropism`, `Ostwald Ripening`, `Bubble-Net Feeding`, or other concepts
 whose mechanism can be visually distinguished from nearby alternatives.
 
+The main V2 queue excludes concepts typed as `专有动态动作概念` by default.
+These may be useful for an optional action-recognition ablation, but they should
+not fill the primary VDCR V2 target because they can weaken the mechanism-first
+benchmark claim.
+
 ## Evaluation Reporting
 
 V2 should report two aggregation views:
@@ -107,6 +112,25 @@ while preserving VDCR's video-concept grounding standard.
 
 See `reports/v2_capacity_assessment.md` for the current capacity estimate and
 target-count rationale.
+
+## Current Construction Entry Point
+
+Regenerate the current V2 seed set, merged candidate pool, and main review queue:
+
+```bash
+python3 scripts/build_vdcr_v2_construction_assets.py
+```
+
+Then regenerate the dashboard:
+
+```bash
+python3 scripts/build_vdcr_review_dashboard.py \
+  --review-csv data/vdcr_v2_review_queue.csv \
+  --samples data/vdcr_v2_seed_samples.jsonl \
+  --concepts data/vdcr_concept_inventory_v1.csv \
+  --candidates data/vdcr_candidate_videos_combined_v2.csv \
+  --output reports/vdcr_v2_review_dashboard.html
+```
 
 ## Background Retrieval
 

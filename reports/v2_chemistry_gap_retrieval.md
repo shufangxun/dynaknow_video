@@ -133,6 +133,41 @@ This added 6 source-deduplicated Wikimedia Commons chemistry candidates:
 After rebuilding construction assets, all 6 curated candidates entered the V2
 main review queue. The V2 queue now has 172 rows, including 22 chemistry rows.
 
+## Local Media Review Assets
+
+The 6 curated chemistry candidates were resolved to Commons direct media URLs
+and downloaded locally:
+
+```text
+data/vdcr_v2_curated_chemistry_media_manifest.csv
+data/vdcr_v2_curated_chemistry_download_status.csv
+```
+
+Local media cache:
+
+```text
+media/vdcr_curated_chemistry_v2/
+```
+
+Frame extraction status:
+
+```text
+data/vdcr_v2_curated_chemistry_frame_status.csv
+```
+
+All 6 rows downloaded successfully and all 6 produced first/middle/last plus 8
+sparse review frames. Sparse contact sheets are under:
+
+```text
+reports/vdcr_v2_curated_chemistry_sparse_sheets/
+```
+
+The V2 construction builder now discovers `data/vdcr_v2_*download_status.csv`
+and `reports/vdcr_v2_*sparse_sheets/*_sparse.jpg`, then backfills
+`local_media` and `contact_sheet` into `data/vdcr_v2_review_queue.csv`.
+Therefore the main dashboard can directly play and inspect the curated
+chemistry candidates.
+
 After the run finishes, regenerate V2 construction assets:
 
 ```bash

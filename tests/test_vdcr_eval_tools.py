@@ -4,7 +4,11 @@ from pathlib import Path
 import pytest
 
 from scripts.build_vdcr_mcq_from_direct_answer import build_mcq_rows
-from scripts.build_vdcr_v2_construction_assets import build_v2_assets, discover_local_v2_candidate_paths
+from scripts.build_vdcr_v2_construction_assets import (
+    build_v2_assets,
+    discover_local_v2_candidate_paths,
+    discover_review_assets,
+)
 from scripts.build_vdcr_v2_gap_queries import build_gap_queries
 from scripts.report_vdcr_dual_eval import build_summary_rows
 from scripts.run_qwen3_vl_vdcr import build_task_prompt, prediction_from_response
@@ -418,3 +422,25 @@ def test_discover_local_v2_candidate_paths_excludes_combined_output(tmp_path: Pa
     unrelated.write_text("candidate_id,source_url\n", encoding="utf-8")
 
     assert discover_local_v2_candidate_paths(tmp_path) == [curated]
+
+
+def test_discover_review_assets_uses_download_status_and_sparse_sheet(tmp_path: Path) -> None:
+    data = tmp_path / "data"
+    reports = tmp_path / "reports" / "vdcr_v2_curated_chemistry_sparse_sheets"
+    data.mkdir()
+    reports.mkdir(parents=True)
+    status = data / "vdcr_v2_curated_chemistry_download_status.csv"
+    status.write_text(
+        "id,ok,status,error,direct_url,local_media\n"
+        "curated_002001,true,download_ok,,https://example.test/a,media/a.webm\n",
+        encoding="utf-8",
+    )
+    sheet = reports / "curated_002001_sparse.jpg"
+    sheet.write_text("fake", encoding="utf-8")
+
+    assets = discover_review_assets(tmp_path)
+
+    assert assets["curated_002001"] == {
+        "local_media": "media/a.webm",
+        "contact_sheet": str(sheet),
+    }

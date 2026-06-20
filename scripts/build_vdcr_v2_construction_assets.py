@@ -281,6 +281,7 @@ def build_v2_assets(
     queue_limit: int,
     release_video_ids: set[str] | None = None,
     include_action_concepts: bool = False,
+    review_assets_by_id: dict[str, dict[str, str]] | None = None,
 ) -> V2Assets:
     if release_video_ids is not None:
         v1_samples = [row for row in v1_samples if row.get("video_id") in release_video_ids]
@@ -332,6 +333,7 @@ def build_v2_assets(
         repeat_rank = working_concept_counts.get(answer, 0) + 1
         if max_videos_per_concept > 0 and repeat_rank > max_videos_per_concept:
             continue
+        review_assets = (review_assets_by_id or {}).get(row.get("candidate_id", ""), {})
         current_gap = max(target_per_domain - working_domain_counts.get(domain, 0), 0)
         review_queue.append(
             {
@@ -346,8 +348,8 @@ def build_v2_assets(
                 "source_url": row.get("source_url", ""),
                 "license_or_usage_note": row.get("license_or_usage_note", ""),
                 "raw_duration_sec": row.get("raw_duration_sec", ""),
-                "local_media": "",
-                "contact_sheet": "",
+                "local_media": review_assets.get("local_media", ""),
+                "contact_sheet": review_assets.get("contact_sheet", ""),
                 "review_status": "review",
                 "recommended_action": "inspect_video",
                 "suggested_start_sec": row.get("suggested_start_sec", "0"),
@@ -410,6 +412,26 @@ def discover_local_v2_candidate_paths(root: Path) -> list[Path]:
     ]
 
 
+def discover_review_assets(root: Path) -> dict[str, dict[str, str]]:
+    assets: dict[str, dict[str, str]] = {}
+    data_dir = root / "data"
+    if data_dir.exists():
+        for status_path in sorted(data_dir.glob("vdcr_v2_*download_status.csv")):
+            for row in read_csv(status_path):
+                if row.get("ok") != "true" or not row.get("local_media"):
+                    continue
+                item_id = row.get("id", "")
+                if not item_id:
+                    continue
+                assets.setdefault(item_id, {})["local_media"] = row.get("local_media", "")
+    reports_dir = root / "reports"
+    if reports_dir.exists():
+        for sheet in sorted(reports_dir.glob("vdcr_v2_*sparse_sheets/*_sparse.jpg")):
+            item_id = sheet.name.removesuffix("_sparse.jpg")
+            assets.setdefault(item_id, {})["contact_sheet"] = str(sheet)
+    return assets
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--v1-samples", type=Path, default=Path("data/vdcr_pilot_samples_direct_answer_v1.jsonl"))
@@ -457,6 +479,7 @@ def main() -> int:
         queue_limit=args.queue_limit,
         release_video_ids=release_video_ids,
         include_action_concepts=args.include_action_concepts,
+        review_assets_by_id=discover_review_assets(Path(".")),
     )
 
     write_csv(args.output_candidates, assets.candidate_rows, CANDIDATE_FIELDS)

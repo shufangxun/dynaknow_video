@@ -116,7 +116,7 @@ def main() -> int:
     if args.status_output:
         args.status_output.parent.mkdir(parents=True, exist_ok=True)
         with args.status_output.open("w", encoding="utf-8", newline="") as handle:
-            writer = csv.DictWriter(handle, fieldnames=STATUS_FIELDS)
+            writer = csv.DictWriter(handle, fieldnames=STATUS_FIELDS, lineterminator="\n")
             writer.writeheader()
             writer.writerows(status_rows)
     print(f"downloaded={downloaded} skipped={skipped} failed={failed}")

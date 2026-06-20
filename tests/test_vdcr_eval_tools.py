@@ -612,6 +612,30 @@ def test_build_triage_rows_keeps_only_local_reviewable_candidates() -> None:
     assert rows[0]["visual_gate_focus"] == "visible bending"
 
 
+def test_build_triage_rows_preserves_existing_reviewer_decisions() -> None:
+    review_rows = [
+        {
+            "candidate_id": "curated_003002",
+            "candidate_knowledge_point": "Phototropism",
+            "domain_seed": "biology_living_systems",
+            "local_media": "media/photo.ogv",
+            "contact_sheet": "reports/photo.jpg",
+            "review_notes": "visible bending",
+        }
+    ]
+    existing = {
+        "curated_003002": {
+            "reviewer_decision": "pass_candidate",
+            "reviewer_notes": "clear time-lapse bend",
+        }
+    }
+
+    rows = build_triage_rows(review_rows, existing_decisions=existing)
+
+    assert rows[0]["reviewer_decision"] == "pass_candidate"
+    assert rows[0]["reviewer_notes"] == "clear time-lapse bend"
+
+
 def test_discover_local_v2_candidate_paths_excludes_combined_output(tmp_path: Path) -> None:
     data = tmp_path / "data"
     data.mkdir()

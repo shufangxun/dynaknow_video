@@ -44,14 +44,32 @@ def write_csv(path: Path, rows: list[dict[str, str]], fields: list[str]) -> None
         writer.writerows([{field: row.get(field, "") for field in fields} for row in rows])
 
 
-def build_triage_rows(review_rows: list[dict[str, str]]) -> list[dict[str, str]]:
+def existing_decisions_by_id(rows: list[dict[str, str]]) -> dict[str, dict[str, str]]:
+    decisions: dict[str, dict[str, str]] = {}
+    for row in rows:
+        candidate_id = row.get("candidate_id", "")
+        if not candidate_id:
+            continue
+        decisions[candidate_id] = {
+            "reviewer_decision": row.get("reviewer_decision", ""),
+            "reviewer_notes": row.get("reviewer_notes", ""),
+        }
+    return decisions
+
+
+def build_triage_rows(
+    review_rows: list[dict[str, str]],
+    existing_decisions: dict[str, dict[str, str]] | None = None,
+) -> list[dict[str, str]]:
     rows: list[dict[str, str]] = []
     for row in review_rows:
         if not row.get("local_media") or not row.get("contact_sheet"):
             continue
+        candidate_id = row.get("candidate_id") or row.get("id", "")
+        previous = (existing_decisions or {}).get(candidate_id, {})
         rows.append(
             {
-                "candidate_id": row.get("candidate_id") or row.get("id", ""),
+                "candidate_id": candidate_id,
                 "candidate_knowledge_point": row.get("candidate_knowledge_point", ""),
                 "concept_id": row.get("concept_id", ""),
                 "domain_seed": row.get("domain_seed", ""),
@@ -67,8 +85,8 @@ def build_triage_rows(review_rows: list[dict[str, str]]) -> list[dict[str, str]]
                 "repeat_concept_cap": row.get("repeat_concept_cap", ""),
                 "triage_status": "ready_for_manual_review",
                 "visual_gate_focus": row.get("review_notes", ""),
-                "reviewer_decision": "",
-                "reviewer_notes": "",
+                "reviewer_decision": previous.get("reviewer_decision", ""),
+                "reviewer_notes": previous.get("reviewer_notes", ""),
             }
         )
     rows.sort(key=lambda item: (item["domain_seed"], item["candidate_knowledge_point"], item["candidate_id"]))
@@ -140,7 +158,8 @@ def main() -> int:
     parser.add_argument("--report", type=Path, default=Path("reports/vdcr_v2_local_review_triage.md"))
     args = parser.parse_args()
 
-    rows = build_triage_rows(read_csv(args.review_queue))
+    existing = existing_decisions_by_id(read_csv(args.output)) if args.output.exists() else {}
+    rows = build_triage_rows(read_csv(args.review_queue), existing_decisions=existing)
     write_csv(args.output, rows, TRIAGE_FIELDS)
     write_report(args.report, rows)
     print(f"triage_rows={len(rows)} wrote {args.output}")

@@ -165,6 +165,16 @@ This writes:
   media and sparse contact sheets, with blank decision fields for manual review.
 - `reports/vdcr_v2_local_review_triage.md`: local-review candidate summary.
 
+After filling `reviewer_decision` and `reviewer_notes`, apply those decisions
+back to the V2 review queue:
+
+```bash
+python3 scripts/apply_vdcr_v2_triage_decisions.py
+```
+
+Only triage rows with `pass_candidate`, `revise`, or `reject` decisions update
+`data/vdcr_v2_review_queue.csv`.
+
 Build the V2 expansion backlog after the construction assets:
 
 ```bash

@@ -174,6 +174,7 @@ Regenerate them with:
 ```bash
 python3 scripts/build_vdcr_v2_construction_assets.py
 python3 scripts/build_vdcr_v2_review_triage.py
+python3 scripts/apply_vdcr_v2_triage_decisions.py
 python3 scripts/build_vdcr_v2_expansion_backlog.py
 python3 scripts/build_vdcr_review_dashboard.py \
   --review-csv data/vdcr_v2_review_queue.csv \

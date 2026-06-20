@@ -12,7 +12,8 @@ from scripts.build_vdcr_v2_construction_assets import (
 )
 from scripts.build_vdcr_v2_expansion_backlog import build_backlog_queries, build_expansion_backlog
 from scripts.build_vdcr_v2_gap_queries import build_gap_queries
-from scripts.build_vdcr_v2_review_triage import build_triage_rows
+from scripts.build_vdcr_v2_review_triage import build_triage_rows, decision_counts
+from scripts.apply_vdcr_v2_triage_decisions import apply_triage_decisions
 from scripts.report_vdcr_dual_eval import build_summary_rows
 from scripts.run_qwen3_vl_vdcr import build_task_prompt, prediction_from_response
 from scripts.score_vdcr_mcq import extract_choice, score_rows
@@ -634,6 +635,58 @@ def test_build_triage_rows_preserves_existing_reviewer_decisions() -> None:
 
     assert rows[0]["reviewer_decision"] == "pass_candidate"
     assert rows[0]["reviewer_notes"] == "clear time-lapse bend"
+
+
+def test_decision_counts_tracks_blank_and_filled_triage_decisions() -> None:
+    rows = [
+        {"reviewer_decision": "pass_candidate"},
+        {"reviewer_decision": "revise"},
+        {"reviewer_decision": ""},
+    ]
+
+    counts = decision_counts(rows)
+
+    assert counts["pass_candidate"] == 1
+    assert counts["revise"] == 1
+    assert counts["pending"] == 1
+
+
+def test_apply_triage_decisions_updates_review_queue_status_and_notes() -> None:
+    review_rows = [
+        {
+            "candidate_id": "curated_003002",
+            "review_status": "review",
+            "review_notes": "old gate",
+            "recommended_action": "inspect_video",
+        },
+        {
+            "candidate_id": "curated_003001",
+            "review_status": "review",
+            "review_notes": "old gate",
+            "recommended_action": "inspect_video",
+        },
+    ]
+    triage_rows = [
+        {
+            "candidate_id": "curated_003002",
+            "reviewer_decision": "pass_candidate",
+            "reviewer_notes": "clear bending sequence",
+        },
+        {
+            "candidate_id": "curated_003001",
+            "reviewer_decision": "revise",
+            "reviewer_notes": "needs tighter segment",
+        },
+    ]
+
+    updated = apply_triage_decisions(review_rows, triage_rows)
+
+    assert updated[0]["review_status"] == "pass_candidate"
+    assert updated[0]["recommended_action"] == "candidate_ready_for_v2_draft"
+    assert "triage_decision=pass_candidate" in updated[0]["review_notes"]
+    assert "clear bending sequence" in updated[0]["review_notes"]
+    assert updated[1]["review_status"] == "revise"
+    assert updated[1]["recommended_action"] == "revise_or_trim_before_draft"
 
 
 def test_discover_local_v2_candidate_paths_excludes_combined_output(tmp_path: Path) -> None:

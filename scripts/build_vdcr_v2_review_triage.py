@@ -93,10 +93,19 @@ def build_triage_rows(
     return rows
 
 
+def decision_counts(rows: list[dict[str, str]]) -> Counter[str]:
+    counts: Counter[str] = Counter()
+    for row in rows:
+        decision = row.get("reviewer_decision", "") or "pending"
+        counts[decision] += 1
+    return counts
+
+
 def write_report(path: Path, rows: list[dict[str, str]]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     by_domain = Counter(row["domain_seed"] for row in rows)
     by_concept = Counter(row["candidate_knowledge_point"] for row in rows)
+    by_decision = decision_counts(rows)
     lines = [
         "# VDCR V2 Local Review Triage",
         "",
@@ -109,6 +118,10 @@ def write_report(path: Path, rows: list[dict[str, str]]) -> None:
         "",
         f"- local-review candidates: {len(rows)}",
         f"- unique concepts: {len(by_concept)}",
+        f"- pass candidates: {by_decision.get('pass_candidate', 0)}",
+        f"- revise candidates: {by_decision.get('revise', 0)}",
+        f"- reject candidates: {by_decision.get('reject', 0)}",
+        f"- pending candidates: {by_decision.get('pending', 0)}",
         "",
         "## Domain Counts",
         "",
@@ -122,16 +135,17 @@ def write_report(path: Path, rows: list[dict[str, str]]) -> None:
             "",
             "## Candidate Rows",
             "",
-            "| Candidate | Concept | Domain | Media | Contact sheet |",
-            "|---|---|---|---|---|",
+            "| Candidate | Concept | Domain | Decision | Media | Contact sheet |",
+            "|---|---|---|---|---|---|",
         ]
     )
     for row in rows:
         lines.append(
-            "| `{candidate_id}` | `{concept}` | `{domain}` | `{media}` | `{sheet}` |".format(
+            "| `{candidate_id}` | `{concept}` | `{domain}` | `{decision}` | `{media}` | `{sheet}` |".format(
                 candidate_id=row["candidate_id"],
                 concept=row["candidate_knowledge_point"],
                 domain=row["domain_seed"],
+                decision=row.get("reviewer_decision", "") or "pending",
                 media=row["local_media"],
                 sheet=row["contact_sheet"],
             )

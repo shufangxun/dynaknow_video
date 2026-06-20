@@ -9,6 +9,10 @@ They are reviewable candidates, not accepted samples.
 
 - local-review candidates: 10
 - unique concepts: 8
+- pass candidates: 4
+- revise candidates: 6
+- reject candidates: 0
+- pending candidates: 0
 
 ## Domain Counts
 
@@ -20,18 +24,18 @@ They are reviewable candidates, not accepted samples.
 
 ## Candidate Rows
 
-| Candidate | Concept | Domain | Media | Contact sheet |
-|---|---|---|---|---|
-| `curated_003002` | `Phototropism` | `biology_living_systems` | `media/vdcr_curated_expansion_v2/curated_003002.ogv` | `reports/vdcr_v2_curated_expansion_sparse_sheets/curated_003002_sparse.jpg` |
-| `curated_003001` | `Tendril Circumnutation` | `biology_living_systems` | `media/vdcr_curated_expansion_v2/curated_003001.webm` | `reports/vdcr_v2_curated_expansion_sparse_sheets/curated_003001_sparse.jpg` |
-| `curated_002004` | `Blue Bottle Reaction` | `chemistry_materials_change` | `media/vdcr_curated_chemistry_v2/curated_002004.webm` | `reports/vdcr_v2_curated_chemistry_sparse_sheets/curated_002004_sparse.jpg` |
-| `curated_002005` | `Blue Bottle Reaction` | `chemistry_materials_change` | `media/vdcr_curated_chemistry_v2/curated_002005.webm` | `reports/vdcr_v2_curated_chemistry_sparse_sheets/curated_002005_sparse.jpg` |
-| `curated_002006` | `Briggs-Rauscher Reaction` | `chemistry_materials_change` | `media/vdcr_curated_chemistry_v2/curated_002006.webm` | `reports/vdcr_v2_curated_chemistry_sparse_sheets/curated_002006_sparse.jpg` |
-| `curated_002003` | `Chemical Garden Growth` | `chemistry_materials_change` | `media/vdcr_curated_chemistry_v2/curated_002003.ogv` | `reports/vdcr_v2_curated_chemistry_sparse_sheets/curated_002003_sparse.jpg` |
-| `curated_002001` | `Iodine Clock Reaction` | `chemistry_materials_change` | `media/vdcr_curated_chemistry_v2/curated_002001.ogv` | `reports/vdcr_v2_curated_chemistry_sparse_sheets/curated_002001_sparse.jpg` |
-| `curated_002002` | `Iodine Clock Reaction` | `chemistry_materials_change` | `media/vdcr_curated_chemistry_v2/curated_002002.ogv` | `reports/vdcr_v2_curated_chemistry_sparse_sheets/curated_002002_sparse.jpg` |
-| `curated_003004` | `Capillary-Driven Droplet Coalescence` | `physics_physical_systems` | `media/vdcr_curated_expansion_v2/curated_003004.ogv` | `reports/vdcr_v2_curated_expansion_sparse_sheets/curated_003004_sparse.jpg` |
-| `curated_003003` | `Standing-Wave Mode Formation` | `physics_physical_systems` | `media/vdcr_curated_expansion_v2/curated_003003.webm` | `reports/vdcr_v2_curated_expansion_sparse_sheets/curated_003003_sparse.jpg` |
+| Candidate | Concept | Domain | Decision | Media | Contact sheet |
+|---|---|---|---|---|---|
+| `curated_003002` | `Phototropism` | `biology_living_systems` | `pass_candidate` | `media/vdcr_curated_expansion_v2/curated_003002.ogv` | `reports/vdcr_v2_curated_expansion_sparse_sheets/curated_003002_sparse.jpg` |
+| `curated_003001` | `Tendril Circumnutation` | `biology_living_systems` | `revise` | `media/vdcr_curated_expansion_v2/curated_003001.webm` | `reports/vdcr_v2_curated_expansion_sparse_sheets/curated_003001_sparse.jpg` |
+| `curated_002004` | `Blue Bottle Reaction` | `chemistry_materials_change` | `revise` | `media/vdcr_curated_chemistry_v2/curated_002004.webm` | `reports/vdcr_v2_curated_chemistry_sparse_sheets/curated_002004_sparse.jpg` |
+| `curated_002005` | `Blue Bottle Reaction` | `chemistry_materials_change` | `revise` | `media/vdcr_curated_chemistry_v2/curated_002005.webm` | `reports/vdcr_v2_curated_chemistry_sparse_sheets/curated_002005_sparse.jpg` |
+| `curated_002006` | `Briggs-Rauscher Reaction` | `chemistry_materials_change` | `pass_candidate` | `media/vdcr_curated_chemistry_v2/curated_002006.webm` | `reports/vdcr_v2_curated_chemistry_sparse_sheets/curated_002006_sparse.jpg` |
+| `curated_002003` | `Chemical Garden Growth` | `chemistry_materials_change` | `pass_candidate` | `media/vdcr_curated_chemistry_v2/curated_002003.ogv` | `reports/vdcr_v2_curated_chemistry_sparse_sheets/curated_002003_sparse.jpg` |
+| `curated_002001` | `Iodine Clock Reaction` | `chemistry_materials_change` | `revise` | `media/vdcr_curated_chemistry_v2/curated_002001.ogv` | `reports/vdcr_v2_curated_chemistry_sparse_sheets/curated_002001_sparse.jpg` |
+| `curated_002002` | `Iodine Clock Reaction` | `chemistry_materials_change` | `pass_candidate` | `media/vdcr_curated_chemistry_v2/curated_002002.ogv` | `reports/vdcr_v2_curated_chemistry_sparse_sheets/curated_002002_sparse.jpg` |
+| `curated_003004` | `Capillary-Driven Droplet Coalescence` | `physics_physical_systems` | `revise` | `media/vdcr_curated_expansion_v2/curated_003004.ogv` | `reports/vdcr_v2_curated_expansion_sparse_sheets/curated_003004_sparse.jpg` |
+| `curated_003003` | `Standing-Wave Mode Formation` | `physics_physical_systems` | `revise` | `media/vdcr_curated_expansion_v2/curated_003003.webm` | `reports/vdcr_v2_curated_expansion_sparse_sheets/curated_003003_sparse.jpg` |
 
 ## Manual Review Decisions
 

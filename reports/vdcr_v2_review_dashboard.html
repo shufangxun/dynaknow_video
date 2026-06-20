@@ -52,19 +52,19 @@
     <div class="metrics">
       <div class="metric"><strong>114</strong><span>Samples</span><small>direct-answer JSONL</small></div>
       <div class="metric"><strong>175</strong><span>Reviewed Rows</span><small>manual review CSV</small></div>
-      <div class="metric"><strong>0</strong><span>Pass Candidates</span></div>
+      <div class="metric"><strong>4</strong><span>Pass Candidates</span></div>
       <div class="metric"><strong>114</strong><span>Unique Answers</span><small>duplicates: 0</small></div>
       <div class="metric"><strong>Direct</strong><span>Question Type</span><small>no MCQ options</small></div>
     </div>
     <div class="filters">
-      <select id="status"><option value="">All statuses</option><option value="review">review (175)</option></select>
+      <select id="status"><option value="">All statuses</option><option value="pass_candidate">pass_candidate (4)</option><option value="review">review (165)</option><option value="revise">revise (6)</option></select>
       <select id="domain"><option value="">All domains</option><option value="biology_living_systems">biology_living_systems (29)</option><option value="chemistry_materials_change">chemistry_materials_change (29)</option><option value="earth_environmental_systems">earth_environmental_systems (28)</option><option value="physics_physical_systems">physics_physical_systems (28)</option></select>
       <input id="search" placeholder="Search answer, id, notes">
     </div>
   </header>
   <main>
     <div class="tables">
-      <section class="panel"><h2>Review Status</h2><table><tbody><tr><td>review</td><td>175</td></tr></tbody></table></section>
+      <section class="panel"><h2>Review Status</h2><table><tbody><tr><td>review</td><td>165</td></tr><tr><td>revise</td><td>6</td></tr><tr><td>pass_candidate</td><td>4</td></tr></tbody></table></section>
       <section class="panel"><h2>Pass Samples By Domain</h2><table><tbody><tr><td>biology_living_systems</td><td>29</td></tr><tr><td>chemistry_materials_change</td><td>29</td></tr><tr><td>physics_physical_systems</td><td>28</td></tr><tr><td>earth_environmental_systems</td><td>28</td></tr></tbody></table></section>
       <section class="panel"><h2>Pass Samples By Tier</h2><table><tbody><tr><td>strict_main_candidate</td><td>70</td></tr><tr><td>core_main</td><td>44</td></tr></tbody></table></section>
       <section class="panel"><h2>Reviewed Sources</h2><table><tbody><tr><td>internet_archive</td><td>155</td></tr><tr><td>wikimedia_commons</td><td>18</td></tr><tr><td>national_park_service</td><td>1</td></tr><tr><td>Wikimedia Commons</td><td>1</td></tr></tbody></table></section>
@@ -364,11 +364,11 @@
       </div>
     </article>
 
-    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Standing-Wave Mode Formation">
+    <article class="card revise" data-status="revise" data-domain="physics_physical_systems" data-answer="Standing-Wave Mode Formation">
       <div class="media"><video controls preload="metadata" src="../media/vdcr_curated_expansion_v2/curated_003003.webm" type="video/webm"></video><a href="vdcr_v2_curated_expansion_sparse_sheets/curated_003003_sparse.jpg" target="_blank"><img src="vdcr_v2_curated_expansion_sparse_sheets/curated_003003_sparse.jpg" alt="contact sheet"></a></div>
       <div class="body">
         <div class="topline">
-          <span class="status">review</span>
+          <span class="status">revise</span>
           <span class="id">curated_003003</span>
 
         </div>
@@ -376,11 +376,11 @@
         <dl>
           <dt>Domain</dt><dd>physics_physical_systems / physics_family_03</dd>
           <dt>Tier</dt><dd>core_main</dd>
-          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Action</dt><dd>revise_or_trim_before_draft</dd>
           <dt>Window</dt><dd>0.0s - 9.3s</dd>
           <dt>Source</dt><dd><a href="https://commons.wikimedia.org/wiki/File:Dipole_xmting_antenna_animation_2_pulses_HD_1080_12_fps.webm" target="_blank" rel="noreferrer">https://commons.wikimedia.org/wiki/File:Dipole_xmting_antenna_animation_2_pulses_HD_1080_12_fps.webm</a></dd>
           <dt>Gate</dt><dd>video_must_show_named_dynamic_mechanism_sequence_without_title_or_source_leakage</dd>
-          <dt>Notes</dt><dd>Candidate should show oscillatory standing-wave current or field mode structure forming over time, not merely a static wave diagram.</dd>
+          <dt>Notes</dt><dd>Candidate should show oscillatory standing-wave current or field mode structure forming over time, not merely a static wave diagram. | triage_decision=revise; triage_notes=diagrammatic electromagnetic animation may be radiation/field propagation rather than standing-wave mode formation; needs concept rebinding or rejection</dd>
         </dl>
       </div>
     </article>
@@ -931,11 +931,11 @@
       </div>
     </article>
 
-    <article class="card review" data-status="review" data-domain="physics_physical_systems" data-answer="Capillary-Driven Droplet Coalescence">
+    <article class="card revise" data-status="revise" data-domain="physics_physical_systems" data-answer="Capillary-Driven Droplet Coalescence">
       <div class="media"><video controls preload="metadata" src="../media/vdcr_curated_expansion_v2/curated_003004.ogv" type="video/ogg"></video><a href="vdcr_v2_curated_expansion_sparse_sheets/curated_003004_sparse.jpg" target="_blank"><img src="vdcr_v2_curated_expansion_sparse_sheets/curated_003004_sparse.jpg" alt="contact sheet"></a></div>
       <div class="body">
         <div class="topline">
-          <span class="status">review</span>
+          <span class="status">revise</span>
           <span class="id">curated_003004</span>
 
         </div>
@@ -943,11 +943,11 @@
         <dl>
           <dt>Domain</dt><dd>physics_physical_systems / physics_family_02</dd>
           <dt>Tier</dt><dd>strict_main_candidate</dd>
-          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Action</dt><dd>revise_or_trim_before_draft</dd>
           <dt>Window</dt><dd>0.0s - 34.0s</dd>
           <dt>Source</dt><dd><a href="https://commons.wikimedia.org/wiki/File:Spontaneous-assembly-of-chemically-encoded-two-dimensional-coacervate-droplet-arrays-by-acoustic-ncomms13068-s2.ogv" target="_blank" rel="noreferrer">https://commons.wikimedia.org/wiki/File:Spontaneous-assembly-of-chemically-encoded-two-dimensional-coacervate-droplet-arrays-by-acoustic-ncomms13068-s2.ogv</a></dd>
           <dt>Gate</dt><dd>video_must_show_named_dynamic_mechanism_sequence_without_title_or_source_leakage</dd>
-          <dt>Notes</dt><dd>Candidate should show primary droplets merging into larger droplets over time; reviewer must check whether capillary coalescence is visually grounded rather than only source-described.</dd>
+          <dt>Notes</dt><dd>Candidate should show primary droplets merging into larger droplets over time; reviewer must check whether capillary coalescence is visually grounded rather than only source-described. | triage_decision=revise; triage_notes=sparse frames show droplet array growth/contact but not enough to prove capillary-driven coalescence without full-video review</dd>
         </dl>
       </div>
     </article>
@@ -2464,11 +2464,11 @@
       </div>
     </article>
 
-    <article class="card review" data-status="review" data-domain="chemistry_materials_change" data-answer="Iodine Clock Reaction">
+    <article class="card revise" data-status="revise" data-domain="chemistry_materials_change" data-answer="Iodine Clock Reaction">
       <div class="media"><video controls preload="metadata" src="../media/vdcr_curated_chemistry_v2/curated_002001.ogv" type="video/ogg"></video><a href="vdcr_v2_curated_chemistry_sparse_sheets/curated_002001_sparse.jpg" target="_blank"><img src="vdcr_v2_curated_chemistry_sparse_sheets/curated_002001_sparse.jpg" alt="contact sheet"></a></div>
       <div class="body">
         <div class="topline">
-          <span class="status">review</span>
+          <span class="status">revise</span>
           <span class="id">curated_002001</span>
 
         </div>
@@ -2476,20 +2476,20 @@
         <dl>
           <dt>Domain</dt><dd>chemistry_materials_change / materials_family_03</dd>
           <dt>Tier</dt><dd>core_main</dd>
-          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Action</dt><dd>revise_or_trim_before_draft</dd>
           <dt>Window</dt><dd>0.0s - 30.0s</dd>
           <dt>Source</dt><dd><a href="https://commons.wikimedia.org/wiki/File:Iodine_Clock_Reaction.ogv" target="_blank" rel="noreferrer">https://commons.wikimedia.org/wiki/File:Iodine_Clock_Reaction.ogv</a></dd>
           <dt>Gate</dt><dd>video_must_show_material_or_reaction_state_evolution; source_text_may_only_double_check_not_supply_answer</dd>
-          <dt>Notes</dt><dd>Candidate should show the delayed rapid color change of an iodine clock reaction, not merely a static flask or explanatory setup.</dd>
+          <dt>Notes</dt><dd>Candidate should show the delayed rapid color change of an iodine clock reaction, not merely a static flask or explanatory setup. | triage_decision=revise; triage_notes=delayed darkening is visible but table handwriting/labels may leak answer; needs crop or tighter segment</dd>
         </dl>
       </div>
     </article>
 
-    <article class="card review" data-status="review" data-domain="chemistry_materials_change" data-answer="Chemical Garden Growth">
+    <article class="card pass" data-status="pass_candidate" data-domain="chemistry_materials_change" data-answer="Chemical Garden Growth">
       <div class="media"><video controls preload="metadata" src="../media/vdcr_curated_chemistry_v2/curated_002003.ogv" type="video/ogg"></video><a href="vdcr_v2_curated_chemistry_sparse_sheets/curated_002003_sparse.jpg" target="_blank"><img src="vdcr_v2_curated_chemistry_sparse_sheets/curated_002003_sparse.jpg" alt="contact sheet"></a></div>
       <div class="body">
         <div class="topline">
-          <span class="status">review</span>
+          <span class="status">pass_candidate</span>
           <span class="id">curated_002003</span>
 
         </div>
@@ -2497,20 +2497,20 @@
         <dl>
           <dt>Domain</dt><dd>chemistry_materials_change / materials_family_04</dd>
           <dt>Tier</dt><dd>core_main</dd>
-          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Action</dt><dd>candidate_ready_for_v2_draft</dd>
           <dt>Window</dt><dd>0.0s - 32.0s</dd>
           <dt>Source</dt><dd><a href="https://commons.wikimedia.org/wiki/File:Growth_of_a_chemical_garden.ogv" target="_blank" rel="noreferrer">https://commons.wikimedia.org/wiki/File:Growth_of_a_chemical_garden.ogv</a></dd>
           <dt>Gate</dt><dd>video_must_show_material_or_reaction_state_evolution; source_text_may_only_double_check_not_supply_answer</dd>
-          <dt>Notes</dt><dd>Candidate should show mineral tube growth over time in a chemical garden, not merely the final grown structure.</dd>
+          <dt>Notes</dt><dd>Candidate should show mineral tube growth over time in a chemical garden, not merely the final grown structure. | triage_decision=pass_candidate; triage_notes=strong mineral tube growth over time; no obvious sparse-frame text leakage</dd>
         </dl>
       </div>
     </article>
 
-    <article class="card review" data-status="review" data-domain="chemistry_materials_change" data-answer="Briggs-Rauscher Reaction">
+    <article class="card pass" data-status="pass_candidate" data-domain="chemistry_materials_change" data-answer="Briggs-Rauscher Reaction">
       <div class="media"><video controls preload="metadata" src="../media/vdcr_curated_chemistry_v2/curated_002006.webm" type="video/webm"></video><a href="vdcr_v2_curated_chemistry_sparse_sheets/curated_002006_sparse.jpg" target="_blank"><img src="vdcr_v2_curated_chemistry_sparse_sheets/curated_002006_sparse.jpg" alt="contact sheet"></a></div>
       <div class="body">
         <div class="topline">
-          <span class="status">review</span>
+          <span class="status">pass_candidate</span>
           <span class="id">curated_002006</span>
 
         </div>
@@ -2518,20 +2518,20 @@
         <dl>
           <dt>Domain</dt><dd>chemistry_materials_change / materials_family_03</dd>
           <dt>Tier</dt><dd>core_main</dd>
-          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Action</dt><dd>candidate_ready_for_v2_draft</dd>
           <dt>Window</dt><dd>0.0s - 32.0s</dd>
           <dt>Source</dt><dd><a href="https://commons.wikimedia.org/wiki/File:Briggs%E2%80%93Rauscher_reaction.webm" target="_blank" rel="noreferrer">https://commons.wikimedia.org/wiki/File:Briggs%E2%80%93Rauscher_reaction.webm</a></dd>
           <dt>Gate</dt><dd>video_must_show_material_or_reaction_state_evolution; source_text_may_only_double_check_not_supply_answer</dd>
-          <dt>Notes</dt><dd>Candidate should show oscillating color changes characteristic of the Briggs-Rauscher reaction, not merely a static reaction vessel.</dd>
+          <dt>Notes</dt><dd>Candidate should show oscillating color changes characteristic of the Briggs-Rauscher reaction, not merely a static reaction vessel. | triage_decision=pass_candidate; triage_notes=strong repeated color oscillation visible across sparse frames</dd>
         </dl>
       </div>
     </article>
 
-    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Phototropism">
+    <article class="card pass" data-status="pass_candidate" data-domain="biology_living_systems" data-answer="Phototropism">
       <div class="media"><video controls preload="metadata" src="../media/vdcr_curated_expansion_v2/curated_003002.ogv" type="video/ogg"></video><a href="vdcr_v2_curated_expansion_sparse_sheets/curated_003002_sparse.jpg" target="_blank"><img src="vdcr_v2_curated_expansion_sparse_sheets/curated_003002_sparse.jpg" alt="contact sheet"></a></div>
       <div class="body">
         <div class="topline">
-          <span class="status">review</span>
+          <span class="status">pass_candidate</span>
           <span class="id">curated_003002</span>
 
         </div>
@@ -2539,11 +2539,11 @@
         <dl>
           <dt>Domain</dt><dd>biology_living_systems / biology_family_04</dd>
           <dt>Tier</dt><dd>core_main</dd>
-          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Action</dt><dd>candidate_ready_for_v2_draft</dd>
           <dt>Window</dt><dd>0.0s - 34.0s</dd>
           <dt>Source</dt><dd><a href="https://commons.wikimedia.org/wiki/File:Azuki_Bean_phototropism.ogv" target="_blank" rel="noreferrer">https://commons.wikimedia.org/wiki/File:Azuki_Bean_phototropism.ogv</a></dd>
           <dt>Gate</dt><dd>video_must_show_biological_dynamic_sequence_or_strategy_not_species_or_generic_action</dd>
-          <dt>Notes</dt><dd>Candidate should show plant bending/growth direction change in response to light over time, not merely a static plant orientation.</dd>
+          <dt>Notes</dt><dd>Candidate should show plant bending/growth direction change in response to light over time, not merely a static plant orientation. | triage_decision=pass_candidate; triage_notes=clean time-lapse plant bending; no obvious sparse-frame text leakage</dd>
         </dl>
       </div>
     </article>
@@ -2590,11 +2590,11 @@
       </div>
     </article>
 
-    <article class="card review" data-status="review" data-domain="chemistry_materials_change" data-answer="Iodine Clock Reaction">
+    <article class="card pass" data-status="pass_candidate" data-domain="chemistry_materials_change" data-answer="Iodine Clock Reaction">
       <div class="media"><video controls preload="metadata" src="../media/vdcr_curated_chemistry_v2/curated_002002.ogv" type="video/ogg"></video><a href="vdcr_v2_curated_chemistry_sparse_sheets/curated_002002_sparse.jpg" target="_blank"><img src="vdcr_v2_curated_chemistry_sparse_sheets/curated_002002_sparse.jpg" alt="contact sheet"></a></div>
       <div class="body">
         <div class="topline">
-          <span class="status">review</span>
+          <span class="status">pass_candidate</span>
           <span class="id">curated_002002</span>
 
         </div>
@@ -2602,11 +2602,11 @@
         <dl>
           <dt>Domain</dt><dd>chemistry_materials_change / materials_family_03</dd>
           <dt>Tier</dt><dd>core_main</dd>
-          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Action</dt><dd>candidate_ready_for_v2_draft</dd>
           <dt>Window</dt><dd>0.0s - 30.0s</dd>
           <dt>Source</dt><dd><a href="https://commons.wikimedia.org/wiki/File:Iodine_clock_-_persulphate.ogv" target="_blank" rel="noreferrer">https://commons.wikimedia.org/wiki/File:Iodine_clock_-_persulphate.ogv</a></dd>
           <dt>Gate</dt><dd>video_must_show_material_or_reaction_state_evolution; source_text_may_only_double_check_not_supply_answer</dd>
-          <dt>Notes</dt><dd>Candidate should show the delayed rapid color change of an iodine clock reaction, not merely a static flask or explanatory setup.</dd>
+          <dt>Notes</dt><dd>Candidate should show the delayed rapid color change of an iodine clock reaction, not merely a static flask or explanatory setup. | triage_decision=pass_candidate; triage_notes=clean delayed color transition; no obvious sparse-frame text leakage</dd>
         </dl>
       </div>
     </article>
@@ -2968,11 +2968,11 @@
       </div>
     </article>
 
-    <article class="card review" data-status="review" data-domain="chemistry_materials_change" data-answer="Blue Bottle Reaction">
+    <article class="card revise" data-status="revise" data-domain="chemistry_materials_change" data-answer="Blue Bottle Reaction">
       <div class="media"><video controls preload="metadata" src="../media/vdcr_curated_chemistry_v2/curated_002004.webm" type="video/webm"></video><a href="vdcr_v2_curated_chemistry_sparse_sheets/curated_002004_sparse.jpg" target="_blank"><img src="vdcr_v2_curated_chemistry_sparse_sheets/curated_002004_sparse.jpg" alt="contact sheet"></a></div>
       <div class="body">
         <div class="topline">
-          <span class="status">review</span>
+          <span class="status">revise</span>
           <span class="id">curated_002004</span>
 
         </div>
@@ -2980,20 +2980,20 @@
         <dl>
           <dt>Domain</dt><dd>chemistry_materials_change / materials_family_03</dd>
           <dt>Tier</dt><dd>strict_main_candidate</dd>
-          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Action</dt><dd>revise_or_trim_before_draft</dd>
           <dt>Window</dt><dd>0.0s - 45.0s</dd>
           <dt>Source</dt><dd><a href="https://commons.wikimedia.org/wiki/File:Blue-bottle_reaction_(Oscillating_reaction).webm" target="_blank" rel="noreferrer">https://commons.wikimedia.org/wiki/File:Blue-bottle_reaction_(Oscillating_reaction).webm</a></dd>
           <dt>Gate</dt><dd>must_show_shaking_or_oxygenation_cycle_and_reversible_color_recovery_without_title_leakage</dd>
-          <dt>Notes</dt><dd>Candidate should show repeated blue/colorless redox cycling in the blue bottle reaction, not merely a static colored solution.</dd>
+          <dt>Notes</dt><dd>Candidate should show repeated blue/colorless redox cycling in the blue bottle reaction, not merely a static colored solution. | triage_decision=revise; triage_notes=opening contains handwritten answer/experiment text; trim or verify non-leaky segment before draft</dd>
         </dl>
       </div>
     </article>
 
-    <article class="card review" data-status="review" data-domain="chemistry_materials_change" data-answer="Blue Bottle Reaction">
+    <article class="card revise" data-status="revise" data-domain="chemistry_materials_change" data-answer="Blue Bottle Reaction">
       <div class="media"><video controls preload="metadata" src="../media/vdcr_curated_chemistry_v2/curated_002005.webm" type="video/webm"></video><a href="vdcr_v2_curated_chemistry_sparse_sheets/curated_002005_sparse.jpg" target="_blank"><img src="vdcr_v2_curated_chemistry_sparse_sheets/curated_002005_sparse.jpg" alt="contact sheet"></a></div>
       <div class="body">
         <div class="topline">
-          <span class="status">review</span>
+          <span class="status">revise</span>
           <span class="id">curated_002005</span>
 
         </div>
@@ -3001,20 +3001,20 @@
         <dl>
           <dt>Domain</dt><dd>chemistry_materials_change / materials_family_03</dd>
           <dt>Tier</dt><dd>strict_main_candidate</dd>
-          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Action</dt><dd>revise_or_trim_before_draft</dd>
           <dt>Window</dt><dd>0.0s - 22.0s</dd>
           <dt>Source</dt><dd><a href="https://commons.wikimedia.org/wiki/File:Pattern_Formation_from_Blue_Bottle_Experiment_in_Ice_Water_Bath.webm" target="_blank" rel="noreferrer">https://commons.wikimedia.org/wiki/File:Pattern_Formation_from_Blue_Bottle_Experiment_in_Ice_Water_Bath.webm</a></dd>
           <dt>Gate</dt><dd>must_show_shaking_or_oxygenation_cycle_and_reversible_color_recovery_without_title_leakage</dd>
-          <dt>Notes</dt><dd>Candidate should show visible pattern or color evolution from the blue bottle experiment over time, not merely a static color pattern.</dd>
+          <dt>Notes</dt><dd>Candidate should show visible pattern or color evolution from the blue bottle experiment over time, not merely a static color pattern. | triage_decision=revise; triage_notes=shows pattern/color fading but full video must confirm blue-bottle cycle rather than only source-described pattern</dd>
         </dl>
       </div>
     </article>
 
-    <article class="card review" data-status="review" data-domain="biology_living_systems" data-answer="Tendril Circumnutation">
+    <article class="card revise" data-status="revise" data-domain="biology_living_systems" data-answer="Tendril Circumnutation">
       <div class="media"><video controls preload="metadata" src="../media/vdcr_curated_expansion_v2/curated_003001.webm" type="video/webm"></video><a href="vdcr_v2_curated_expansion_sparse_sheets/curated_003001_sparse.jpg" target="_blank"><img src="vdcr_v2_curated_expansion_sparse_sheets/curated_003001_sparse.jpg" alt="contact sheet"></a></div>
       <div class="body">
         <div class="topline">
-          <span class="status">review</span>
+          <span class="status">revise</span>
           <span class="id">curated_003001</span>
 
         </div>
@@ -3022,11 +3022,11 @@
         <dl>
           <dt>Domain</dt><dd>biology_living_systems / biology_family_04</dd>
           <dt>Tier</dt><dd>strict_main_candidate</dd>
-          <dt>Action</dt><dd>inspect_video</dd>
+          <dt>Action</dt><dd>revise_or_trim_before_draft</dd>
           <dt>Window</dt><dd>0.0s - 17.0s</dd>
           <dt>Source</dt><dd><a href="https://commons.wikimedia.org/wiki/File:Cucumber_Climb.webm" target="_blank" rel="noreferrer">https://commons.wikimedia.org/wiki/File:Cucumber_Climb.webm</a></dd>
           <dt>Gate</dt><dd>video_must_show_biological_dynamic_sequence_or_strategy_not_species_or_generic_action</dd>
-          <dt>Notes</dt><dd>Candidate should show a cucumber tendril moving/searching for support over time, not merely a static vine or plant image.</dd>
+          <dt>Notes</dt><dd>Candidate should show a cucumber tendril moving/searching for support over time, not merely a static vine or plant image. | triage_decision=revise; triage_notes=sparse sheet darkens and does not fully prove circumnutation; inspect full video or choose tighter segment</dd>
         </dl>
       </div>
     </article>

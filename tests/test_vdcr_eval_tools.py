@@ -15,6 +15,8 @@ from scripts.build_vdcr_v2_gap_queries import build_gap_queries
 from scripts.build_vdcr_v2_review_triage import build_triage_rows, decision_counts
 from scripts.apply_vdcr_v2_triage_decisions import apply_triage_decisions
 from scripts.build_vdcr_v2_draft_samples import build_draft_samples
+from scripts.build_vdcr_segments_from_review import build_segment_manifest_rows
+from scripts.build_vdcr_review_dashboard import strip_trailing_whitespace
 from scripts.report_vdcr_dual_eval import build_summary_rows
 from scripts.run_qwen3_vl_vdcr import build_task_prompt, prediction_from_response
 from scripts.score_vdcr_mcq import extract_choice, score_rows
@@ -794,3 +796,67 @@ def test_discover_review_assets_uses_download_status_and_sparse_sheet(tmp_path: 
         "local_media": "media/a.webm",
         "contact_sheet": str(sheet),
     }
+
+
+def test_build_segment_manifest_rows_cuts_only_valid_revise_rows(tmp_path: Path) -> None:
+    source = tmp_path / "source.webm"
+    source.write_bytes(b"video")
+    output_dir = tmp_path / "segments"
+    calls = []
+
+    def fake_cut(src: Path, out: Path, start: float, end: float) -> None:
+        calls.append((src, out, start, end))
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_bytes(b"segment")
+
+    review_rows = [
+        {
+            "id": "curated_002004",
+            "candidate_knowledge_point": "Blue Bottle Reaction",
+            "review_status": "revise",
+            "suggested_start_sec": "5",
+            "suggested_end_sec": "42.5",
+            "local_media": str(source),
+        },
+        {
+            "id": "not_revise",
+            "candidate_knowledge_point": "Iodine Clock Reaction",
+            "review_status": "review",
+            "suggested_start_sec": "0",
+            "suggested_end_sec": "10",
+            "local_media": str(source),
+        },
+        {
+            "id": "bad_time",
+            "candidate_knowledge_point": "Chemical Garden Growth",
+            "review_status": "revise",
+            "suggested_start_sec": "10",
+            "suggested_end_sec": "10",
+            "local_media": str(source),
+        },
+    ]
+    media_rows = [
+        {
+            "id": "curated_002004",
+            "direct_url": "https://example.test/blue.webm",
+            "page_url": "https://example.test/page",
+            "title": "Blue-bottle reaction",
+            "mime": "video/webm",
+        }
+    ]
+
+    rows = build_segment_manifest_rows(review_rows, media_rows, output_dir, cut_segment=fake_cut)
+
+    assert [row["id"] for row in rows] == ["curated_002004_seg_005000_042500"]
+    assert rows[0]["source_id"] == "curated_002004"
+    assert rows[0]["candidate_knowledge_point"] == "Blue Bottle Reaction"
+    assert rows[0]["duration_sec"] == "37.500"
+    assert rows[0]["direct_url"] == "https://example.test/blue.webm"
+    assert rows[0]["local_media"].endswith("curated_002004_seg_005000_042500.webm")
+    assert calls == [
+        (source, output_dir / "curated_002004_seg_005000_042500.webm", 5.0, 42.5),
+    ]
+
+
+def test_strip_trailing_whitespace_preserves_line_structure() -> None:
+    assert strip_trailing_whitespace("a  \n  \nb\t \n") == "a\n\nb\n"

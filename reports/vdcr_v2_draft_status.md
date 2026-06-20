@@ -17,18 +17,18 @@ Files:
 
 Current draft contents:
 
-- total samples: 118
+- total samples: 119
 - V1 seed samples: 114
-- appended V2 pass-candidate samples: 4
+- appended V2 pass-candidate samples: 5
 - unique answers: 114
-- repeated concepts currently added: `Briggs-Rauscher Reaction`, `Chemical Garden Growth`, `Iodine Clock Reaction`, `Phototropism`
+- repeated concepts currently added: `Blue Bottle Reaction`, `Briggs-Rauscher Reaction`, `Chemical Garden Growth`, `Iodine Clock Reaction`, `Phototropism`
 
 Domain distribution:
 
 | Domain | Samples |
 |---|---:|
 | `biology_living_systems` | 30 |
-| `chemistry_materials_change` | 32 |
+| `chemistry_materials_change` | 33 |
 | `earth_environmental_systems` | 28 |
 | `physics_physical_systems` | 28 |
 
@@ -40,6 +40,7 @@ Domain distribution:
 | `vdcr_v2_000002` | `curated_002006` | `Briggs-Rauscher Reaction` | `chemistry_materials_change` |
 | `vdcr_v2_000003` | `curated_003002` | `Phototropism` | `biology_living_systems` |
 | `vdcr_v2_000004` | `curated_002002` | `Iodine Clock Reaction` | `chemistry_materials_change` |
+| `vdcr_v2_000005` | `curated_002004_seg_020000_145000` | `Blue Bottle Reaction` | `chemistry_materials_change` |
 
 ## Validation
 
@@ -49,21 +50,31 @@ Schema/source-hidden validation:
 python3 scripts/validate_vdcr_direct_answer.py \
   --input data/vdcr_v2_draft_samples.jsonl \
   --release-mode \
-  --min-samples 118 \
+  --min-samples 119 \
   --allow-duplicate-answers \
   --max-videos-per-answer 3
 ```
 
-This validates 118 rows. Full `--check-media` currently depends on restoring the
-ignored V1 media cache. The 4 appended V2 media files were checked locally with
+This validates 119 rows. Full `--check-media` currently depends on restoring the
+ignored V1 media cache. The 5 appended V2 media files were checked locally with
 `ffmpeg` and each yielded at least 2 video frames.
+
+The newest appended row is a reviewed segment from the original Blue Bottle
+Reaction Commons video:
+
+- source candidate: `curated_002004`
+- segment candidate: `curated_002004_seg_020000_145000`
+- segment window: 20.0-145.0 seconds
+- rationale: trims the opening handwritten answer card while preserving repeated
+  blue/colorless cycling without concept text leakage in sparse frames.
 
 ## Next Gap
 
 The draft is not yet the final V2 benchmark. It is still far below the first
 target of 240 video-concept samples, and current domain balance is skewed toward
-chemistry because the first accepted additions came from curated chemistry.
+chemistry because the first accepted additions came from curated chemistry and a
+chemistry revision segment.
 Next work should either:
 
-- revise/trim the 6 local candidates marked `revise`; or
+- revise/trim the 5 local candidates marked `revise`; or
 - add more high-yield curated candidates in earth and physics to improve domain balance.

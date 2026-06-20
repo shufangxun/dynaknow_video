@@ -7,6 +7,7 @@ import argparse
 import csv
 import subprocess
 from pathlib import Path
+from typing import Callable
 
 
 FIELDS = [
@@ -58,17 +59,19 @@ def run_ffmpeg(source: Path, output: Path, start: float, end: float, reencode: b
         raise RuntimeError(result.stderr[-1000:] or "ffmpeg segment failed")
 
 
-def main() -> int:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--review-csv", type=Path, default=Path("data/vdcr_pilot_manual_review_seed_v1.csv"))
-    parser.add_argument("--media-manifest", type=Path, default=Path("data/vdcr_archive_download_manifest_pilot_v1.csv"))
-    parser.add_argument("--output-dir", type=Path, default=Path("media/vdcr_segments_pilot_v1"))
-    parser.add_argument("--output-manifest", type=Path, default=Path("data/vdcr_segment_manifest_pilot_v1.csv"))
-    args = parser.parse_args()
+def cut_segment(source: Path, output: Path, start: float, end: float) -> None:
+    run_ffmpeg(source, output, start, end, reencode=False)
 
-    media = {row["id"]: row for row in read_csv(args.media_manifest)}
+
+def build_segment_manifest_rows(
+    review_rows: list[dict[str, str]],
+    media_rows: list[dict[str, str]],
+    output_dir: Path,
+    cut_segment: Callable[[Path, Path, float, float], None] = cut_segment,
+) -> list[dict[str, str]]:
+    media = {row["id"]: row for row in media_rows}
     output_rows: list[dict[str, str]] = []
-    for review in read_csv(args.review_csv):
+    for review in review_rows:
         if review.get("review_status") != "revise":
             continue
         start = as_float(review.get("suggested_start_sec"), 0.0)
@@ -80,8 +83,8 @@ def main() -> int:
             continue
         source_id = review["id"]
         segment_id = f"{source_id}_seg_{int(start * 1000):06d}_{int(end * 1000):06d}"
-        output = args.output_dir / f"{segment_id}{extension(str(source))}"
-        run_ffmpeg(source, output, start, end, reencode=False)
+        output = output_dir / f"{segment_id}{extension(str(source))}"
+        cut_segment(source, output, start, end)
         source_media = media.get(source_id, {})
         output_rows.append(
             {
@@ -98,6 +101,22 @@ def main() -> int:
                 "segment_end_sec": f"{end:.3f}",
             }
         )
+    return output_rows
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--review-csv", type=Path, default=Path("data/vdcr_pilot_manual_review_seed_v1.csv"))
+    parser.add_argument("--media-manifest", type=Path, default=Path("data/vdcr_archive_download_manifest_pilot_v1.csv"))
+    parser.add_argument("--output-dir", type=Path, default=Path("media/vdcr_segments_pilot_v1"))
+    parser.add_argument("--output-manifest", type=Path, default=Path("data/vdcr_segment_manifest_pilot_v1.csv"))
+    args = parser.parse_args()
+
+    output_rows = build_segment_manifest_rows(
+        read_csv(args.review_csv),
+        read_csv(args.media_manifest),
+        args.output_dir,
+    )
 
     args.output_manifest.parent.mkdir(parents=True, exist_ok=True)
     with args.output_manifest.open("w", encoding="utf-8", newline="") as handle:

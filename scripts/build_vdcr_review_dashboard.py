@@ -60,6 +60,10 @@ def rel(path: str, output: Path, root: Path) -> str:
     return esc(os.path.relpath(source, start=output.parent))
 
 
+def strip_trailing_whitespace(text: str) -> str:
+    return "\n".join(line.rstrip() for line in text.splitlines()) + ("\n" if text.endswith("\n") else "")
+
+
 def concept_maps(concepts: list[dict[str, str]]) -> dict[str, dict[str, str]]:
     mapped: dict[str, dict[str, str]] = {}
     for row in concepts:
@@ -301,7 +305,7 @@ def main() -> int:
 </html>
 """
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(html_out, encoding="utf-8")
+    args.output.write_text(strip_trailing_whitespace(html_out), encoding="utf-8")
     print(f"wrote dashboard {args.output} with {len(reviews)} review rows and {len(samples)} samples")
     return 0
 

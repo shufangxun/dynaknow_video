@@ -1,1 +1,4 @@
 media/** filter=lfs diff=lfs merge=lfs -text
+release/media/videos/** filter=lfs diff=lfs merge=lfs -text
+release/media/videos_mp4/** filter=lfs diff=lfs merge=lfs -text
+release/media/videos_v2_mp4/** filter=lfs diff=lfs merge=lfs -text

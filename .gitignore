@@ -14,3 +14,7 @@ media/**
 *.mov
 *.avi
 *.mkv
+!release/media/videos/**
+!release/media/videos_mp4/**
+!release/media/videos_v2_mp4/**
+release/media/source_cache_v1/

@@ -1,2 +1,3 @@
-candidate_id,source_url,source_platform,license_or_usage_note,raw_duration_sec,suggested_start_sec,suggested_end_sec,initial_category,candidate_knowledge_point,domain_seed,subdomain_seed,why_dynamic,collector_notes
-curated_004001,https://commons.wikimedia.org/wiki/File:Hydraulic_jump.webm,wikimedia_commons,CC BY-SA 4.0 verify_on_page,11.0,0.0,11.0,physics_physical_systems,Hydraulic Jump,physics_physical_systems,physics_family_01,"Candidate should show a transition from fast shallow flow to slower turbulent deeper flow, not merely a static water surface.",vdcr_v2_curated_physics; source_found_by=web_search; title=Hydraulic jump.webm
+version https://git-lfs.github.com/spec/v1
+oid sha256:547e04e8ff73534682849b671850a0e40557a3d418c758405dd50d7f24dc97a3
+size 2195

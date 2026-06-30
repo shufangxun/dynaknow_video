@@ -1,13 +1,3 @@
-id,ok,status,error,direct_url,local_media
-vdcr_archive_b03_000025,true,download_ok,,https://archive.org/download/wikimedia-org-Mimosa_pudica_leaves_folding_when_touched_1/Mimosa_pudica_leaves_folding_when_touched_1.mp4,media/vdcr_raw_pilot_v1/vdcr_archive_b03_000025.mp4
-vdcr_archive_b03_000026,true,download_ok,,https://archive.org/download/wikimedia-org-Mimosa_pudica_leaves_folding_when_touched_2/Mimosa_pudica_leaves_folding_when_touched_2.mp4,media/vdcr_raw_pilot_v1/vdcr_archive_b03_000026.mp4
-vdcr_archive_b03_000027,true,download_ok,,https://archive.org/download/wikimedia-org-Mimosa_pudica_leaves_folding_when_touched_3/Mimosa_pudica_leaves_folding_when_touched_3.mp4,media/vdcr_raw_pilot_v1/vdcr_archive_b03_000027.mp4
-vdcr_archive_b02_000004,true,download_ok,,https://archive.org/download/youtube-4AxiXS9n0dw/4AxiXS9n0dw.mp4,media/vdcr_raw_pilot_v1/vdcr_archive_b02_000004.mp4
-vdcr_archive_only_000022,true,download_ok,,https://archive.org/download/youtube-cZfpWD00Hoc/cZfpWD00Hoc.mp4,media/vdcr_raw_pilot_v1/vdcr_archive_only_000022.mp4
-vdcr_archive_only_000023,true,download_ok,,https://archive.org/download/gyroscopic-precession-hq/Gyroscopic_precession_HQ.ia.mp4,media/vdcr_raw_pilot_v1/vdcr_archive_only_000023.mp4
-vdcr_archive_b02_000003,true,download_ok,,https://archive.org/download/youtube-U-uGKxTLZ94/Logicedges-The_Butterfly_Effect_and_Lorenz_Attractor_fractal_drawn_from_convection_in_a_thin_layer_of_water-U-uGKxTLZ94.mp4,media/vdcr_raw_pilot_v1/vdcr_archive_b02_000003.mp4
-vdcr_archive_b02_000032,true,download_ok,,https://archive.org/download/MysteryOctopusIntelligence/CmMysteryOctopusIntelligence_512kb.mp4,media/vdcr_raw_pilot_v1/vdcr_archive_b02_000032.mp4
-vdcr_archive_b03_000038,true,download_ok,,https://archive.org/download/af-amphibian-embryo-frog-toad-and-salamander/AF_AmphibianEmbryoFrogToadAndSalamander.mp4,media/vdcr_raw_pilot_v1/vdcr_archive_b03_000038.mp4
-vdcr_archive_b03_000020,true,download_ok,,https://archive.org/download/6218_Reactions_in_Plants_and_Animals_01_48_00_11/6218_Reactions_in_Plants_and_Animals_01_48_00_11.ogv,media/vdcr_raw_pilot_v1/vdcr_archive_b03_000020.ogv
-vdcr_archive_b03_000060,true,download_ok,,https://archive.org/download/tidesoftheocean/tidesoftheocean.ogv,media/vdcr_raw_pilot_v1/vdcr_archive_b03_000060.ogv
-vdcr_archive_b05_000001,true,download_ok,,https://archive.org/download/ClaudiusMaximus_-_rdex_2010-05-22/ClaudiusMaximus_-_rdex_2010-05-22_512kb.mp4,media/vdcr_raw_pilot_v1/vdcr_archive_b05_000001.mp4
+version https://git-lfs.github.com/spec/v1
+oid sha256:57ad0461ff1ec0f7ceae4a3e7f82b69149804270e4af8b4ff04c5945ccc8a93a
+size 2497

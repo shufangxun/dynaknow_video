@@ -1,5 +1,3 @@
-id,page_url,title,direct_url,mime,duration_sec,license_short_name,usage_terms
-curated_003001,https://commons.wikimedia.org/wiki/File:Cucumber_Climb.webm,File:Cucumber Climb.webm,https://upload.wikimedia.org/wikipedia/commons/c/cc/Cucumber_Climb.webm,video/webm,,,
-curated_003002,https://commons.wikimedia.org/wiki/File:Azuki_Bean_phototropism.ogv,File:Azuki Bean phototropism.ogv,https://upload.wikimedia.org/wikipedia/commons/a/a7/Azuki_Bean_phototropism.ogv,video/ogg,,,
-curated_003003,https://commons.wikimedia.org/wiki/File:Dipole_xmting_antenna_animation_2_pulses_HD_1080_12_fps.webm,File:Dipole xmting antenna animation 2 pulses HD 1080 12 fps.webm,https://upload.wikimedia.org/wikipedia/commons/a/a2/Dipole_xmting_antenna_animation_2_pulses_HD_1080_12_fps.webm,video/webm,,,
-curated_003004,https://commons.wikimedia.org/wiki/File:Spontaneous-assembly-of-chemically-encoded-two-dimensional-coacervate-droplet-arrays-by-acoustic-ncomms13068-s2.ogv,File:Spontaneous-assembly-of-chemically-encoded-two-dimensional-coacervate-droplet-arrays-by-acoustic-ncomms13068-s2.ogv,https://upload.wikimedia.org/wikipedia/commons/5/56/Spontaneous-assembly-of-chemically-encoded-two-dimensional-coacervate-droplet-arrays-by-acoustic-ncomms13068-s2.ogv,video/ogg,,,
+version https://git-lfs.github.com/spec/v1
+oid sha256:ab981ac8ff6b7f2f85649eecabb89ce6c3c0351b301f136175fa015a7f848fa0
+size 1255

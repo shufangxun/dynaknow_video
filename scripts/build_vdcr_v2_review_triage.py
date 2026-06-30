@@ -168,11 +168,19 @@ def write_report(path: Path, rows: list[dict[str, str]]) -> None:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--review-queue", type=Path, default=Path("data/vdcr_v2_review_queue.csv"))
+    parser.add_argument("--decision-input", action="append", type=Path, default=[])
     parser.add_argument("--output", type=Path, default=Path("data/vdcr_v2_local_review_triage.csv"))
     parser.add_argument("--report", type=Path, default=Path("reports/vdcr_v2_local_review_triage.md"))
     args = parser.parse_args()
 
     existing = existing_decisions_by_id(read_csv(args.output)) if args.output.exists() else {}
+    decision_paths = args.decision_input or [
+        Path("data/vdcr_v2_clean_derivatives_review.csv"),
+        *sorted(Path("data").glob("vdcr_v2_*manual_review.csv")),
+    ]
+    for path in decision_paths:
+        if path.exists():
+            existing.update(existing_decisions_by_id(read_csv(path)))
     rows = build_triage_rows(read_csv(args.review_queue), existing_decisions=existing)
     write_csv(args.output, rows, TRIAGE_FIELDS)
     write_report(args.report, rows)

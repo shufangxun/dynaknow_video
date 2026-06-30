@@ -1,11 +1,3 @@
-id,ok,status,error,direct_url,local_media
-vdcr_commons_mr20_000001,true,already_present,,https://upload.wikimedia.org/wikipedia/commons/b/b6/Magnus_effect.gif,media/vdcr_commons_manual_round20_v1/vdcr_commons_mr20_000001.gif
-vdcr_commons_mr20_000002,true,already_present,,https://upload.wikimedia.org/wikipedia/commons/d/d4/Hydrogel_micropump.webm,media/vdcr_commons_manual_round20_v1/vdcr_commons_mr20_000002.webm
-vdcr_commons_mr20_000003,true,already_present,,https://upload.wikimedia.org/wikipedia/commons/a/ad/Crystal_growth.webm,media/vdcr_commons_manual_round20_v1/vdcr_commons_mr20_000003.webm
-vdcr_commons_mr20_000004,true,already_present,,https://upload.wikimedia.org/wikipedia/commons/b/bd/Natural-Variation-in-Arabidopsis-Cvi-0-Accession-Reveals-an-Important-Role-of-MPK12-in-Guard-Cell-pbio.2000322.s012.ogv,media/vdcr_commons_manual_round20_v1/vdcr_commons_mr20_000004.ogv
-vdcr_commons_mr20_000005,true,already_present,,https://upload.wikimedia.org/wikipedia/commons/5/57/Timelapse_of_Slime_Mould.webm,media/vdcr_commons_manual_round20_v1/vdcr_commons_mr20_000005.webm
-vdcr_commons_mr20_000006,true,already_present,,https://upload.wikimedia.org/wikipedia/commons/4/4d/Onset-of-sediment-transport-is-a-continuous-transition-driven-by-fluid-shear-and-granular-creep-ncomms7527-s2.ogv,media/vdcr_commons_manual_round20_v1/vdcr_commons_mr20_000006.ogv
-vdcr_commons_mr20_000007,true,already_present,,https://upload.wikimedia.org/wikipedia/commons/5/56/Onset-of-sediment-transport-is-a-continuous-transition-driven-by-fluid-shear-and-granular-creep-ncomms7527-s3.ogv,media/vdcr_commons_manual_round20_v1/vdcr_commons_mr20_000007.ogv
-vdcr_commons_mr20_000008,true,download_ok,,https://upload.wikimedia.org/wikipedia/commons/5/5f/Hydraulic-hydrogel-actuators-and-robots-optically-and-sonically-camouflaged-in-water-ncomms14230-s6.ogv,media/vdcr_commons_manual_round20_v1/vdcr_commons_mr20_000008.ogv
-vdcr_commons_mr20_000009,true,download_ok,,https://upload.wikimedia.org/wikipedia/commons/3/3f/Membrane-Blebbing-Is-Required-for-Mesenchymal-Precursor-Migration-pone.0150004.s007.ogv,media/vdcr_commons_manual_round20_v1/vdcr_commons_mr20_000009.ogv
-vdcr_commons_mr20_000010,true,download_ok,,https://upload.wikimedia.org/wikipedia/commons/4/4b/Upward-erosion.ogv,media/vdcr_commons_manual_round20_v1/vdcr_commons_mr20_000010.ogv
+version https://git-lfs.github.com/spec/v1
+oid sha256:e9fc9b26a285a41132b99e7760e45e22a1a7398786fda3b9395b1307257a5330
+size 2345

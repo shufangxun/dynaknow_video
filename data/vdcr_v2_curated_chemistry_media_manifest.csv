@@ -1,7 +1,3 @@
-id,page_url,title,direct_url,mime,duration_sec,license_short_name,usage_terms
-curated_002001,https://commons.wikimedia.org/wiki/File:Iodine_Clock_Reaction.ogv,File:Iodine Clock Reaction.ogv,https://upload.wikimedia.org/wikipedia/commons/1/11/Iodine_Clock_Reaction.ogv,video/ogg,,,
-curated_002002,https://commons.wikimedia.org/wiki/File:Iodine_clock_-_persulphate.ogv,File:Iodine clock - persulphate.ogv,https://upload.wikimedia.org/wikipedia/commons/1/1b/Iodine_clock_-_persulphate.ogv,video/ogg,,,
-curated_002003,https://commons.wikimedia.org/wiki/File:Growth_of_a_chemical_garden.ogv,File:Growth of a chemical garden.ogv,https://upload.wikimedia.org/wikipedia/commons/6/69/Growth_of_a_chemical_garden.ogv,video/ogg,,,
-curated_002004,https://commons.wikimedia.org/wiki/File:Blue-bottle_reaction_(Oscillating_reaction).webm,File:Blue-bottle reaction (Oscillating reaction).webm,https://upload.wikimedia.org/wikipedia/commons/0/06/Blue-bottle_reaction_(Oscillating_reaction).webm,video/webm,,,
-curated_002005,https://commons.wikimedia.org/wiki/File:Pattern_Formation_from_Blue_Bottle_Experiment_in_Ice_Water_Bath.webm,File:Pattern Formation from Blue Bottle Experiment in Ice Water Bath.webm,https://upload.wikimedia.org/wikipedia/commons/2/2f/Pattern_Formation_from_Blue_Bottle_Experiment_in_Ice_Water_Bath.webm,video/webm,,,
-curated_002006,https://commons.wikimedia.org/wiki/File:Briggs%E2%80%93Rauscher_reaction.webm,File:Briggs–Rauscher reaction.webm,https://upload.wikimedia.org/wikipedia/commons/8/8c/Briggs%E2%80%93Rauscher_reaction.webm,video/webm,,,
+version https://git-lfs.github.com/spec/v1
+oid sha256:6e8fa2a206674617ddd31f305e6281e7866e36e5bd6bfbfd60451c51ad536035
+size 2899

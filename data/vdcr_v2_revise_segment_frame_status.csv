@@ -1,2 +1,3 @@
-id,video_path,duration_sec,first,middle,last,sparse,contact_sheet,error
-curated_002004_seg_020000_145000,media/vdcr_v2_segments_from_revise/curated_002004_seg_020000_145000.webm,129.640,ok,ok,ok,8,ok,
+version https://git-lfs.github.com/spec/v1
+oid sha256:dbdc96071a65ff7f790fe9c5df5108c5c44be4f9099a39fa34abdaea206e7322
+size 507

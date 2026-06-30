@@ -1,2 +1,3 @@
-id,source_id,candidate_knowledge_point,direct_url,page_url,title,mime,duration_sec,local_media,segment_start_sec,segment_end_sec
-vdcr_commons_mr12_000002_seg_000000_040000_noaudio,vdcr_commons_mr12_000002,Debris-Flow Surge Propagation,https://upload.wikimedia.org/wikipedia/commons/c/c1/Bondo_Aug_2017.webm,https://commons.wikimedia.org/wiki/File:Bondo_Aug_2017.webm,Bondo Aug 2017 no-audio segment,video/webm,40.000,media/vdcr_commons_manual_segments_round12_v1/vdcr_commons_mr12_000002_seg_000000_040000_noaudio.webm,0.000,40.000
+version https://git-lfs.github.com/spec/v1
+oid sha256:ab5024d5575f1340dc73702cd231f249c55233422ed4289e8ebcb36c5fcfde18
+size 534

@@ -1,7 +1,3 @@
-id,page_url,title,direct_url,mime,duration_sec,license_short_name,usage_terms
-vdcr_commons_mr1_000001,https://commons.wikimedia.org/wiki/File:Chemical_garden_growing.webm,Chemical garden growing,https://upload.wikimedia.org/wikipedia/commons/b/b5/Chemical_garden_growing.webm,video/webm,59.0,CC-BY-3.0,reviewed YouTube CC source on Commons
-vdcr_commons_mr1_000002,https://commons.wikimedia.org/wiki/File:Blue_bottle_(chemical_reaction).webm,Blue bottle chemical reaction,https://upload.wikimedia.org/wikipedia/commons/9/96/Blue_bottle_%28chemical_reaction%29.webm,video/webm,152.2,CC-BY-3.0,reviewed YouTube CC source on Commons
-vdcr_commons_mr1_000003,https://commons.wikimedia.org/wiki/File:Phototropism_in_Solanum_lycopersicum.webm,Phototropism in Solanum lycopersicum,https://upload.wikimedia.org/wikipedia/commons/a/aa/Phototropism_in_Solanum_lycopersicum.webm,video/webm,18.0,CC-BY,reviewed YouTube CC source on Commons
-vdcr_commons_mr1_000004,https://commons.wikimedia.org/wiki/File:Arnside_bore.ogv,Arnside bore,https://upload.wikimedia.org/wikipedia/commons/3/3e/Arnside_bore.ogv,video/ogg,146.0,CC-BY-SA-3.0,own work on Commons
-vdcr_commons_mr1_000005,https://commons.wikimedia.org/wiki/File:Ciliary-Beating-Recovery-in-Deficient-Human-Airway-Epithelial-Cells-after-Lentivirus-Ex-Vivo-Gene-pgen.1000422.s004.ogv,Ciliary beating recovery,https://upload.wikimedia.org/wikipedia/commons/c/c2/Ciliary-Beating-Recovery-in-Deficient-Human-Airway-Epithelial-Cells-after-Lentivirus-Ex-Vivo-Gene-pgen.1000422.s004.ogv,video/ogg,20.1,CC-BY,PLOS open-access media imported to Commons
-vdcr_commons_mr1_000006,https://commons.wikimedia.org/wiki/File:%D0%93%D0%B8%D0%B4%D1%80%D0%B0%D0%B2%D0%BB%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B9_%D0%BF%D1%80%D1%8B%D0%B6%D0%BE%D0%BA.webm,Hydraulic jump,https://upload.wikimedia.org/wikipedia/commons/0/0b/%D0%93%D0%B8%D0%B4%D1%80%D0%B0%D0%B2%D0%BB%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B9_%D0%BF%D1%80%D1%8B%D0%B6%D0%BE%D0%BA.webm,video/webm,239.0,CC-BY-3.0,GetAClass/Wikimedia RU project
+version https://git-lfs.github.com/spec/v1
+oid sha256:b4999c0f4ba9f536c53fdc24fa4e7c6b8a71f883cc3f32f83666b0ace6163b3c
+size 2026

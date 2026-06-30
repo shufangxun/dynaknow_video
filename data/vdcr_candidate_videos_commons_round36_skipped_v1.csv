@@ -1,11 +1,3 @@
-search_term,initial_category,candidate_knowledge_point,error
-standing wave formation video,physics_physical_systems,Standing Wave Formation,HTTP Error 403: Too Many Reqs (1862a4b)
-standing waves on string video,physics_physical_systems,Standing Wave Formation,HTTP Error 403: Too Many Reqs (1862a4b)
-parametric resonance pendulum video,physics_physical_systems,Parametric Resonance,HTTP Error 403: Too Many Reqs (1862a4b)
-droplet rebound slow motion,physics_physical_systems,Droplet Rebound,HTTP Error 403: Too Many Reqs (1862a4b)
-bubble bursting jet video,physics_physical_systems,Bubble-Bursting Jet,HTTP Error 403: Too Many Reqs (1862a4b)
-shock wave propagation video,physics_physical_systems,Shock Wave Propagation,HTTP Error 403: Too Many Reqs (1862a4b)
-dielectric barrier discharge streamers video,physics_physical_systems,Dielectric Barrier Discharge Streamers,HTTP Error 403: Too Many Reqs (1862a4b)
-electric arc bending video,physics_physical_systems,Electric Arc Formation and Bending,HTTP Error 403: Too Many Reqs (1862a4b)
-film boiling video,physics_physical_systems,Film Boiling,HTTP Error 403: Too Many Reqs (1862a4b)
-boiling bubble nucleation departure video,physics_physical_systems,Boiling Bubble Nucleation and Departure,HTTP Error 403: Too Many Reqs (1862a4b)
+version https://git-lfs.github.com/spec/v1
+oid sha256:9c62c0dfece39bcce1cfd1ddb6c17e8d488475a88b977f139bd7e1ce2ff50752
+size 1290

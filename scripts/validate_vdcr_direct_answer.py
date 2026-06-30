@@ -43,6 +43,7 @@ QUALITY_GATES = {
 }
 
 ALLOWED_TIERS = {"core_main", "strict_main_candidate"}
+CONCEPT_ID_PREFIXES = ("vdcr_concept_", "vdcr_v2_concept_")
 
 
 def read_jsonl(path: Path) -> list[tuple[int, dict[str, Any]]]:
@@ -159,7 +160,13 @@ def validate_row(
     require(errors, path, line_no, isinstance(row.get("video_id"), str) and row["video_id"].startswith("vdcr_"), "video_id must start with vdcr_")
     require(errors, path, line_no, row.get("domain") in DOMAINS, f"domain must be one of {sorted(DOMAINS)}")
     require(errors, path, line_no, isinstance(row.get("subdomain"), str) and bool(row.get("subdomain")), "subdomain must be non-empty")
-    require(errors, path, line_no, isinstance(row.get("concept_id"), str) and row["concept_id"].startswith("vdcr_concept_"), "concept_id must start with vdcr_concept_")
+    require(
+        errors,
+        path,
+        line_no,
+        isinstance(row.get("concept_id"), str) and row["concept_id"].startswith(CONCEPT_ID_PREFIXES),
+        "concept_id must start with vdcr_concept_ or vdcr_v2_concept_",
+    )
     require(errors, path, line_no, row.get("question") == QUESTION, "question does not match VDCR direct-answer prompt")
     require(errors, path, line_no, isinstance(row.get("duration_sec"), (int, float)) and row["duration_sec"] > 0, "duration_sec must be positive")
     if isinstance(row.get("duration_sec"), (int, float)):

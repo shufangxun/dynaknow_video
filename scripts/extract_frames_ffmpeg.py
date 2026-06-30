@@ -8,6 +8,7 @@ import csv
 import math
 import subprocess
 from pathlib import Path
+from fractions import Fraction
 
 
 FIELDNAMES = [
@@ -49,7 +50,42 @@ def duration_sec(path: Path) -> float:
     )
     if result.returncode != 0:
         raise RuntimeError(result.stderr.strip() or "ffprobe_failed")
-    return max(0.0, float(result.stdout.strip() or 0.0))
+    raw_duration = result.stdout.strip()
+    try:
+        return max(0.0, float(raw_duration or 0.0))
+    except ValueError:
+        pass
+
+    packet_result = run(
+        [
+            "ffprobe",
+            "-v",
+            "error",
+            "-select_streams",
+            "v:0",
+            "-count_packets",
+            "-show_entries",
+            "stream=nb_read_packets,r_frame_rate",
+            "-of",
+            "default=noprint_wrappers=1",
+            str(path),
+        ]
+    )
+    if packet_result.returncode != 0:
+        raise RuntimeError(packet_result.stderr.strip() or f"invalid_duration:{raw_duration}")
+    values = {}
+    for line in packet_result.stdout.splitlines():
+        if "=" in line:
+            key, value = line.split("=", 1)
+            values[key] = value
+    try:
+        packets = int(values.get("nb_read_packets", "0"))
+        frame_rate = float(Fraction(values.get("r_frame_rate", "0/1")))
+    except (ValueError, ZeroDivisionError) as exc:
+        raise RuntimeError(f"invalid_duration:{raw_duration}") from exc
+    if packets <= 0 or frame_rate <= 0:
+        raise RuntimeError(f"invalid_duration:{raw_duration}")
+    return packets / frame_rate
 
 
 def extract_one(path: Path, timestamp: float, output: Path) -> bool:

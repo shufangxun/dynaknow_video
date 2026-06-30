@@ -1,2 +1,3 @@
-id,ok,status,error,direct_url,local_media
-vdcr_commons_mr38_000001,true,download_ok,,https://upload.wikimedia.org/wikipedia/commons/f/f2/Laminar_Flow_2.webm,media/vdcr_commons_manual_round38_v1/vdcr_commons_mr38_000001.webm
+version https://git-lfs.github.com/spec/v1
+oid sha256:991f621b7cf71e173c0befa9fd7e112b0a46c10946277ed118d5c003cbf2d064
+size 226

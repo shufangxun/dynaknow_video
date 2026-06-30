@@ -1,1 +1,3 @@
-{"video_id":"vdcr_000067","mode":"full_video","model_id":"Qwen/Qwen3.5-2B","predicted_answer":"细胞分裂","raw_response":"细胞分裂\n","prompt":"Which named dynamic concept is instantiated by the temporally evolving process in this video?\nReturn only the short canonical concept name in English or Chinese. Do not explain.","local_media":"media/vdcr_commons_manual_round18_v1/vdcr_commons_mr18_000004.ogv","fps":1.0,"max_pixels":151200,"total_pixels":null,"video_source":"frames","frame_cache_dir":"runs/qwen3vl_frame_cache_fps1","latency_sec":0.428,"status":"ok"}
+version https://git-lfs.github.com/spec/v1
+oid sha256:1ce082624fdaf322ad169efcd045c33dc045a317bb7f87656157ff92e643eb67
+size 572

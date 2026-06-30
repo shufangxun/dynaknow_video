@@ -12,6 +12,7 @@ TIMEOUT_SEC="${VDCR_TIMEOUT_SEC:-25}"
 COMMONS_SLEEP_SEC="${VDCR_COMMONS_SLEEP_SEC:-1.0}"
 ARCHIVE_SLEEP_SEC="${VDCR_ARCHIVE_SLEEP_SEC:-0.5}"
 SOURCES="${VDCR_SOURCES:-both}"
+ARCHIVE_MAX_DURATION_SEC="${VDCR_ARCHIVE_MAX_DURATION_SEC:-240}"
 
 mkdir -p "${RUN_DIR}"
 
@@ -30,6 +31,7 @@ VDCR_PER_QUERY=${PER_QUERY}
 VDCR_SKIP_EXISTING=${SKIP_EXISTING}
 VDCR_TIMEOUT_SEC=${TIMEOUT_SEC}
 VDCR_SOURCES=${SOURCES}
+VDCR_ARCHIVE_MAX_DURATION_SEC=${ARCHIVE_MAX_DURATION_SEC}
 EOF
 
 case ",${SOURCES}," in
@@ -66,7 +68,8 @@ case ",${SOURCES}," in
       --id-prefix "v2_archive_${QUERY_OFFSET}" \
       --sleep-sec "${ARCHIVE_SLEEP_SEC}" \
       --timeout-sec "${TIMEOUT_SEC}" \
-      --max-attempts 3
+      --max-attempts 3 \
+      --max-duration-sec "${ARCHIVE_MAX_DURATION_SEC}"
     ;;
   *)
     printf 'candidate_id,source_url,source_platform,license_or_usage_note,raw_duration_sec,suggested_start_sec,suggested_end_sec,initial_category,candidate_knowledge_point,domain_seed,subdomain_seed,why_dynamic,collector_notes\n' > "${ARCHIVE_OUTPUT}"

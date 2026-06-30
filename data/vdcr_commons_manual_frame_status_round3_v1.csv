@@ -1,10 +1,3 @@
-id,video_path,duration_sec,first,middle,last,sparse,contact_sheet,error
-vdcr_commons_mr3_000001,media/vdcr_commons_manual_round3_v1/vdcr_commons_mr3_000001.ogv,45.081,ok,ok,ok,8,ok,
-vdcr_commons_mr3_000002,media/vdcr_commons_manual_round3_v1/vdcr_commons_mr3_000002.webm,31.419,ok,ok,ok,8,ok,
-vdcr_commons_mr3_000003,media/vdcr_commons_manual_round3_v1/vdcr_commons_mr3_000003.webm,11.740,ok,ok,ok,8,ok,
-vdcr_commons_mr3_000004,media/vdcr_commons_manual_round3_v1/vdcr_commons_mr3_000004.ogv,17.917,ok,ok,ok,8,ok,
-vdcr_commons_mr3_000005,media/vdcr_commons_manual_round3_v1/vdcr_commons_mr3_000005.webm,88.239,ok,ok,ok,8,ok,
-vdcr_commons_mr3_000006,media/vdcr_commons_manual_round3_v1/vdcr_commons_mr3_000006.webm,42.988,ok,ok,ok,8,ok,
-vdcr_commons_mr3_000007,media/vdcr_commons_manual_round3_v1/vdcr_commons_mr3_000007.webm,5.138,ok,ok,ok,8,ok,
-vdcr_commons_mr3_000008,media/vdcr_commons_manual_round3_v1/vdcr_commons_mr3_000008.webm,29.810,ok,ok,ok,8,ok,
-vdcr_commons_mr3_000009,media/vdcr_commons_manual_round3_v1/vdcr_commons_mr3_000009.webm,24.472,ok,ok,ok,8,ok,
+version https://git-lfs.github.com/spec/v1
+oid sha256:ddbacb090570e5d2743d8c3519a023bcfdae3c1ba0e5053b9f2e52c1ecdee541
+size 1078

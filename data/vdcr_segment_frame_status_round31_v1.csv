@@ -1,3 +1,3 @@
-id,video_path,duration_sec,first,middle,last,sparse,contact_sheet,error
-vdcr_commons_mr31_000003_metadata_clean,media/vdcr_segments_pilot_v1/vdcr_commons_mr31_000003_metadata_clean.mp4,15.916,ok,ok,ok,8,ok,
-vdcr_commons_mr31_000005_seg_002000_21143_clean,media/vdcr_segments_pilot_v1/vdcr_commons_mr31_000005_seg_002000_21143_clean.mp4,19.052,ok,ok,ok,8,ok,
+version https://git-lfs.github.com/spec/v1
+oid sha256:d171ac15e688c8d5532b9c05732b87361e67456154e5d06912ae83000b9d29a1
+size 361

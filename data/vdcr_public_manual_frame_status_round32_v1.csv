@@ -1,2 +1,3 @@
-id,video_path,duration_sec,first,middle,last,sparse,contact_sheet,error
-vdcr_public_mr32_000001,media/vdcr_public_manual_round32_v1/vdcr_public_mr32_000001.mp4,157.024,ok,ok,ok,12,ok,
+version https://git-lfs.github.com/spec/v1
+oid sha256:f9c5fd03e3ff2bded27a08125df6922340f0fab0aec9528e186546de23307d1e
+size 186

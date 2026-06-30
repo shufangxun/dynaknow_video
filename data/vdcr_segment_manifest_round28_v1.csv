@@ -1,2 +1,3 @@
-id,source_id,candidate_knowledge_point,direct_url,page_url,title,mime,duration_sec,local_media,segment_start_sec,segment_end_sec
-vdcr_commons_mr28_000002_metadata_clean,vdcr_commons_mr28_000002,Neutrophil Chemotaxis,https://upload.wikimedia.org/wikipedia/commons/e/ec/A-Worldwide-Competition-to-Compare-the-Speed-and-Chemotactic-Accuracy-of-Neutrophil-Like-Cells-pone.0154491.s004.ogv,https://commons.wikimedia.org/wiki/File:A-Worldwide-Competition-to-Compare-the-Speed-and-Chemotactic-Accuracy-of-Neutrophil-Like-Cells-pone.0154491.s004.ogv,Neutrophil Chemotaxis metadata-clean derivative,video/mp4,11.333,media/vdcr_segments_pilot_v1/vdcr_commons_mr28_000002_metadata_clean.mp4,0.000,11.333
+version https://git-lfs.github.com/spec/v1
+oid sha256:90003845ec338ef3c6ba39e4de44c32901811fc0016bb4fa21f79a13f4ac52d2
+size 693

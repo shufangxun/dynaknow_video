@@ -1,6 +1,6 @@
 # VDCR V2 Capacity Assessment
 
-Date: 2026-06-20
+Date: 2026-06-21
 
 ## Recommendation
 
@@ -32,35 +32,49 @@ Current v1 release:
 - four-domain balance: biology 29, chemistry/materials 29, earth/environment
   28, physics 28
 
-Current tiered concept inventory:
+Current V2 merged concept inventory:
 
-- 194 main-eligible concepts (`core_main` + `strict_main_candidate`)
+- 313 total concepts
+- 65 V2-only expansion concepts appended to the tiered V1 pool
+- 260 main-eligible concepts (`core_main` + `strict_main_candidate`)
 - 114 concepts already used in v1
-- 80 remaining main-eligible concepts
+- 103 main-eligible concepts currently have no seed sample and remain below the
+  target candidate buffer
 
-Remaining main-eligible concepts by domain:
+Main-eligible concepts by domain:
 
-| Domain | Remaining concepts |
+| Domain | Main-eligible concepts |
 |---|---:|
-| physics_physical_systems | 25 |
-| biology_living_systems | 20 |
-| earth_environmental_systems | 20 |
-| chemistry_materials_change | 15 |
+| physics_physical_systems | 70 |
+| biology_living_systems | 65 |
+| earth_environmental_systems | 65 |
+| chemistry_materials_change | 60 |
 
 Current candidate pool:
 
-- 616 source-deduplicated candidates
-- 296 reviewed rows
-- 172 current V2 main-set review queue rows
+- 803 source-deduplicated candidates
+- 118 local-review triage rows
+- 238 current V2 main-set review queue rows
+- 232 current V2 draft samples
+- 168 current V2 draft unique concepts
+
+Current V2 draft samples by domain:
+
+| Domain | Draft samples |
+|---|---:|
+| biology_living_systems | 63 |
+| chemistry_materials_change | 56 |
+| earth_environmental_systems | 54 |
+| physics_physical_systems | 59 |
 
 Current V2 main review queue by domain:
 
 | Domain | Review queue rows |
 |---|---:|
-| biology_living_systems | 50 |
-| chemistry_materials_change | 22 |
-| earth_environmental_systems | 49 |
-| physics_physical_systems | 51 |
+| biology_living_systems | 69 |
+| chemistry_materials_change | 43 |
+| earth_environmental_systems | 59 |
+| physics_physical_systems | 67 |
 
 Observed reviewed-pass rates are roughly 18-35% depending on domain, before
 final license, leakage, and release filtering. This means the current pool can
@@ -68,18 +82,18 @@ likely support a V1.1 expansion, but not a clean 300-video V2 by itself.
 
 Current V2 expansion backlog:
 
-- `data/vdcr_v2_expansion_backlog.csv`: 140 concepts below the target candidate
+- `data/vdcr_v2_expansion_backlog.csv`: 171 concepts below the target candidate
   buffer of 3 candidates per concept.
 - `data/vdcr_v2_expansion_queries.csv`: 480 retrieval query rows for the top
   backlog concepts.
-- Backlog mix: 66 V1-uncovered concepts and 74 repeated-concept clusters that
+- Backlog mix: 103 V1-uncovered concepts and 68 repeated-concept clusters that
   need more visually distinct candidate videos.
 
 ## Why 240 First
 
-A strict one-concept-one-video policy is capped by the current 194
-main-eligible concepts and will likely land below that after source and leakage
-losses.
+A strict one-concept-one-video policy is no longer concept-limited at 240 after
+the V2-only expansion, but it is still video-limited because many concepts have
+no reviewed, non-leaky public video yet.
 
 V2 should therefore scale with concept clusters:
 
@@ -118,8 +132,7 @@ concepts with clearly different visual realizations. The default cap remains 3.
 
 ## Expansion Strategy
 
-1. Expand the concept inventory from 194 to at least 250-300 main-eligible
-   concepts.
+1. Keep the merged V2 concept inventory above 250 main-eligible concepts.
 2. Prioritize concepts with medium/high public video availability and medium/low
    static shortcut risk.
 3. Search multiple sources per concept, with Wikimedia Commons preferred and

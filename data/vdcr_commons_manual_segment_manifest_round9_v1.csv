@@ -1,2 +1,3 @@
-id,page_url,title,direct_url,mime,duration_sec,license_short_name,usage_terms
-vdcr_commons_mr9_000002_seg_003000_355000_noaudio,https://commons.wikimedia.org/wiki/File:Origin-and-dynamics-of-vortex-rings-in-drop-splashing-ncomms9187-s3.ogv,X-ray vortex ring formation during drop splashing no-text segment v2,https://upload.wikimedia.org/wikipedia/commons/4/40/Origin-and-dynamics-of-vortex-rings-in-drop-splashing-ncomms9187-s3.ogv,video/mp4,32.5,CC-BY-4.0 derivative,Derivative local review segment starts after opening schematic and contains no audio
+version https://git-lfs.github.com/spec/v1
+oid sha256:cd3b9c84f8ed81e2702b953651d6110dd6ace2f661c3188f5bec4c5aecd95fa9
+size 556

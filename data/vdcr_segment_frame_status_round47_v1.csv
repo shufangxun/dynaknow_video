@@ -1,2 +1,3 @@
-id,video_path,duration_sec,first,middle,last,sparse,contact_sheet,error
-vdcr_public_mr47_000001_mitotic_chromosome_segregation_crop_clean,media/vdcr_segments_pilot_v1/vdcr_public_mr47_000001_mitotic_chromosome_segregation_crop_clean.mp4,76.667,ok,ok,ok,19,ok,
+version https://git-lfs.github.com/spec/v1
+oid sha256:ede7e7393f0bfd5e2fe272021fbde6a138c1712d9456eabd5873839614ce1b85
+size 262

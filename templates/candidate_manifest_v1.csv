@@ -1,2 +1,3 @@
-video_id,candidate_id,source_url,source_platform,license_or_usage_note,local_media,duration_sec,domain_seed,subdomain_seed,query,visible_dynamic_phenomenon,temporal_evidence,source_summary,retrieval_status,retrieval_notes
-dynaknow_000001,candidate_000001,https://example.com/video,wikimedia_commons,verify_license_on_source_page,media/raw/dynaknow_000001.webm,12.0,physics_physical_systems,motion_forces_and_energy,falling object gravity demonstration,An unsupported object moves downward over time,The object appears at a higher position first and lower position later,,candidate,replace_with_real_candidate
+version https://git-lfs.github.com/spec/v1
+oid sha256:51b6dcbd6f8d1b5c2fac37900d4a3ffba192a6d0a2b1533c732f2c191752bd95
+size 609

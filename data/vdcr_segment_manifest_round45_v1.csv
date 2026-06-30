@@ -1,2 +1,3 @@
-id,source_id,candidate_knowledge_point,direct_url,page_url,title,mime,duration_sec,local_media,segment_start_sec,segment_end_sec
-vdcr_public_mr45_000001_dune_slip_face_grain_avalanche_trim_crop_clean,vdcr_public_mr45_000001,Dune Slip-Face Grain Avalanche,https://www.nps.gov/nps-audiovideo/audiovideo/1a79352d-7f75-4236-a750-e87ee0472574720p.mp4,https://home.nps.gov/media/video/view.htm?id=899DBB31-8EC7-42BA-A719-A880E58D823B,Dune Slip-Face Grain Avalanche textless cropped derivative,video/mp4,7.107,media/vdcr_segments_pilot_v1/vdcr_public_mr45_000001_dune_slip_face_grain_avalanche_trim_crop_clean.mp4,7.500,14.600
+version https://git-lfs.github.com/spec/v1
+oid sha256:7ac33dc93e1f351ce93cf18d0c5e579819a923cc7a7a2bedd8ecd0b94674182a
+size 622

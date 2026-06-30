@@ -1,2 +1,3 @@
-id,video_path,duration_sec,first,middle,last,sparse,contact_sheet,error
-vdcr_commons_mr13_000005,media/vdcr_commons_manual_round13_v1/vdcr_commons_mr13_000005.gif,0.100,ok,ok,ok,8,ok,
+version https://git-lfs.github.com/spec/v1
+oid sha256:50bff92c5be54ebdf6c27a9a6b2684a343d97dfbc2c5b92eaea0f2846a85543c
+size 184

@@ -1,4 +1,3 @@
-id,ok,status,error,direct_url,local_media
-vdcr_commons_mr5_000001,true,download_ok,,https://upload.wikimedia.org/wikipedia/commons/d/d9/Paranuss-Effekt_Brazil_Nut_Effect_Granular_Convection.webm,media/vdcr_commons_manual_round5_v1/vdcr_commons_mr5_000001.webm
-vdcr_commons_mr5_000002,true,download_ok,,https://upload.wikimedia.org/wikipedia/commons/3/38/Marangoni_effect_experimental_demonstration.ogv,media/vdcr_commons_manual_round5_v1/vdcr_commons_mr5_000002.ogv
-vdcr_commons_mr5_000003,true,download_ok,,https://upload.wikimedia.org/wikipedia/commons/3/3e/Pinch-off_in_two-fluid_systems.webm,media/vdcr_commons_manual_round5_v1/vdcr_commons_mr5_000003.webm
+version https://git-lfs.github.com/spec/v1
+oid sha256:8ee1e416723ba8744ab40b2e730a3c370ebebba3b5859d07e53bf6c19dc65f1b
+size 665

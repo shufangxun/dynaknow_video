@@ -1,7 +1,3 @@
-id,video_path,duration_sec,first,middle,last,sparse,contact_sheet,error
-vdcr_commons_mr9_000001,media/vdcr_commons_manual_round9_v1/vdcr_commons_mr9_000001.ogv,8.267,ok,ok,ok,8,ok,
-vdcr_commons_mr9_000002,media/vdcr_commons_manual_round9_v1/vdcr_commons_mr9_000002.ogv,35.633,ok,ok,ok,8,ok,
-vdcr_commons_mr9_000003,media/vdcr_commons_manual_round9_v1/vdcr_commons_mr9_000003.webm,11.740,ok,ok,ok,8,ok,
-vdcr_commons_mr9_000004,media/vdcr_commons_manual_round9_v1/vdcr_commons_mr9_000004.webm,42.988,ok,ok,ok,8,ok,
-vdcr_commons_mr9_000005,media/vdcr_commons_manual_round9_v1/vdcr_commons_mr9_000005.ogv,12.000,ok,ok,ok,8,ok,
-vdcr_commons_mr9_000006,media/vdcr_commons_manual_round9_v1/vdcr_commons_mr9_000006.ogv,13.300,ok,ok,ok,8,ok,
+version https://git-lfs.github.com/spec/v1
+oid sha256:d225a920cf862d8aeb0bbbd0bff299ff6a44cad7af0f0ac723c8069a1db4f159
+size 740

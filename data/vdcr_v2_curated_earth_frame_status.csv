@@ -1,3 +1,3 @@
-id,video_path,duration_sec,first,middle,last,sparse,contact_sheet,error
-curated_005001,media/vdcr_curated_earth_v2/curated_005001.webm,38.322,ok,ok,ok,8,ok,
-curated_005002,media/vdcr_curated_earth_v2/curated_005002.webm,81.720,ok,ok,ok,8,ok,
+version https://git-lfs.github.com/spec/v1
+oid sha256:d42c7fee1cf1ee2f9c529318eb49c0ae8679c2b123c38eacf7e8be7e1f0362b6
+size 750

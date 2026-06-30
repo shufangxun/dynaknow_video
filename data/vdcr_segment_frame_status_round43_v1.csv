@@ -1,2 +1,3 @@
-id,video_path,duration_sec,first,middle,last,sparse,contact_sheet,error
-vdcr_public_mr43_000002_biofilm_expansion_clean,media/vdcr_segments_pilot_v1/vdcr_public_mr43_000002_biofilm_expansion_clean.mp4,8.250,ok,ok,ok,8,ok,
+version https://git-lfs.github.com/spec/v1
+oid sha256:d7dac2d5df08bf86026864208466cf3beed665818f2738884201f497b5bbb73d
+size 224

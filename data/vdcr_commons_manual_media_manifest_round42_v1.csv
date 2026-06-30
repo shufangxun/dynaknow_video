@@ -1,2 +1,3 @@
-id,page_url,title,direct_url,mime,duration_sec,license_short_name,usage_terms
-vdcr_commons_mr42_000001,https://commons.wikimedia.org/wiki/File:MakingASplash.webm,File:MakingASplash.webm,https://upload.wikimedia.org/wikipedia/commons/6/68/MakingASplash.webm,video/webm,152.560,CC BY-SA 4.0,https://creativecommons.org/licenses/by-sa/4.0
+version https://git-lfs.github.com/spec/v1
+oid sha256:ea27e25ad4124dde8e45ce9544d26685ecee6c4d5458256e4a19a2b48f7f3ef5
+size 338

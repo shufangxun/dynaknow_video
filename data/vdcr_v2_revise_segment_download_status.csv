@@ -1,2 +1,3 @@
-id,ok,status,error,direct_url,local_media
-curated_002004_seg_020000_145000,true,local_segment_ok,,https://upload.wikimedia.org/wikipedia/commons/0/06/Blue-bottle_reaction_(Oscillating_reaction).webm,media/vdcr_v2_segments_from_revise/curated_002004_seg_020000_145000.webm
+version https://git-lfs.github.com/spec/v1
+oid sha256:93272edbcee639dae678f11c0d3fef96f81ffc71c879210dafd862e7e838998f
+size 919

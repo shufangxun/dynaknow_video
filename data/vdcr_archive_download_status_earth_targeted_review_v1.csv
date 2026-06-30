@@ -1,8 +1,3 @@
-id,ok,status,error,direct_url,local_media
-vdcr_archive_earth_000008,true,download_ok,,https://archive.org/download/erputive-phenomea/erputive-phenomea.mp4,media/vdcr_raw_pilot_v1/vdcr_archive_earth_000008.mp4
-vdcr_archive_earth_000010,true,download_ok,,https://archive.org/download/volcanoes/volcanoes.ogv,media/vdcr_raw_pilot_v1/vdcr_archive_earth_000010.ogv
-vdcr_archive_earth_000013,true,download_ok,,https://archive.org/download/SVS-3619/hdtour720p60_041a_512kb.mp4,media/vdcr_raw_pilot_v1/vdcr_archive_earth_000013.mp4
-vdcr_archive_earth_000014,true,download_ok,,https://archive.org/download/vimeo-303438254/GREENLAND_-_THE_MELTING_ISLAND_4K-303438254.mp4,media/vdcr_raw_pilot_v1/vdcr_archive_earth_000014.mp4
-vdcr_archive_earth_000020,false,download_failed,HTTP Error 401: Unauthorized,https://archive.org/download/Mars_Dune_Avalanche_/Mars_Dune_Avalanche_.ogv,media/vdcr_raw_pilot_v1/vdcr_archive_earth_000020.ogv
-vdcr_archive_earth_000029,true,download_ok,,https://archive.org/download/MudflowAtTunnelConstructionSiteLeaves4Dead4MissingInSouthwestChina/Mudflow%20at%20tunnel%20construction%20site%20leaves%204%20dead%2C%204%20missing%20in%20southwest%20China.ogv,media/vdcr_raw_pilot_v1/vdcr_archive_earth_000029.ogv
-vdcr_archive_earth_000034,true,download_ok,,https://archive.org/download/NASA_Aeronautics_Design_Tech_Clip30_HD/NASA_Aeronautics_Design_Tech_Clip30_HD.ogv,media/vdcr_raw_pilot_v1/vdcr_archive_earth_000034.ogv
+version https://git-lfs.github.com/spec/v1
+oid sha256:18dbfff850b6d63017d7555cd2ac638ae81e8d1b61ca65048a198210f5fcf5aa
+size 1442

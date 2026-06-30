@@ -1,5 +1,3 @@
-id,ok,status,error,direct_url,local_media
-vdcr_commons_mr36_000001,true,download_ok,,https://upload.wikimedia.org/wikipedia/commons/c/c4/Superhydrophobic-like-tunable-droplet-bouncing-on-slippery-liquid-interfaces-ncomms8986-s5.ogv,media/vdcr_commons_manual_round36_v1/vdcr_commons_mr36_000001.ogv
-vdcr_commons_mr36_000002,true,download_ok,,https://upload.wikimedia.org/wikipedia/commons/3/34/Distinct-short-range-ovule-signals-attract-or-repel-Arabidopsis-thaliana-pollen-tubes-in-vitro-1471-2229-6-7-S2.ogv,media/vdcr_commons_manual_round36_v1/vdcr_commons_mr36_000002.ogv
-vdcr_commons_mr36_000003,true,download_ok,,https://upload.wikimedia.org/wikipedia/commons/7/75/Overlapping-and-divergent-signaling-pathways-for-ARK1-and-AGD1-in-the-control-of-root-hair-polarity-Movie1.ogv,media/vdcr_commons_manual_round36_v1/vdcr_commons_mr36_000003.ogv
-vdcr_commons_mr36_000004,true,download_ok,,https://upload.wikimedia.org/wikipedia/commons/1/1b/Standing_Waves_and_Resonance.webm,media/vdcr_commons_manual_round36_v1/vdcr_commons_mr36_000004.webm
+version https://git-lfs.github.com/spec/v1
+oid sha256:16820a9933706cd53eb42f1b2140aad451dfeb153a9a72afce280687438d6427
+size 1048

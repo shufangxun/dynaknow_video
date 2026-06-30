@@ -1,2 +1,3 @@
-id,source_id,candidate_knowledge_point,direct_url,page_url,title,mime,duration_sec,local_media,segment_start_sec,segment_end_sec
-vdcr_commons_mr38_000001_crop_metadata_clean,vdcr_commons_mr38_000001,Stokes Flow Kinematic Reversibility,https://upload.wikimedia.org/wikipedia/commons/f/f2/Laminar_Flow_2.webm,https://commons.wikimedia.org/wiki/File:Laminar_Flow_2.webm,Stokes Flow Kinematic Reversibility cropped metadata-clean derivative,video/mp4,88.055,media/vdcr_segments_pilot_v1/vdcr_commons_mr38_000001_crop_metadata_clean.mp4,0.000,88.055
+version https://git-lfs.github.com/spec/v1
+oid sha256:21c9c3cdfc8aa915fb6fca4d83997ba8b5d89d37624f67b8b6b1d211adba6de2
+size 547

@@ -1,7 +1,3 @@
-id,ok,status,error,direct_url,local_media
-vdcr_commons_mr23_000001,true,already_present,,https://upload.wikimedia.org/wikipedia/commons/c/cf/CH3NH3PbI3_crystal_growth.webm,media/vdcr_commons_manual_round23_v1/vdcr_commons_mr23_000001.webm
-vdcr_commons_mr23_000002,true,already_present,,https://upload.wikimedia.org/wikipedia/commons/2/23/Nanoscale-size-effects-in-crystallization-of-metallic-glass-nanorods-ncomms9157-s4.ogv,media/vdcr_commons_manual_round23_v1/vdcr_commons_mr23_000002.ogv
-vdcr_commons_mr23_000003,true,already_present,,https://upload.wikimedia.org/wikipedia/commons/e/e3/Internal_wave_motion_at_the_Coriolis_Platform_(M%C3%A9diHAL_1153168_-_CAO).webm,media/vdcr_commons_manual_round23_v1/vdcr_commons_mr23_000003.webm
-vdcr_commons_mr23_000004,true,already_present,,https://upload.wikimedia.org/wikipedia/commons/a/ae/A-swarm-of-autonomous-miniature-underwater-robot-drifters-for-exploring-submesoscale-ocean-dynamics-ncomms14189-s5.ogv,media/vdcr_commons_manual_round23_v1/vdcr_commons_mr23_000004.ogv
-vdcr_commons_mr23_000005,false,download_failed,HTTP Error 404: Not Found,https://upload.wikimedia.org/wikipedia/commons/b/b2/Brandungsr%C3%BCckstrom_(Rip_current,media/vdcr_commons_manual_round23_v1/vdcr_commons_mr23_000005.video
-vdcr_commons_mr23_000006,true,download_ok,,https://upload.wikimedia.org/wikipedia/commons/5/5c/Brandungsr%C3%BCckstrom_(Entstehung).webm,media/vdcr_commons_manual_round23_v1/vdcr_commons_mr23_000006.webm
+version https://git-lfs.github.com/spec/v1
+oid sha256:698fe0d267e73f1584bda64a62fdb66b848d04ceca0b761e687f9bf4d788f9ff
+size 1462

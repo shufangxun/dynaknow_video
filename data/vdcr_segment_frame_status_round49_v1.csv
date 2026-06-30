@@ -1,2 +1,3 @@
-id,video_path,duration_sec,first,middle,last,sparse,contact_sheet,error
-vdcr_public_mr49_000001_flame_blowoff_clean,media/vdcr_segments_pilot_v1/vdcr_public_mr49_000001_flame_blowoff_clean.mp4,3.500,ok,ok,ok,14,ok,
+version https://git-lfs.github.com/spec/v1
+oid sha256:b3d806d81c7ecbaf9190f05eac2b3b7ecf27460a8528116d806f075000bfc456
+size 217

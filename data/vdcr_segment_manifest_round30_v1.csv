@@ -1,3 +1,3 @@
-id,source_id,candidate_knowledge_point,direct_url,page_url,title,mime,duration_sec,local_media,segment_start_sec,segment_end_sec
-vdcr_commons_mr30_000001_metadata_clean,vdcr_commons_mr30_000001,Saffman-Taylor Viscous Fingering,https://upload.wikimedia.org/wikipedia/commons/7/78/Plein_de_bulles_entier_grand.gif,https://commons.wikimedia.org/wiki/File:Plein_de_bulles_entier_grand.gif,Saffman-Taylor viscous fingering metadata-clean derivative,video/mp4,8.000,media/vdcr_segments_pilot_v1/vdcr_commons_mr30_000001_metadata_clean.mp4,0.000,8.000
-vdcr_commons_mr30_000004_metadata_clean,vdcr_commons_mr30_000004,FRAP Recovery,https://upload.wikimedia.org/wikipedia/commons/f/fc/Synucleins-Antagonize-Endoplasmic-Reticulum-Function-to-Modulate-Dopamine-Transporter-Trafficking-pone.0070872.s008.ogv,https://commons.wikimedia.org/wiki/File:Synucleins-Antagonize-Endoplasmic-Reticulum-Function-to-Modulate-Dopamine-Transporter-Trafficking-pone.0070872.s008.ogv,FRAP Recovery metadata-clean derivative,video/mp4,7.133,media/vdcr_segments_pilot_v1/vdcr_commons_mr30_000004_metadata_clean.mp4,0.000,7.133
+version https://git-lfs.github.com/spec/v1
+oid sha256:2abf39e1fb16473b9326de857c98b9663b905908da87572499b97e6efdec33a9
+size 1097

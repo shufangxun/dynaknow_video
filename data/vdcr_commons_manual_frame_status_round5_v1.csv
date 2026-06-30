@@ -1,4 +1,3 @@
-id,video_path,duration_sec,first,middle,last,sparse,contact_sheet,error
-vdcr_commons_mr5_000001,media/vdcr_commons_manual_round5_v1/vdcr_commons_mr5_000001.webm,18.073,ok,ok,ok,8,ok,
-vdcr_commons_mr5_000002,media/vdcr_commons_manual_round5_v1/vdcr_commons_mr5_000002.ogv,29.095,ok,ok,ok,8,ok,
-vdcr_commons_mr5_000003,media/vdcr_commons_manual_round5_v1/vdcr_commons_mr5_000003.webm,7.513,ok,ok,ok,8,ok,
+version https://git-lfs.github.com/spec/v1
+oid sha256:17cd3836837ff56ecdf2bf0e542f1201eff02851b45ceefc1c50bfe522ec9962
+size 407

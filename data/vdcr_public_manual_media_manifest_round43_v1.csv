@@ -1,2 +1,3 @@
-id,page_url,title,direct_url,mime,duration_sec,license_short_name,usage_terms
-vdcr_public_mr43_000002,https://nigms.nih.gov/image-gallery/3446,NIGMS Image Gallery: Biofilm blocking fluid flow,https://nigms.nih.gov/sites/nigms/files/image-and-video-gallery/Biofilm_blocking_fluid_flow.mp4,video/mp4,8.266,NIGMS source audit required,https://nigms.nih.gov/image-gallery/3446
+version https://git-lfs.github.com/spec/v1
+oid sha256:68102c01420b2254271ae5482850a0fbd38bf53d710b60aedbbbbfdb46cc3bcb
+size 375

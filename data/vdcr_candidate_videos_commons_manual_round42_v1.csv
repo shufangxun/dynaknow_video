@@ -1,2 +1,3 @@
-candidate_id,source_url,source_platform,license_or_usage_note,raw_duration_sec,suggested_start_sec,suggested_end_sec,initial_category,candidate_knowledge_point,domain_seed,subdomain_seed,why_dynamic,collector_notes
-vdcr_commons_mr42_000001,https://commons.wikimedia.org/wiki/File:MakingASplash.webm,wikimedia_commons,CC BY-SA 4.0 on Commons; attribution/share-alike audit required before release,152.560,36.000,45.000,core_gate_physics,Worthington Jet,physics_physical_systems,physics_family_05,Candidate must show impact-driven cavity/splash evolution followed by a vertical liquid jet and droplet formation; a single frame of a liquid column is insufficient because it can be confused with generic splashing or pouring.,New Commons slow-motion splash source. Use only the cropped metadata-clean 36-45 s segment; reject raw opening title card and unrelated later impacts.
+version https://git-lfs.github.com/spec/v1
+oid sha256:05e4c15ae2cd834d5124e7deb01ff3de2e707ed6304ac04c1c8ae4c5b5fe3fef
+size 875

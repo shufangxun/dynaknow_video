@@ -33,6 +33,22 @@ Recommended targets:
 The default cap of 3 is a quality control, not a quota. A concept should have
 fewer than 3 videos when clean, distinct, non-leaky examples are unavailable.
 
+## Two Expansion Axes
+
+V2 expansion is implemented with two independent levers:
+
+1. Concept expansion: V2-only rows live in
+   `data/vdcr_v2_concept_expansion.csv` and are merged with the tiered V1 pool
+   into `data/vdcr_v2_concept_inventory.csv`.
+2. Video expansion per concept: `scripts/build_vdcr_v2_expansion_backlog.py`
+   computes how many candidates each concept still needs toward the default
+   target of 3 candidates per concept.
+
+The first lever raises the ceiling on unique concepts. The second lever finds
+multiple visually distinct videos for concepts that can support clean repeated
+instances. A concept with 3 candidates still needs independent review before
+any video enters the source-hidden draft or release.
+
 ## Expansion Order
 
 Expand in this order:
@@ -97,15 +113,17 @@ samples, and the distribution of videos per concept.
 
 ## Practical Capacity Estimate
 
-The current v1 release has 114 unique concepts. The current tiered inventory
-contains 194 main-eligible concepts (`core_main` plus `strict_main_candidate`),
-so a strict one-concept-one-video expansion can likely reach about 150-190
-samples after source and leakage losses.
+The current v1 release has 114 unique concepts. The V2 merged inventory contains
+260 main-eligible concepts (`core_main` plus `strict_main_candidate`) after
+adding 65 V2-only expansion concepts, so the concept side can now support the
+240-sample target if enough clean videos pass review. The current V2 draft has
+232 clean video-concept samples and 168 unique concepts.
 
 Reaching 240-300 samples requires both:
 
-- expanding the main-eligible concept inventory; and
 - allowing selected concept clusters to contain multiple clean, distinct videos.
+- filling the candidate backlog for both V1-uncovered concepts and repeated
+  concept clusters.
 
 This is the recommended path for aligning V2 with Video-MMMU-scale video counts
 while preserving VDCR's video-concept grounding standard.
@@ -115,21 +133,11 @@ target-count rationale.
 
 ## Current Construction Entry Point
 
-Regenerate the current V2 seed set, merged candidate pool, and main review queue:
+Regenerate the current V2 concept inventory, seed set, merged candidate pool,
+main review queue, draft, backlog, and dashboard:
 
 ```bash
-python3 scripts/build_vdcr_v2_construction_assets.py
-```
-
-Then regenerate the dashboard:
-
-```bash
-python3 scripts/build_vdcr_review_dashboard.py \
-  --review-csv data/vdcr_v2_review_queue.csv \
-  --samples data/vdcr_v2_seed_samples.jsonl \
-  --concepts data/vdcr_concept_inventory_v1.csv \
-  --candidates data/vdcr_candidate_videos_combined_v2.csv \
-  --output reports/vdcr_v2_review_dashboard.html
+bash scripts/build_vdcr_v2_assets.sh
 ```
 
 ## Background Retrieval
@@ -153,6 +161,17 @@ tail -f runs/v2_retrieval/<run_id>/retrieval.log
 If Commons is temporarily throttled, run Archive-only shards:
 
 ```bash
-VDCR_SOURCES=archive VDCR_QUERY_OFFSET=120 VDCR_QUERY_LIMIT=120 VDCR_PER_QUERY=5 \
+VDCR_SOURCES=archive VDCR_ARCHIVE_MAX_DURATION_SEC=240 \
+  VDCR_QUERY_OFFSET=120 VDCR_QUERY_LIMIT=120 VDCR_PER_QUERY=5 \
   bash scripts/start_v2_retrieval_background.sh
 ```
+
+`VDCR_ARCHIVE_MAX_DURATION_SEC` defaults to 240 for V2 shards. This keeps the
+candidate pool biased toward short clips or short educational media and avoids
+filling review queues with long documentaries that happen to match a keyword.
+
+Retrieval outputs under `runs/v2_retrieval/` are ignored exploratory artifacts.
+They are not read by the default V2 asset build. Promote reviewed useful rows
+into tracked `data/` candidate CSVs before rebuilding formal assets, or pass
+`--discover-runs` to `scripts/build_vdcr_v2_construction_assets.py` for a
+temporary exploratory merge.

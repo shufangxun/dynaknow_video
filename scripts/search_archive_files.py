@@ -182,6 +182,7 @@ def main() -> int:
     parser.add_argument("--id-prefix", default="archive_principle_v1")
     parser.add_argument("--timeout-sec", type=float, default=30.0)
     parser.add_argument("--max-attempts", type=int, default=3)
+    parser.add_argument("--max-duration-sec", type=float, default=0.0)
     args = parser.parse_args()
 
     with args.queries.open("r", encoding="utf-8", newline="") as handle:
@@ -232,6 +233,8 @@ def main() -> int:
             if not video_file:
                 continue
             duration = duration_seconds(video_file)
+            if args.max_duration_sec > 0 and duration > args.max_duration_sec:
+                continue
             suggested_start = float(query.get("default_start_sec") or 0)
             configured_end = float(query.get("default_end_sec") or 0)
             suggested_end = configured_end

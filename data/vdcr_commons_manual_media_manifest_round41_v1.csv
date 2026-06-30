@@ -1,2 +1,3 @@
-id,page_url,title,direct_url,mime,duration_sec,license_short_name,usage_terms
-vdcr_commons_mr41_000001,https://commons.wikimedia.org/wiki/File:Padma_River_Time_Series_(1988-2018).webm,File:Padma River Time Series (1988-2018).webm,https://upload.wikimedia.org/wikipedia/commons/b/bb/Padma_River_Time_Series_(1988-2018).webm,video/webm,,,
+version https://git-lfs.github.com/spec/v1
+oid sha256:8f371d4958ce6da40510fccfd5dd8b0c2df3aeebc85505b856d493c3c2422360
+size 339

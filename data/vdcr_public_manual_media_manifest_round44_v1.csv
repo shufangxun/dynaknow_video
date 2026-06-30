@@ -1,2 +1,3 @@
-id,page_url,title,direct_url,mime,duration_sec,license_short_name,usage_terms
-vdcr_public_mr44_000003,https://pmc.ncbi.nlm.nih.gov/articles/PMC9013362/,Supplementary experimental video S2: dendritic/fractal growth between electrodes,https://pmc.ncbi.nlm.nih.gov/articles/instance/9013362/bin/41598_2022_10082_MOESM3_ESM.wmv,video/x-ms-asf,30.800,CC BY 4.0,https://creativecommons.org/licenses/by/4.0/
+version https://git-lfs.github.com/spec/v1
+oid sha256:244dba7f1f9a7e150f1b90049c8e66c79c4e58c0ea882492b0b6d38ab32ad6e4
+size 403

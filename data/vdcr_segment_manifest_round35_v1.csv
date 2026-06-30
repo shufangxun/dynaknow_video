@@ -1,2 +1,3 @@
-id,source_id,candidate_knowledge_point,direct_url,page_url,title,mime,duration_sec,local_media,segment_start_sec,segment_end_sec
-vdcr_commons_mr35_000001_crop_metadata_clean,vdcr_commons_mr35_000001,Wind-Driven Fire-Front Propagation,https://upload.wikimedia.org/wikipedia/commons/6/66/Explosive_Growth_of_the_Ranger_Road_Fire_(CIRA_2026-02-18_-_nolabels).webm,https://commons.wikimedia.org/wiki/File:Explosive_Growth_of_the_Ranger_Road_Fire_(CIRA_2026-02-18_-_nolabels).webm,Wind-Driven Fire-Front Propagation cropped metadata-clean derivative,video/mp4,19.519,media/vdcr_segments_pilot_v1/vdcr_commons_mr35_000001_crop_metadata_clean.mp4,0.000,19.520
+version https://git-lfs.github.com/spec/v1
+oid sha256:1954636a9da42fe9106bb2ca2ab0f0907d1d69c0ed6bb5b55991ba383831db50
+size 653

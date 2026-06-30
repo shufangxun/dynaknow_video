@@ -1,2 +1,3 @@
-id,candidate_knowledge_point,review_status,suggested_start_sec,suggested_end_sec,local_media
-curated_002004,Blue Bottle Reaction,revise,20.0,145.0,media/vdcr_curated_chemistry_v2/curated_002004.webm
+version https://git-lfs.github.com/spec/v1
+oid sha256:265cdf45818993623bc0ef06f3595eae529457a05a6e545b0d93d65f1d3b12c0
+size 199

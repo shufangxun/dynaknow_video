@@ -1,7 +1,3 @@
-id,page_url,title,direct_url,mime,duration_sec,license_short_name,usage_terms
-vdcr_commons_mr2_000001,https://commons.wikimedia.org/wiki/File:K-V_Street_Video1.ogv,K-V Street Video1,https://upload.wikimedia.org/wikipedia/commons/f/fc/K-V_Street_Video1.ogv,video/ogg,5.2,Public domain,Commons page states public domain release
-vdcr_commons_mr2_000002,https://commons.wikimedia.org/wiki/File:Effet_Leidenfrost.webm,Effet Leidenfrost,https://upload.wikimedia.org/wikipedia/commons/b/b1/Effet_Leidenfrost.webm,video/webm,18.0,CC-BY-SA-4.0,Commons own work under CC BY-SA 4.0
-vdcr_commons_mr2_000003,https://commons.wikimedia.org/wiki/File:Capillary_breakup.webm,Capillary breakup,https://upload.wikimedia.org/wikipedia/commons/2/28/Capillary_breakup.webm,video/webm,9.4,CC-BY-SA-4.0,Commons own work under CC BY-SA 4.0
-vdcr_commons_mr2_000004,https://commons.wikimedia.org/wiki/File:A_supercell_with_rotating_updraft_in_SE_Colorado_and_SW_Kansas_(CIRA_2019-05-03).webm,A supercell with rotating updraft in SE Colorado and SW Kansas,https://upload.wikimedia.org/wikipedia/commons/5/50/A_supercell_with_rotating_updraft_in_SE_Colorado_and_SW_Kansas_%28CIRA_2019-05-03%29.webm,video/webm,10.0,Public domain,NOAA/CSU-CIRA material marked public domain on Commons
-vdcr_commons_mr2_000005,https://commons.wikimedia.org/wiki/File:Tornado_time_lapse.webm,Tornado time lapse,https://upload.wikimedia.org/wikipedia/commons/f/fa/Tornado_time_lapse.webm,video/webm,36.0,CC-BY-SA-4.0,Commons own work under CC BY-SA 4.0
-vdcr_commons_mr2_000006,https://commons.wikimedia.org/wiki/File:Slow-moving-and-far-travelled-dense-pyroclastic-flows-during-the-Peach-Spring-super-eruption-ncomms10890-s4.ogv,Slow-moving dense pyroclastic flows supplementary movie,https://upload.wikimedia.org/wikipedia/commons/0/0b/Slow-moving-and-far-travelled-dense-pyroclastic-flows-during-the-Peach-Spring-super-eruption-ncomms10890-s4.ogv,video/ogg,4.6,CC-BY-4.0,Commons import from Nature Communications supplementary movie under CC BY 4.0
+version https://git-lfs.github.com/spec/v1
+oid sha256:8198028311e744848e63294bb2ac5a4da9d1b83ea62eebf71e725a5cfc2dd87f
+size 2001

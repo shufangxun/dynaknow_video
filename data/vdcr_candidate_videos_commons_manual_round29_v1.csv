@@ -1,3 +1,3 @@
-candidate_id,source_url,source_platform,license_or_usage_note,raw_duration_sec,suggested_start_sec,suggested_end_sec,initial_category,candidate_knowledge_point,domain_seed,subdomain_seed,why_dynamic,collector_notes
-vdcr_commons_mr29_000001,https://commons.wikimedia.org/wiki/File:Downburst_Piracicaba_2025.webm,wikimedia_commons,verify_on_source_page,30,0,30,strict_gate_earth,Downburst / Microburst Outflow,earth_environmental_systems,大气风暴动力学,"A downburst must show a thunderstorm downdraft/outflow signature over time; a static storm frame is insufficient.","New Commons own-work downburst video. Accept only if the footage shows decisive near-surface outflow or wind/rain burst dynamics rather than generic severe rain."
-vdcr_commons_mr29_000002,https://commons.wikimedia.org/wiki/File:Microexplos%C3%A3o_Piracicaba_12-08-2023.webm,wikimedia_commons,verify_on_source_page,52,0,52,strict_gate_earth,Downburst / Microburst Outflow,earth_environmental_systems,大气风暴动力学,"A microburst must show localized downdraft/outflow behavior over time; a static storm frame is insufficient.","Commons microburst video lead from the Microbursts category. Accept only if visual evidence shows downburst/microburst dynamics, not just rain blown across a street."
+version https://git-lfs.github.com/spec/v1
+oid sha256:67d9ff8c4ccab9d256c83b439de21711b2b76ad70ac1b4ca023b8f3ed67542ee
+size 1275

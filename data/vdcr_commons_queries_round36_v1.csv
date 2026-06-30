@@ -1,11 +1,3 @@
-search_term,initial_category,candidate_knowledge_point,domain_seed,subdomain_seed,why_dynamic,default_start_sec,default_end_sec,notes
-"standing wave formation video",physics_physical_systems,Standing Wave Formation,physics_physical_systems,physics_family_03,"Candidate must show a standing-wave mode establishing or changing over time; a single static wave pattern is insufficient.",0,30,round36_physics_gap
-"standing waves on string video",physics_physical_systems,Standing Wave Formation,physics_physical_systems,physics_family_03,"Candidate must show temporal oscillation with nodes and antinodes rather than a still wave diagram.",0,30,round36_physics_gap
-"parametric resonance pendulum video",physics_physical_systems,Parametric Resonance,physics_physical_systems,physics_family_03,"Candidate must show oscillation amplitude growth or mode excitation under periodic parameter variation; not just a pendulum swing.",0,40,round36_physics_gap
-"droplet rebound slow motion",physics_physical_systems,Droplet Rebound,physics_physical_systems,physics_family_05,"Candidate must show impact, deformation, capillary retraction, and liftoff sequence; a single splash frame is insufficient.",0,20,round36_physics_gap
-"bubble bursting jet video",physics_physical_systems,Bubble-Bursting Jet,physics_physical_systems,physics_family_05,"Candidate must show bubble rupture followed by upward jet formation, not merely bubbles on a surface.",0,20,round36_physics_gap
-"shock wave propagation video",physics_physical_systems,Shock Wave Propagation,physics_physical_systems,physics_family_06,"Candidate must show a clear shock/compression front propagating over time, not only a static schlieren image.",0,30,round36_physics_gap
-"dielectric barrier discharge streamers video",physics_physical_systems,Dielectric Barrier Discharge Streamers,physics_physical_systems,physics_family_07,"Candidate must show streamer filaments forming or propagating over time without title leakage.",0,20,round36_physics_gap
-"electric arc bending video",physics_physical_systems,Electric Arc Formation and Bending,physics_physical_systems,physics_family_07,"Candidate must show arc formation and motion/bending, not just a static spark photograph.",0,20,round36_physics_gap
-"film boiling video",physics_physical_systems,Film Boiling,physics_physical_systems,physics_family_08,"Candidate must show vapor-film mediated boiling dynamics over time, not just hot liquid or steam.",0,30,round36_physics_gap
-"boiling bubble nucleation departure video",physics_physical_systems,Boiling Bubble Nucleation and Departure,physics_physical_systems,physics_family_08,"Candidate must show bubbles nucleating, growing, and departing from a heated surface.",0,30,round36_physics_gap
+version https://git-lfs.github.com/spec/v1
+oid sha256:ee1f733cc19379c7f90c7b706629558e793f0d43739f03c4a41652844c123948
+size 2731

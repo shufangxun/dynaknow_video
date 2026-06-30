@@ -1,2 +1,3 @@
-id,source_id,candidate_knowledge_point,direct_url,page_url,title,mime,duration_sec,local_media,segment_start_sec,segment_end_sec
-vdcr_commons_mr42_000001_worthington_jet_clean,vdcr_commons_mr42_000001,Worthington Jet,https://upload.wikimedia.org/wikipedia/commons/6/68/MakingASplash.webm,https://commons.wikimedia.org/wiki/File:MakingASplash.webm,Worthington Jet cropped metadata-clean derivative,video/mp4,9.000,media/vdcr_segments_pilot_v1/vdcr_commons_mr42_000001_worthington_jet_clean.mp4,36.000,45.000
+version https://git-lfs.github.com/spec/v1
+oid sha256:a0107613d4c85a4445f81d0d3c61e967a9d5ff552c8a6c581686d6713b307481
+size 509

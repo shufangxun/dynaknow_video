@@ -1,2 +1,3 @@
-id,ok,status,error,direct_url,local_media
-curated_004001,true,download_ok,,https://upload.wikimedia.org/wikipedia/commons/2/27/Hydraulic_jump.webm,media/vdcr_curated_physics_v2/curated_004001.webm
+version https://git-lfs.github.com/spec/v1
+oid sha256:5e5a996b1fe5e729ca79e978650ba2bc8e728e502adafa109ceaf6fb5c186d0b
+size 815

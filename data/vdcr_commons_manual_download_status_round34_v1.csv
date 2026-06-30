@@ -1,8 +1,3 @@
-id,ok,status,error,direct_url,local_media
-vdcr_commons_mr34_000001,true,download_ok,,https://upload.wikimedia.org/wikipedia/commons/a/a1/Wesphysdemo_-_Synchronized_Metronomes.webm,media/vdcr_commons_manual_round34_v1/vdcr_commons_mr34_000001.webm
-vdcr_commons_mr34_000002,true,download_ok,,https://upload.wikimedia.org/wikipedia/commons/1/11/Experimental-multistable-states-for-small-network-of-coupled-pendula-srep29833-s1.ogv,media/vdcr_commons_manual_round34_v1/vdcr_commons_mr34_000002.ogv
-vdcr_commons_mr34_000003,true,download_ok,,https://upload.wikimedia.org/wikipedia/commons/6/66/Torsion-pendulum.ogv,media/vdcr_commons_manual_round34_v1/vdcr_commons_mr34_000003.ogv
-vdcr_commons_mr34_000004,true,download_ok,,https://upload.wikimedia.org/wikipedia/commons/d/de/Chemotaxis-and-Binding-of-Pseudomonas-aeruginosa-to-Scratch-Wounded-Human-Cystic-Fibrosis-Airway-pone.0150109.s003.ogv,media/vdcr_commons_manual_round34_v1/vdcr_commons_mr34_000004.ogv
-vdcr_commons_mr34_000005,true,download_ok,,https://upload.wikimedia.org/wikipedia/commons/4/47/Genome-sequence-of-the-pattern-forming-Paenibacillus-vortex-bacterium-reveals-potential-for-1471-2164-11-710-S2.ogv,media/vdcr_commons_manual_round34_v1/vdcr_commons_mr34_000005.ogv
-vdcr_commons_mr34_000006,true,download_ok,,https://upload.wikimedia.org/wikipedia/commons/d/de/Saltation-mechanics.gif,media/vdcr_commons_manual_round34_v1/vdcr_commons_mr34_000006.gif
-vdcr_commons_mr34_000007,true,download_ok,,https://upload.wikimedia.org/wikipedia/commons/5/5f/Cloud_timelapse.webm,media/vdcr_commons_manual_round34_v1/vdcr_commons_mr34_000007.webm
+version https://git-lfs.github.com/spec/v1
+oid sha256:e554043021441ddc583efc91b676c09a8fe55c9e9a1eec95f9d088dc1703bc62
+size 1609

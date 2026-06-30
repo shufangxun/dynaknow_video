@@ -1,2 +1,3 @@
-id,video_path,duration_sec,first,middle,last,sparse,contact_sheet,error
-curated_004001,media/vdcr_curated_physics_v2/curated_004001.webm,11.036,ok,ok,ok,8,ok,
+version https://git-lfs.github.com/spec/v1
+oid sha256:902aed9e0ffbdd5e82e747fb370d7cde4a4a8d9fa5077b07014451dd8aca6b0a
+size 333

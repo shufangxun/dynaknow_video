@@ -198,7 +198,7 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--seed-samples", type=Path, default=Path("release/v1/dataset_v1.jsonl"))
     parser.add_argument("--review-queue", type=Path, default=Path("data/vdcr_v2_review_queue.csv"))
-    parser.add_argument("--concepts", type=Path, default=Path("data/vdcr_concept_inventory_tiered_v1.csv"))
+    parser.add_argument("--concepts", type=Path, default=Path("data/vdcr_v2_concept_inventory.csv"))
     parser.add_argument("--frame-status", action="append", type=Path, default=[])
     parser.add_argument("--output", type=Path, default=Path("data/vdcr_v2_draft_samples.jsonl"))
     parser.add_argument("--manifest", type=Path, default=Path("data/vdcr_v2_draft_manifest.csv"))

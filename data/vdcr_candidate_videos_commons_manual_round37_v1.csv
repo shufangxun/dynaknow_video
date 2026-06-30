@@ -1,2 +1,3 @@
-candidate_id,source_url,source_platform,license_or_usage_note,raw_duration_sec,suggested_start_sec,suggested_end_sec,initial_category,candidate_knowledge_point,domain_seed,subdomain_seed,why_dynamic,collector_notes
-vdcr_commons_mr37_000001,https://commons.wikimedia.org/wiki/File:Lp1989plan_hires.webm,wikimedia_commons,USGS/public-domain source; verify on Commons page,75.1,0,75.1,strict_gate_earth,Seismic Wave Propagation,earth_environmental_systems,earth_family_10,Candidate must show seismic wave or ground-motion fronts propagating outward over time; a single map frame or epicenter marker is insufficient.,Commons/USGS earthquake ground-motion animation candidate. Accept only if the video itself shows progressive propagation without relying on page text or metadata.
+version https://git-lfs.github.com/spec/v1
+oid sha256:17c9b197d3215e5d5c3c51770b97fa39dc6a6c38a2bb7569eb53e1b77b2fb5ca
+size 778

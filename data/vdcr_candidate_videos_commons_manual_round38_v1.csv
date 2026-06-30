@@ -1,2 +1,3 @@
-candidate_id,source_url,source_platform,license_or_usage_note,raw_duration_sec,suggested_start_sec,suggested_end_sec,initial_category,candidate_knowledge_point,domain_seed,subdomain_seed,why_dynamic,collector_notes
-vdcr_commons_mr38_000001,https://commons.wikimedia.org/wiki/File:Laminar_Flow_2.webm,wikimedia_commons,CC BY 3.0; UNM Physics and Astronomy attribution; verify on Commons page,88.2,0,88.2,strict_gate_physics,Stokes Flow Kinematic Reversibility,physics_physical_systems,physics_family_09,Candidate must show a low-Reynolds-number laminar flow pattern being deformed by forward rotation and then approximately restored by reverse rotation; a single frame of colored fluid is insufficient.,Commons/UNM laminar-flow apparatus candidate. Source page states Re<1 and reversal of previous laminar flow; accept only if video itself shows forward deformation and reverse recovery without answer text leakage.
+version https://git-lfs.github.com/spec/v1
+oid sha256:3953c7c6970246f548f51dcdb8dbce52afc599ef4a07cb7a3102673e5c7fbacf
+size 917

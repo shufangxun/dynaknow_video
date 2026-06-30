@@ -1,3 +1,3 @@
-id,video_path,duration_sec,first,middle,last,sparse,contact_sheet,error
-vdcr_commons_mr17_000002_seg_000000_031371_clean,media/vdcr_segments_pilot_v1/vdcr_commons_mr17_000002_seg_000000_031371_clean.webm,31.364,ok,ok,ok,8,ok,
-vdcr_commons_mr17_000006_seg_000000_036218_clean,media/vdcr_segments_pilot_v1/vdcr_commons_mr17_000006_seg_000000_036218_clean.webm,36.217,ok,ok,ok,8,ok,
+version https://git-lfs.github.com/spec/v1
+oid sha256:30968beb54eb5660e3bba3952b7517f69eb212c777b9258c524c182f4f9af30b
+size 383

@@ -19,6 +19,7 @@ DOMAINS = [
     "earth_environmental_systems",
     "physics_physical_systems",
 ]
+MAIN_TIERS = {"core_main", "strict_main_candidate"}
 
 CANDIDATE_FIELDS = [
     "candidate_id",
@@ -229,8 +230,6 @@ def build_review_status(review_rows: list[dict[str, str]]) -> dict[str, str]:
         if not review_id or not status:
             continue
         status_by_id[review_id] = status
-        if "_seg_" in review_id:
-            status_by_id.setdefault(review_id.split("_seg_", 1)[0], status)
     return status_by_id
 
 
@@ -307,6 +306,7 @@ def build_v2_assets(
     filtered_action = 0
     filtered_cluster_cap = 0
     filtered_domain = 0
+    filtered_non_main_tier = 0
     filtered_reject = 0
     filtered_seed_url = 0
     for row in candidate_rows:
@@ -323,6 +323,10 @@ def build_v2_assets(
         concept = concept_for_candidate(row, concept_by_answer)
         if not include_action_concepts and concept.get("concept_type") == "专有动态动作概念":
             filtered_action += 1
+            continue
+        tier = concept.get("concept_validity_tier", "")
+        if tier and tier not in MAIN_TIERS:
+            filtered_non_main_tier += 1
             continue
         domain = candidate_domain(row, concept)
         if domain not in DOMAINS:
@@ -393,6 +397,7 @@ def build_v2_assets(
         "filtered_action_concepts": filtered_action,
         "filtered_cluster_cap": filtered_cluster_cap,
         "filtered_domain": filtered_domain,
+        "filtered_non_main_tier_concepts": filtered_non_main_tier,
         "filtered_rejected_review_rows": filtered_reject,
         "filtered_seed_source_urls": filtered_seed_url,
     }
@@ -411,6 +416,17 @@ def discover_v2_candidate_paths(root: Path) -> list[Path]:
     for path in sorted(runs_dir.glob("*/archive_candidates.csv")) + sorted(runs_dir.glob("*/commons_candidates.csv")):
         if "/test_" in str(path):
             continue
+        run_dir = path.parent
+        if not (run_dir / "summary.txt").exists():
+            continue
+        pid_path = run_dir / "pid"
+        if pid_path.exists():
+            try:
+                pid = int(pid_path.read_text(encoding="utf-8").strip())
+            except ValueError:
+                pid = 0
+            if pid > 0 and Path(f"/proc/{pid}").exists():
+                continue
         paths.append(path)
     return paths
 
@@ -438,9 +454,14 @@ def discover_review_assets(root: Path) -> dict[str, dict[str, str]]:
         return path.exists()
 
     if data_dir.exists():
-        for review_path in sorted(data_dir.glob("vdcr_pilot_manual_review*_v1.csv")):
+        review_asset_paths = [
+            *sorted(data_dir.glob("vdcr_pilot_manual_review*_v1.csv")),
+            data_dir / "vdcr_v2_clean_derivatives_review.csv",
+            *sorted(data_dir.glob("vdcr_v2_*manual_review.csv")),
+        ]
+        for review_path in review_asset_paths:
             for row in read_csv(review_path):
-                item_id = row.get("id", "")
+                item_id = row.get("id", "") or row.get("candidate_id", "")
                 if not item_id:
                     continue
                 if exists_in_root(row.get("local_media", "")):
@@ -467,24 +488,25 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--v1-samples", type=Path, default=Path("data/vdcr_pilot_samples_direct_answer_v1.jsonl"))
     parser.add_argument("--v1-release-filter", type=Path, default=Path("release/v1/dataset_v1.jsonl"))
-    parser.add_argument("--concepts", type=Path, default=Path("data/vdcr_concept_inventory_tiered_v1.csv"))
+    parser.add_argument("--concepts", type=Path, default=Path("data/vdcr_v2_concept_inventory.csv"))
     parser.add_argument("--candidate-input", action="append", default=[], type=Path)
     parser.add_argument("--review-input", action="append", default=[], type=Path)
     parser.add_argument("--output-candidates", type=Path, default=Path("data/vdcr_candidate_videos_combined_v2.csv"))
     parser.add_argument("--output-review-queue", type=Path, default=Path("data/vdcr_v2_review_queue.csv"))
     parser.add_argument("--output-seed-samples", type=Path, default=Path("data/vdcr_v2_seed_samples.jsonl"))
     parser.add_argument("--output-stats", type=Path, default=Path("reports/vdcr_v2_construction_status.md"))
-    parser.add_argument("--target-per-domain", type=int, default=60)
+    parser.add_argument("--target-per-domain", type=int, default=75)
     parser.add_argument("--max-videos-per-concept", type=int, default=3)
     parser.add_argument("--queue-limit", type=int, default=360)
     parser.add_argument("--include-action-concepts", action="store_true")
+    parser.add_argument("--discover-runs", action="store_true", help="Include completed ignored runs/v2_retrieval outputs.")
     parser.add_argument("--no-discover-runs", action="store_true")
     args = parser.parse_args()
 
     candidate_paths = args.candidate_input or [Path("data/vdcr_candidate_videos_combined_v1.csv")]
     if not args.candidate_input:
         candidate_paths.extend(discover_local_v2_candidate_paths(Path(".")))
-    if not args.no_discover_runs:
+    if args.discover_runs and not args.no_discover_runs:
         candidate_paths.extend(discover_v2_candidate_paths(Path(".")))
     candidate_groups = []
     for path in candidate_paths:
@@ -497,7 +519,9 @@ def main() -> int:
 
     review_paths = args.review_input or [
         *sorted(Path("data").glob("vdcr_pilot_manual_review*_v1.csv")),
+        Path("data/vdcr_v2_clean_derivatives_review.csv"),
         Path("data/vdcr_v2_local_review_triage.csv"),
+        *sorted(Path("data").glob("vdcr_v2_*manual_review.csv")),
     ]
     reviewed_status = build_review_status([row for path in review_paths for row in read_csv(path)])
 

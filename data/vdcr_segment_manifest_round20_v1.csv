@@ -1,2 +1,3 @@
-id,source_id,candidate_knowledge_point,direct_url,page_url,title,mime,duration_sec,local_media,segment_start_sec,segment_end_sec
-vdcr_commons_mr20_000008_seg_000000_018133_crop_clean,vdcr_commons_mr20_000008,Gel Swelling,https://upload.wikimedia.org/wikipedia/commons/5/5f/Hydraulic-hydrogel-actuators-and-robots-optically-and-sonically-camouflaged-in-water-ncomms14230-s6.ogv,https://commons.wikimedia.org/wiki/File:Hydraulic-hydrogel-actuators-and-robots-optically-and-sonically-camouflaged-in-water-ncomms14230-s6.ogv,Gel Swelling cropped clean hydrogel strip segment,video/webm,18.133,media/vdcr_segments_pilot_v1/vdcr_commons_mr20_000008_seg_000000_018133_crop_clean.webm,0.000,18.133
+version https://git-lfs.github.com/spec/v1
+oid sha256:3282bcd922d1b138848684158b1b0d046064bb8d9a8334824b274d72fdccc4d1
+size 690

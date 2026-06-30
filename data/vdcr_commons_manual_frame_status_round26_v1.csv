@@ -1,5 +1,3 @@
-id,video_path,duration_sec,first,middle,last,sparse,contact_sheet,error
-vdcr_commons_mr26_000001,media/vdcr_commons_manual_round26_v1/vdcr_commons_mr26_000001.webm,138.705,ok,ok,ok,8,ok,
-vdcr_commons_mr26_000002,media/vdcr_commons_manual_round26_v1/vdcr_commons_mr26_000002.webm,60.007,ok,ok,ok,8,ok,
-vdcr_commons_mr26_000003,media/vdcr_commons_manual_round26_v1/vdcr_commons_mr26_000003.webm,6.536,ok,ok,ok,8,ok,
-vdcr_commons_mr26_000004,media/vdcr_commons_manual_round26_v1/vdcr_commons_mr26_000004.webm,107.840,ok,ok,ok,8,ok,
+version https://git-lfs.github.com/spec/v1
+oid sha256:315c823c464167b333294b7cc423ee79c7d40d05d4284883c0eb4ab0d0f82bf0
+size 534

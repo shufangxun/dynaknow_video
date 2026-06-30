@@ -1,2 +1,3 @@
-id,ok,status,error,direct_url,local_media
-vdcr_commons_mr37_000001,true,download_ok,,https://upload.wikimedia.org/wikipedia/commons/7/7c/Lp1989plan_hires.webm,media/vdcr_commons_manual_round37_v1/vdcr_commons_mr37_000001.webm
+version https://git-lfs.github.com/spec/v1
+oid sha256:ad7e098f69c0acd5a90cf04fd9fcd2e94471fd06e91104e8bb75216813fff055
+size 228

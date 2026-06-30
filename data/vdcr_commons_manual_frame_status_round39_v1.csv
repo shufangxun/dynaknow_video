@@ -1,2 +1,3 @@
-id,video_path,duration_sec,first,middle,last,sparse,contact_sheet,error
-vdcr_commons_mr39_000001,media/vdcr_commons_manual_round39_v1/vdcr_commons_mr39_000001.webm,11.740,ok,ok,ok,8,ok,
+version https://git-lfs.github.com/spec/v1
+oid sha256:67865d6189148c4754694a744edf576d61e525199c2c2d91fb488129315f4c1d
+size 188

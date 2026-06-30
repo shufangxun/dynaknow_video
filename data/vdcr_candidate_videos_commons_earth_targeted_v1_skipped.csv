@@ -1,12 +1,3 @@
-search_term,initial_category,candidate_knowledge_point,error
-pyroclastic flow,earth_environmental_systems,Pyroclastic Density Current,HTTP Error 403: Too Many Reqs (1862a4b)
-nuée ardente,earth_environmental_systems,Pyroclastic Density Current,HTTP Error 403: Too Many Reqs (1862a4b)
-pahoehoe lava flow,earth_environmental_systems,Pahoehoe Lava Roping,HTTP Error 403: Too Many Reqs (1862a4b)
-aa lava flow,earth_environmental_systems,Aa Lava Front Advance,HTTP Error 403: Too Many Reqs (1862a4b)
-lava dome collapse,earth_environmental_systems,Lava Dome Collapse,HTTP Error 403: Too Many Reqs (1862a4b)
-eruption column collapse,earth_environmental_systems,Eruption Column Collapse,HTTP Error 403: Too Many Reqs (1862a4b)
-glacier calving,earth_environmental_systems,Ice Cliff Calving,HTTP Error 403: Too Many Reqs (1862a4b)
-iceberg calving,earth_environmental_systems,Ice Cliff Calving,HTTP Error 403: Too Many Reqs (1862a4b)
-fire whirl,earth_environmental_systems,Fire Whirl,HTTP Error 403: Too Many Reqs (1862a4b)
-crown fire,earth_environmental_systems,Crown Fire Transition,HTTP Error 403: Too Many Reqs (1862a4b)
-barchan dune migration,earth_environmental_systems,Barchan Dune Migration,HTTP Error 403: Too Many Reqs (1862a4b)
+version https://git-lfs.github.com/spec/v1
+oid sha256:3b5ec62cd0b29951bbb57acfe19c6ac446805c22a3ea608a45277b29ae1797fe
+size 1240

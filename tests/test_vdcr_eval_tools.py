@@ -11,6 +11,7 @@ from scripts.build_vdcr_v2_construction_assets import (
     discover_local_v2_candidate_paths,
     discover_review_assets,
 )
+from scripts.build_vdcr_v2_draft_status import expansion_axis_rows
 from scripts.build_vdcr_v2_expansion_backlog import build_backlog_queries, build_expansion_backlog
 from scripts.build_vdcr_v2_gap_queries import build_gap_queries
 from scripts.build_vdcr_v2_review_triage import build_triage_rows, decision_counts
@@ -21,7 +22,7 @@ from scripts.build_vdcr_review_dashboard import strip_trailing_whitespace
 from scripts.report_vdcr_dual_eval import build_summary_rows
 from scripts.run_qwen3_vl_vdcr import build_task_prompt, prediction_from_response
 from scripts.score_vdcr_mcq import extract_choice, score_rows
-from scripts.validate_vdcr_direct_answer import validate_dataset_constraints
+from scripts.validate_vdcr_direct_answer import validate_dataset_constraints, validate_row
 
 
 def write_jsonl(path: Path, rows: list[dict]) -> None:
@@ -211,6 +212,58 @@ def test_v2_validation_allows_bounded_repeated_concepts() -> None:
         max_videos_per_answer=1,
     )
     assert any("concept cluster exceeds 1 videos" in error for error in capped_errors)
+
+
+def test_validate_row_accepts_v2_concept_ids() -> None:
+    row = {
+        "video_id": "vdcr_v2_000001",
+        "split": "v2_draft",
+        "domain": "biology_living_systems",
+        "subdomain": "v2_biology_family_01",
+        "concept_id": "vdcr_v2_concept_0033",
+        "concept": {
+            "zh": "盘基网柄菌聚集流",
+            "en": "Dictyostelium Aggregation Streaming",
+            "type": "自然动态机制",
+            "validity_tier": "core_main",
+        },
+        "answer": "Dictyostelium Aggregation Streaming",
+        "accepted_answers": ["Dictyostelium Aggregation Streaming", "盘基网柄菌聚集流"],
+        "local_media": "media/example.ogv",
+        "duration_sec": 6.5,
+        "question": "Which named dynamic concept is instantiated by the temporally evolving process in this video?",
+        "dynamic_evidence": [
+            {
+                "start_sec": 0.0,
+                "end_sec": 6.5,
+                "description": "Cells stream and aggregate toward collective centers over the time-lapse sequence.",
+            }
+        ],
+        "static_insufficient_reason": "The named process depends on observing collective cell motion over time.",
+        "quality_gates": {
+            "temporal_necessity": "pass",
+            "domain_specificity": "pass",
+            "mechanism_bearing_label": "pass",
+            "expert_naming_gap": "pass",
+            "text_or_audio_leakage": "pass",
+            "single_frame_shortcut": "pass",
+            "concept_validity_tier": "core_main",
+        },
+    }
+
+    errors: list[str] = []
+    validate_row(
+        errors,
+        Path("data/vdcr_v2_draft_samples.jsonl"),
+        1,
+        row,
+        release_mode=True,
+        check_media=False,
+        min_duration_sec=0.0,
+        min_video_frames=0,
+    )
+
+    assert errors == []
 
 
 def test_build_v2_assets_prioritizes_domain_gaps_and_caps_clusters() -> None:
@@ -436,6 +489,74 @@ def test_build_v2_assets_filters_archive_query_term_false_positives() -> None:
     assert [row["candidate_id"] for row in assets.review_queue] == ["good_magnus"]
 
 
+def test_build_v2_assets_excludes_extension_tier_concepts_from_main_queue() -> None:
+    candidates = [
+        {
+            "candidate_id": "extension_wave",
+            "source_url": "https://example.test/wave-refraction",
+            "source_platform": "wikimedia_commons",
+            "license_or_usage_note": "ok",
+            "raw_duration_sec": "12",
+            "suggested_start_sec": "0",
+            "suggested_end_sec": "12",
+            "initial_category": "earth_environmental_systems",
+            "candidate_knowledge_point": "Wave Refraction",
+            "domain_seed": "earth_environmental_systems",
+            "subdomain_seed": "earth_family_08",
+            "why_dynamic": "wavefronts bend",
+            "collector_notes": "priority=C",
+            "source_csv": "data/vdcr_candidate_videos_combined_v1.csv",
+        },
+        {
+            "candidate_id": "main_wave",
+            "source_url": "https://example.test/tidal-bore",
+            "source_platform": "wikimedia_commons",
+            "license_or_usage_note": "ok",
+            "raw_duration_sec": "12",
+            "suggested_start_sec": "0",
+            "suggested_end_sec": "12",
+            "initial_category": "earth_environmental_systems",
+            "candidate_knowledge_point": "Tidal Bore",
+            "domain_seed": "earth_environmental_systems",
+            "subdomain_seed": "earth_family_01",
+            "why_dynamic": "bore front propagates",
+            "collector_notes": "priority=A",
+            "source_csv": "data/vdcr_candidate_videos_combined_v1.csv",
+        },
+    ]
+    concepts = {
+        "Wave Refraction": {
+            "concept_id": "vdcr_concept_0238",
+            "domain": "earth_environmental_systems",
+            "subdomain": "earth_family_08",
+            "priority": "C",
+            "concept_type": "自然动态机制",
+            "concept_validity_tier": "extension",
+        },
+        "Tidal Bore": {
+            "concept_id": "vdcr_concept_0203",
+            "domain": "earth_environmental_systems",
+            "subdomain": "earth_family_01",
+            "priority": "A",
+            "concept_type": "自然动态机制",
+            "concept_validity_tier": "core_main",
+        },
+    }
+
+    assets = build_v2_assets(
+        v1_samples=[],
+        candidate_rows=candidates,
+        concept_by_answer=concepts,
+        reviewed_status_by_id={},
+        target_per_domain=60,
+        max_videos_per_concept=3,
+        queue_limit=10,
+    )
+
+    assert [row["candidate_id"] for row in assets.review_queue] == ["main_wave"]
+    assert assets.stats["filtered_non_main_tier_concepts"] == 1
+
+
 def test_build_concept_map_includes_recommended_answer_names() -> None:
     rows = [
         {
@@ -655,6 +776,20 @@ def test_build_backlog_queries_round_robins_domains() -> None:
         "earth_environmental_systems",
         "physics_physical_systems",
     ]
+
+
+def test_draft_status_splits_concept_and_video_expansion_axes() -> None:
+    manifest_rows = [
+        {"video_id": "vdcr_000001", "answer": "Phototropism", "review_status": "v2_seed"},
+        {"video_id": "vdcr_v2_000001", "answer": "Rayleigh-Taylor Instability", "review_status": "pass_candidate"},
+        {"video_id": "vdcr_v2_000002", "answer": "Phototropism", "review_status": "pass_candidate"},
+        {"video_id": "vdcr_v2_000003", "answer": "Rayleigh-Taylor Instability", "review_status": "pass_candidate"},
+    ]
+
+    concept_axis, video_axis = expansion_axis_rows(manifest_rows)
+
+    assert [row["video_id"] for row in concept_axis] == ["vdcr_v2_000001"]
+    assert [row["video_id"] for row in video_axis] == ["vdcr_v2_000002", "vdcr_v2_000003"]
 
 
 def test_build_triage_rows_keeps_only_local_reviewable_candidates() -> None:
@@ -892,6 +1027,33 @@ def test_discover_review_assets_uses_v1_manual_review_media(tmp_path: Path) -> N
     assert assets["vdcr_commons_mr13_000005"] == {
         "local_media": "media/vdcr_commons_manual_round13_v1/vdcr_commons_mr13_000005.gif",
         "contact_sheet": "media/vdcr_commons_manual_frames_round13_v1/vdcr_commons_mr13_000005/contact_sheet.jpg",
+    }
+
+
+def test_discover_review_assets_uses_v2_manual_review_clean_media(tmp_path: Path) -> None:
+    data = tmp_path / "data"
+    data.mkdir()
+    media = tmp_path / "media/vdcr_v2_clean_derivatives/vdcr_v2_round4_beach_overhead_8_60_noaudio.mp4"
+    sheet = tmp_path / "reports/vdcr_v2_targeted_round4_clean_sparse_sheets/vdcr_v2_round4_beach_overhead_8_60_noaudio_sparse.jpg"
+    media.parent.mkdir(parents=True)
+    sheet.parent.mkdir(parents=True)
+    media.write_bytes(b"mp4")
+    sheet.write_bytes(b"jpg")
+    review = data / "vdcr_v2_targeted_round4_manual_review.csv"
+    review.write_text(
+        "candidate_id,candidate_knowledge_point,local_media,contact_sheet,reviewer_decision,reviewer_notes,suggested_start_sec,suggested_end_sec\n"
+        "vdcr_v2_round4_beach_overhead_8_60_noaudio,Beach Swash-Backwash Cycle,"
+        "media/vdcr_v2_clean_derivatives/vdcr_v2_round4_beach_overhead_8_60_noaudio.mp4,"
+        "reports/vdcr_v2_targeted_round4_clean_sparse_sheets/vdcr_v2_round4_beach_overhead_8_60_noaudio_sparse.jpg,"
+        "pass_candidate,clean derivative with no audio or titles,0,52\n",
+        encoding="utf-8",
+    )
+
+    assets = discover_review_assets(tmp_path)
+
+    assert assets["vdcr_v2_round4_beach_overhead_8_60_noaudio"] == {
+        "local_media": "media/vdcr_v2_clean_derivatives/vdcr_v2_round4_beach_overhead_8_60_noaudio.mp4",
+        "contact_sheet": str(sheet),
     }
 
 

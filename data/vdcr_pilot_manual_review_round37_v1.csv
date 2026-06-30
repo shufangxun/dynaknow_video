@@ -1,2 +1,3 @@
-id,candidate_knowledge_point,local_media,contact_sheet,review_status,recommended_action,suggested_start_sec,suggested_end_sec,review_notes
-vdcr_commons_mr37_000001_crop_metadata_clean,Seismic Wave Propagation,media/vdcr_segments_pilot_v1/vdcr_commons_mr37_000001_crop_metadata_clean.mp4,media/vdcr_segment_frames_round37_v1/vdcr_commons_mr37_000001_crop_metadata_clean/contact_sheet.jpg,pass_candidate,metadata_stripped_cropped_seismic_wave_propagation_ready_for_main_direct_answer,0.0,75.1,"Cropped metadata-clean USGS/Commons animation shows a colored ground-motion intensity field propagating outward across the Bay Area map over time. A single frame only shows a spatial intensity pattern; the target concept requires observing the advancing wave/ground-motion front. The source page double-checks the earthquake and seismic-wave context, but the video itself supplies the propagation evidence. Original title, time legend, intensity legend, audio, and source metadata were removed; residual city labels do not disclose the answer concept."
+version https://git-lfs.github.com/spec/v1
+oid sha256:472b3ea0f65698beb3f590d5e5951e395668d725b935d4c60fb609dcaeeb3d32
+size 1047

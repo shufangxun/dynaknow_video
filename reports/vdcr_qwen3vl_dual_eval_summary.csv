@@ -1,4 +1,3 @@
-run,params_b,total,direct_exact_correct,direct_exact_accuracy,direct_semantic_correct,direct_semantic_accuracy,mcq_correct,mcq_accuracy
-qwen3vl_2b,2.0,114,0,0.0,0,0.0,60,0.5263157894736842
-qwen3vl_4b,4.0,114,1,0.008771929824561403,3,0.02631578947368421,72,0.631578947368421
-qwen3vl_8b,8.0,114,0,0.0,1,0.008771929824561403,74,0.6491228070175439
+version https://git-lfs.github.com/spec/v1
+oid sha256:42e29675261449fbdcc4c1da8251acf94fc36219562482ce82bcc5626ff91fc5
+size 348

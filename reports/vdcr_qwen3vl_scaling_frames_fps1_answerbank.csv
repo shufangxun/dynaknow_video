@@ -1,4 +1,3 @@
-run,params_b,correct,total,accuracy,error_rate,score_path
-qwen3vl_2b,2.0,23,114,0.20175438596491227,0.7982456140350878,reports/score_vdcr_qwen3vl_2b_frames_fps1_answerbank.md
-qwen3vl_4b,4.0,30,114,0.2631578947368421,0.736842105263158,reports/score_vdcr_qwen3vl_4b_frames_fps1_answerbank.md
-qwen3vl_8b,8.0,32,114,0.2807017543859649,0.7192982456140351,reports/score_vdcr_qwen3vl_8b_frames_fps1_answerbank.md
+version https://git-lfs.github.com/spec/v1
+oid sha256:04b4cdc26d9732a3153ff3399a37d61b22f46a7b96ec7a835ad8d780f8b7c037
+size 410

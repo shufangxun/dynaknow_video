@@ -1,8 +1,3 @@
-id,video_path,duration_sec,first,middle,last,sparse,contact_sheet,error
-vdcr_commons_mr17_000001,media/vdcr_commons_manual_round17_v1/vdcr_commons_mr17_000001.webm,29.607,ok,ok,ok,8,ok,
-vdcr_commons_mr17_000002,media/vdcr_commons_manual_round17_v1/vdcr_commons_mr17_000002.webm,31.371,ok,ok,ok,8,ok,
-vdcr_commons_mr17_000003,media/vdcr_commons_manual_round17_v1/vdcr_commons_mr17_000003.ogv,15.113,ok,ok,ok,8,ok,
-vdcr_commons_mr17_000004,media/vdcr_commons_manual_round17_v1/vdcr_commons_mr17_000004.gif,1.600,ok,ok,missing,7,ok,partial_frame_extraction
-vdcr_commons_mr17_000005,media/vdcr_commons_manual_round17_v1/vdcr_commons_mr17_000005.webm,29.810,ok,ok,ok,8,ok,
-vdcr_commons_mr17_000006,media/vdcr_commons_manual_round17_v1/vdcr_commons_mr17_000006.webm,36.218,ok,ok,ok,8,ok,
-vdcr_commons_mr17_000007,media/vdcr_commons_manual_round17_v1/vdcr_commons_mr17_000007.ogv,4.000,ok,ok,ok,8,ok,
+version https://git-lfs.github.com/spec/v1
+oid sha256:f71442dd6cbfa3e0533a630f6da04b22ee3e151f0fb913c50b9ec43cb4567090
+size 902

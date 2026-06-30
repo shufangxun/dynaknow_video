@@ -1,2 +1,3 @@
-id,video_path,duration_sec,first,middle,last,sparse,contact_sheet,error
-vdcr_commons_mr26_000004_seg_066000_078000_clean,media/vdcr_segments_pilot_v1/vdcr_commons_mr26_000004_seg_066000_078000_clean.mp4,12.040,ok,ok,ok,8,ok,
+version https://git-lfs.github.com/spec/v1
+oid sha256:4de1b0cbdd8ddd6e0da6475982e332277c53bceb3568bfea324e2d83023eba97
+size 227

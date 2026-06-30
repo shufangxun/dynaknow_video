@@ -1,22 +1,23 @@
 # VDCR V2 Construction Status
 
-- candidate_rows: 626
+- candidate_rows: 926
 - filtered_action_concepts: 117
-- filtered_auto_retrieval_text_mismatch: 17
+- filtered_auto_retrieval_text_mismatch: 0
 - filtered_cluster_cap: 0
 - filtered_domain: 0
-- filtered_rejected_review_rows: 103
+- filtered_non_main_tier_concepts: 29
+- filtered_rejected_review_rows: 269
 - filtered_seed_source_urls: 113
 - max_videos_per_concept: 3
-- queued_domain_biology_living_systems: 51
-- queued_domain_chemistry_materials_change: 22
-- queued_domain_earth_environmental_systems: 49
-- queued_domain_physics_physical_systems: 53
-- review_queue_rows: 175
+- queued_domain_biology_living_systems: 84
+- queued_domain_chemistry_materials_change: 59
+- queued_domain_earth_environmental_systems: 70
+- queued_domain_physics_physical_systems: 79
+- review_queue_rows: 292
 - seed_domain_biology_living_systems: 29
 - seed_domain_chemistry_materials_change: 29
 - seed_domain_earth_environmental_systems: 28
 - seed_domain_physics_physical_systems: 28
 - seed_samples: 114
 - seed_unique_concepts: 114
-- target_per_domain: 60
+- target_per_domain: 75

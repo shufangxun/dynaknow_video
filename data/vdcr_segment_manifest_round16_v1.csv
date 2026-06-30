@@ -1,2 +1,3 @@
-id,source_id,candidate_knowledge_point,direct_url,page_url,title,mime,duration_sec,local_media,segment_start_sec,segment_end_sec
-vdcr_commons_mr16_000001_seg_000000_015206_clean,vdcr_commons_mr16_000001,Flame Front Propagation,https://upload.wikimedia.org/wikipedia/commons/c/c2/Slow-motion_video_of_flame_front_extending_along_a_channel.webm,https://commons.wikimedia.org/wiki/File:Slow-motion_video_of_flame_front_extending_along_a_channel.webm,Flame Front Propagation clean no-audio segment,video/webm,15.200,media/vdcr_segments_pilot_v1/vdcr_commons_mr16_000001_seg_000000_015206_clean.webm,0.000,15.206
+version https://git-lfs.github.com/spec/v1
+oid sha256:3fb549436d431c701b680ab1d65294fab84c582e4a8c52a696b9afae30a43a17
+size 608

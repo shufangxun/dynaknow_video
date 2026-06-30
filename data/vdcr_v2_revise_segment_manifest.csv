@@ -1,2 +1,3 @@
-id,source_id,candidate_knowledge_point,direct_url,page_url,title,mime,duration_sec,local_media,segment_start_sec,segment_end_sec
-curated_002004_seg_020000_145000,curated_002004,Blue Bottle Reaction,https://upload.wikimedia.org/wikipedia/commons/0/06/Blue-bottle_reaction_(Oscillating_reaction).webm,https://commons.wikimedia.org/wiki/File:Blue-bottle_reaction_(Oscillating_reaction).webm,File:Blue-bottle reaction (Oscillating reaction).webm,video/webm,125.000,media/vdcr_v2_segments_from_revise/curated_002004_seg_020000_145000.webm,20.000,145.000
+version https://git-lfs.github.com/spec/v1
+oid sha256:467bee06e22f7adcc9e6975881ad64052756feb33f921c27145ca2c9e2f84347
+size 1650

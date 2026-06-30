@@ -1,2 +1,3 @@
-id,ok,status,error,direct_url,local_media
-curated_006001,true,download_ok,,https://upload.wikimedia.org/wikipedia/commons/9/92/The-Inhibition-of-the-Rayleigh-Taylor-Instability-by-Rotation-srep11706-s1.ogv,media/vdcr_curated_physics_rt_v2/curated_006001.ogv
+version https://git-lfs.github.com/spec/v1
+oid sha256:5387e921e21d2d28a0d2b38cf83b956035d3f97e9c484ee1082a97afcd823d98
+size 258

@@ -1,6 +1,3 @@
-id,video_path,duration_sec,first,middle,last,sparse,contact_sheet,error
-vdcr_archive_only_000004,media/vdcr_raw_pilot_v1/vdcr_archive_only_000004.ogv,17.284,ok,ok,ok,8,ok,
-vdcr_archive_b08_000009,media/vdcr_raw_pilot_v1/vdcr_archive_b08_000009.mp4,5.200,ok,ok,ok,8,ok,
-vdcr_archive_b08_000002,media/vdcr_raw_pilot_v1/vdcr_archive_b08_000002.ogv,15.549,ok,ok,ok,8,ok,
-vdcr_archive_b08_000003,media/vdcr_raw_pilot_v1/vdcr_archive_b08_000003.ogv,30.898,ok,ok,ok,8,ok,
-vdcr_archive_b08_000006,media/vdcr_raw_pilot_v1/vdcr_archive_b08_000006.mp4,66.974,ok,ok,ok,8,ok,
+version https://git-lfs.github.com/spec/v1
+oid sha256:40ed7aa12285f048b15b477441cbb54c775c4def4a57c155b6a2105c891e3d44
+size 569
